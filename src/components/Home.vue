@@ -5,14 +5,14 @@
       <div class="row justify-center q-gutter-sm">
         <q-intersection v-for="index in 6" :key="index" transition="scale" class="card-item">
           <q-card class="q-ma-sm">
-            <q-item clickable v-ripple class="imgItem">
+            <q-item clickable v-ripple class="imgItem" to="/article">
               <q-item-section>
                 <q-img src="https://cdn.quasar.dev/img/mountains.jpg" />
               </q-item-section>
             </q-item>
             <q-card-section>
               <div class="text-h6 blogTitle">
-                <a href="#">Card #{{ index }}</a>
+                <a href="/article">Card #{{ index }}</a>
               </div>
               <div class="text-subtitle2">by John Doe</div>
             </q-card-section>
@@ -170,7 +170,9 @@
           <q-btn glossy color="primary" round flat icon="fab fa-qq">
             <q-tooltip transition-show="rotate" transition-hide="rotate" max-height="200px" max-width="200px">qq</q-tooltip>
           </q-btn>
-          <q-btn glossy color="primary" round flat icon="fab fa-weixin"></q-btn>
+          <q-btn glossy color="primary" round flat icon="fab fa-weixin">
+            <q-tooltip transition-show="rotate" transition-hide="rotate" max-height="200px" max-width="200px">微信</q-tooltip>
+          </q-btn>
           <q-btn glossy color="primary" round flat icon="mail"></q-btn>
           <q-btn glossy color="primary" round flat icon="send"></q-btn>
         </q-card-actions>

@@ -2,28 +2,26 @@
   <q-layout view="hHh lpR fFf">
     <!-- 顶部导航栏 -->
     <q-header elevated class="bg-blue-4 text-white" height-hint="98">
-      <q-toolbar>
-        <q-toolbar-title class="m-margin-left">
-          <q-avatar class>
+      <q-toolbar class="q-ml-md">
+          <q-avatar>
             <img src="./assets/logo.jpg" />
-          </q-avatar>&nbsp;
-          Darin's Blog
-        </q-toolbar-title>
-        <q-btn dense flat round icon="menu" @click="right = !right" />
+          </q-avatar>        
+        <q-toolbar-title>Darin's Blog</q-toolbar-title>
+        <q-btn dense flat round icon="menu" @click="right = !right" class="q-mr-md" />
       </q-toolbar>
       <div class="headerTabs">
-        <q-tabs v-model="tab" inline-label align="left" class="m-padded-left">
+        <q-tabs v-model="tab" inline-label align="left" class="q-pl-md">
           <q-route-tab to="/" name="home" icon="home" label="首页" />
           <q-route-tab to="/catalog" name="catalog" icon="table_chart" label="分类" />
           <q-route-tab to="/marks" name="marks" icon="bookmarks" label="标签" />
           <q-route-tab to="/library" name="library" icon="library_books" label="归档" />
           <q-route-tab to="/aboutme" name="aboutme" icon="perm_identity" label="关于我" />
         </q-tabs>
-        <q-input color="teal" borderless v-model="text" label="search..." class="q-ml-md searchBar m-margin-right" align="right">
-          <template v-slot:append>
-            <q-icon name="search" class="cursor-pointer" />
-          </template>
-        </q-input>
+          <q-input color="teal" borderless v-model="text" label="search..." class="q-ml-md searchBar q-mr-md">
+            <template v-slot:append>
+              <q-icon name="search" class="cursor-pointer" />
+            </template>
+          </q-input>
       </div>
     </q-header>
     <!-- 右侧边栏 -->
@@ -72,6 +70,9 @@ export default {
 
 <style lang="scss" scoped>
 @import "./assets/css/me.css";
+.q-tabs {
+  width: 100%;
+}
 .headerTabs {
   display: flex;
   justify-content: space-between;
@@ -83,7 +84,7 @@ export default {
 .blogFooter {
   height: 150px;
   color: #616161;
-  background-color: #232323;
+  background-color: rgba($color: #232323, $alpha: 0.9);
   text-align: center;
   .footerfirst {
     padding-top: 10px;
