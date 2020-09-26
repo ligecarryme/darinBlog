@@ -1,3 +1,6 @@
+a{
+    text-decoration: none;
+}
 /* ----margin----- */
 .m-margin-top-small{
     margin-top: 0.5em;
@@ -15,7 +18,9 @@
 .m-margin-left{
     margin-left: 1em;
 }
-
+.m-margin-right{
+    margin-right: 1em;
+}
 
 /* -----padding------- */
 .m-padded-tb-mini{
