@@ -14,7 +14,13 @@
               <div class="text-h6 blogTitle">
                 <a href="/article">Card #{{ index }}</a>
               </div>
-              <div class="text-subtitle2">by John Doe</div>
+              <div class="df">
+                <div class="text-subtitle2">by John Doe</div>
+                <div class="q-ml-md">
+                  <q-icon name="far fa-calendar-alt" size="mini"></q-icon>
+                  <span class="q-ml-xs">2020-09-26</span>
+                </div>
+              </div>
             </q-card-section>
 
             <q-card-section class="q-pt-none">{{ content }}</q-card-section>

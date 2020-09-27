@@ -1,6 +1,12 @@
 a{
     text-decoration: none;
 }
+
+.dfb{
+    display: flex;
+    justify-content: space-between;
+}
+
 /* ----margin----- */
 .m-margin-top-small{
     margin-top: 0.5em;
@@ -69,12 +75,12 @@ a{
 .m-padded-bottom-tiny{
     padding-bottom: 0.5em;
 }
-
-.m-padded-ab-right{
-    position: absolute;
-    right: 20px;
-}
-
 .m-padded-zero{
     padding: 0px !important;
+}
+
+/* 绝对定位 */
+.m-ab-right{
+    position: absolute;
+    right: 20px;
 }
