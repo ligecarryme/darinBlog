@@ -19,10 +19,10 @@
           </div>
         </q-item-section>
 
-        <q-item-sections class="blogDetailShare">
+        <q-card-actions class="blogDetailShare">
           <q-btn flat round color="red" icon="favorite" />
           <q-btn flat round color="primary" icon="share" />
-        </q-item-sections>
+        </q-card-actions>
 
       </q-item>
       <q-parallax src="https://cdn.quasar.dev/img/parallax1.jpg" :height="300" />
@@ -44,27 +44,43 @@
         elit, sed do eiusmod tempor incididunt ut labore et
         dolore magna aliqua.
       </div>
-      <q-card-section>
-        <q-btn outline rounded style="color: #FF0080;" label="赞赏" size="12px" />
-        <q-list class="q-mt-md" align="left">
+      <q-btn outline rounded style="color: #FF0080;" label="赞赏" size="12px" class="q-mt-md" />
+      <div class="q-mt-lg authorList">
+        <br>
+        <ul align="left">
           <li>作者：<span>邢大立</span></li>
           <li>发表时间：<span>2020-09-27 23:07</span></li>
           <li>版权声明：自由转载-非商用-非衍生-保持署名（创意共享3.0许可证）</li>
-        </q-list>
-        <div>
-        </div>
-      </q-card-section>
+        </ul>
+        <br>
+      </div>
     </q-card>
-    <q-card class="q-mt-sm">
-      <q-card-section>
-        <h3>评论区</h3>
-      </q-card-section>
+
+    <q-card class="q-mt-lg blogDetailCard">
+      <div class="q-pa-md row justify-center">
+        <div style="width: 100%;">
+          <q-chat-message name="me" avatar="https://cdn.quasar.dev/img/avatar3.jpg" :text="['hey, how are you?']" stamp="7 minutes ago" sent bg-color="amber-7" />
+          <q-chat-message name="Jane" avatar="https://cdn.quasar.dev/img/avatar5.jpg" :text="[
+          'doing fine, how r you?',
+          'I just feel like typing a really, really, REALY long message to annoy you...'
+        ]" stamp="4 minutes ago" text-color="white" bg-color="primary" />
+          <q-chat-message name="Jane" avatar="https://cdn.quasar.dev/img/avatar5.jpg" :text="['Did it work?']" stamp="1 minutes ago" text-color="white" bg-color="primary" />
+        </div>
+      </div>
+      <div class="q-pa-md q-gutter-sm">
+        <q-editor v-model="editor" min-height="5rem" placeholder="请输入你的评论吧..." />
+      </div>
     </q-card>
   </div>
 </template>
 <script>
 export default {
   name: "Article",
+  data(){
+    return{
+      editor:'',
+    }
+  },
   computed: {
     thumbStyle() {
       return {
@@ -98,5 +114,14 @@ export default {
 .blogDetailShare {
   position: absolute;
   right: 10px;
+  padding: 0;
+}
+.authorList {
+  background-color: #fcfff5;
+  color: #689267;
+  border: 1px solid #a3c293;
+}
+.q-chat-message {
+  max-width: 400px;
 }
 </style>

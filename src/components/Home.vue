@@ -14,7 +14,7 @@
               <div class="text-h6 blogTitle">
                 <a href="/article">Card #{{ index }}</a>
               </div>
-              <div class="df">
+              <div style="display:flex;">
                 <div class="text-subtitle2">by John Doe</div>
                 <div class="q-ml-md">
                   <q-icon name="far fa-calendar-alt" size="mini"></q-icon>
@@ -34,7 +34,7 @@
 
     <!-- 右边侧栏 -->
     <div class="col-lg-4 col-md-6 col-sm-12" align="center">
-      <q-card class="my-card m-margin-top-small">
+      <q-card class="my-card q-mt-sm">
         <q-card-section class="bg-blue-3 text-white">
           <div class="text-h6">分类</div>
         </q-card-section>
@@ -77,7 +77,7 @@
           <div class="q-pa-md q-gutter-md"></div>
         </q-card-actions>
       </q-card>
-      <q-card class="my-card m-margin-top">
+      <q-card class="my-card q-mt-lg">
         <q-card-section class="bg-indigo-3 text-white">
           <div class="text-h6">标签</div>
         </q-card-section>
@@ -97,7 +97,7 @@
           </div>
         </q-card-actions>
       </q-card>
-      <q-card class="my-card m-margin-top">
+      <q-card class="my-card q-mt-lg">
         <q-card-section class="bg-purple-3 text-white">
           <div class="text-h6">最新推荐</div>
         </q-card-section>
@@ -165,22 +165,47 @@
           </q-item>
         </q-card-actions>
       </q-card>
-      <q-card class="my-card m-margin-top">
+      <q-card class="my-card q-mt-lg">
         <q-card-section class="bg-teal text-white">
           <div class="text-h6">联系我</div>
         </q-card-section>
 
         <q-card-actions align="around">
           <q-img src="https://cdn.quasar.dev/img/mountains.jpg" style="margin-bottom: 0.3em" />
-          <q-btn type="a" href="https://github.com/ligecarryme" glossy color="primary" round flat icon="fab fa-github"></q-btn>
-          <q-btn glossy color="primary" round flat icon="fab fa-qq">
+          <q-btn type="a" href="https://github.com/ligecarryme" glossy color="primary" round flat icon="fab fa-github">
+            <q-tooltip transition-show="rotate" transition-hide="rotate" max-height="200px" max-width="200px">github</q-tooltip>
+          </q-btn>
+          <q-btn glossy color="primary" round flat icon="fab fa-qq" @click="qqBar = true">
             <q-tooltip transition-show="rotate" transition-hide="rotate" max-height="200px" max-width="200px">qq</q-tooltip>
           </q-btn>
-          <q-btn glossy color="primary" round flat icon="fab fa-weixin">
-            <q-tooltip transition-show="rotate" transition-hide="rotate" max-height="200px" max-width="200px">微信</q-tooltip>
+          <q-btn glossy color="primary" round flat icon="fab fa-weixin" @click="weChatBar = true">
+            <q-tooltip transition-show="rotate" transition-hide="rotate" max-height="200px" max-width="200px">wechat</q-tooltip>
           </q-btn>
-          <q-btn glossy color="primary" round flat icon="mail"></q-btn>
-          <q-btn glossy color="primary" round flat icon="send"></q-btn>
+          <q-btn glossy color="primary" round flat icon="mail">
+            <q-tooltip transition-show="rotate" transition-hide="rotate" max-height="200px" max-width="200px">e-mail</q-tooltip>
+          </q-btn>
+          <q-btn glossy color="primary" round flat icon="send">
+            <q-tooltip transition-show="rotate" transition-hide="rotate" max-height="200px" max-width="200px">me</q-tooltip>
+          </q-btn>
+
+          <q-dialog v-model="qqBar">
+            <q-card>
+              <q-toolbar style="padding:0;">
+                <!-- <q-btn flat round dense icon="close" v-close-popup />                 -->
+                <img src="../assets/images/qq.png" style="width:400px;height:716.8px;">
+              </q-toolbar>
+            </q-card>
+          </q-dialog>
+
+         <q-dialog v-model="weChatBar">
+            <q-card>
+              <q-toolbar style="padding:0;">
+                <!-- <q-btn flat round dense icon="close" v-close-popup />                 -->
+                <img src="../assets/images/wechat.png" style="width:400px;height:400px;">
+              </q-toolbar>
+            </q-card>
+          </q-dialog>
+
         </q-card-actions>
       </q-card>
     </div>
@@ -193,6 +218,8 @@ export default {
   data() {
     return {
       right: false,
+      qqBar: false,
+      weChatBar: false,
       content:
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
       current: 1,
@@ -228,7 +255,6 @@ export default {
     color: #2196f3;
   }
 }
-
 // .row > div
 //   padding: 5px 10px
 // background: rgba(86,61,124,.15)

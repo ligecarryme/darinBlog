@@ -34,14 +34,14 @@
     </q-page-container>
     <!-- 底部 -->
     <div class="blogFooter">
-      <div class="footerfirst">
+      <!-- <div class="footerfirst">
         <h5>Blog</h5>
         <p>这是我的个人博客、会分享关于编程、写作、思考相关的任何内容，希望可以给来到这儿的人有所帮助...</p>
-      </div>
+      </div> -->
       <q-separator dark />
       <div class="footersecond">
-        <p>网站已运行1天，托管于<a href="https://github.com/">Github</a></p>
-        <p>design by Darin</p>
+        <p>网站已运行<span>1</span>天  总访客数<span>888</span>  总浏览量<span>888</span></p>
+        <p>托管于<a href="https://github.com/">Github</a>. Design by Darin. Powered by <a href="https://cn.vuejs.org/">Vue</a>. Theme By <a href="http://www.quasarchs.com/">Quasar</a>.</p>
         <p>Copyright © 2020-2020</p>
       </div>
     </div>
@@ -62,7 +62,11 @@ export default {
   name: "App",
   components: {},
   data() {
-    return {};
+    return {
+      right: false,
+      tab: '',
+      text: ''
+    };
   },
   created() {},
 };
@@ -82,9 +86,9 @@ export default {
 }
 
 .blogFooter {
-  height: 150px;
+  height: 80px;
   color: #616161;
-  background-color: rgba($color: #232323, $alpha: 0.9);
+  background-color: rgba($color: #40c4ff, $alpha: 0.8);
   text-align: center;
   .footerfirst {
     padding-top: 10px;
