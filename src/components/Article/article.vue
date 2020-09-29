@@ -67,8 +67,20 @@
           <q-chat-message name="Jane" avatar="https://cdn.quasar.dev/img/avatar5.jpg" :text="['Did it work?']" stamp="1 minutes ago" text-color="white" bg-color="primary" />
         </div>
       </div>
-      <div class="q-pa-md q-gutter-sm">
-        <q-editor v-model="editor" min-height="5rem" placeholder="请输入你的评论吧..." />
+      <div class="q-pa-md q-gutter-sm" >
+        <q-editor v-model="editor" min-height="8rem" placeholder="请输入你的评论吧..." align="left" :content-style="{fontSize:'16px'}" />
+        <div class="row justify-end q-ma-md" style="height:50px">
+          <q-select outlined placeholder="选择一个头像" v-model="model" :options="options" stack-label label="avatar" color="secondary" style="max-width:200px;" class="q-mr-md">
+            <template v-slot:selected-item="scope">
+              <q-chip dense @remove="scope.removeAtIndex(scope.index)" :tabindex="scope.tabindex" color="white" text-color="secondary" class="q-ma-none">
+                <q-avatar color="secondary" text-color="white" :icon="scope.opt.icon" />
+                {{ scope.opt.label }}
+              </q-chip>
+            </template>
+          </q-select>
+          <q-input outlined v-model="name" placeholder="姓名" label="name" style="max-width:300px;" class="q-mr-md"/>
+          <q-btn color="secondary" icon="mail" label="发布" style="max-height:40px;" class="q-mt-md"/>
+        </div>
       </div>
     </q-card>
   </div>
@@ -76,9 +88,43 @@
 <script>
 export default {
   name: "Article",
-  data(){
-    return{
-      editor:'',
+  data() {
+    return {
+      editor: '',
+      name: '',
+      model: {
+        label: 'Google',
+        value: 'goog',
+        icon: 'mail'
+      },
+      options: [
+        {
+          label: 'Google',
+          value: 'goog',
+          icon: 'mail'
+        },
+        {
+          label: 'Facebook',
+          value: 'fb',
+          icon: 'bluetooth'
+        },
+        {
+          label: 'Twitter',
+          value: 'twt',
+          icon: 'map'
+        },
+        {
+          label: 'Apple',
+          value: 'app',
+          icon: 'golf_course'
+        },
+        {
+          label: 'Oracle',
+          value: 'ora',
+          disable: true,
+          icon: 'casino'
+        }
+      ]
     }
   },
   computed: {
