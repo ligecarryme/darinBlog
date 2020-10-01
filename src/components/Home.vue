@@ -1,7 +1,7 @@
 <template>
   <div class="q-pa-md row">
     <!-- blog主页 -->
-    <div class="col-lg-8 col-md-6 col-sm-12">
+    <div class="col-lg-8 col-md-6 col-sm-12 q-mt-md">
       <div class="row justify-center q-gutter-sm">
         <q-intersection v-for="index in 6" :key="index" transition="scale" class="card-item">
           <q-card class="q-ma-sm">
@@ -11,10 +11,10 @@
               </q-item-section>
             </q-item>
             <q-card-section>
-              <div class="text-h6 blogTitle">
+              <div class="text-h6 title">
                 <a href="/article">Card #{{ index }}</a>
               </div>
-              <div style="display:flex;">
+              <div class="flex">
                 <div class="text-subtitle2">by John Doe</div>
                 <div class="q-ml-md">
                   <q-icon name="far fa-calendar-alt" size="mini"></q-icon>
@@ -22,21 +22,21 @@
                 </div>
               </div>
             </q-card-section>
-
+            <!-- 文章简介 -->
             <q-card-section class="q-pt-none">{{ content }}</q-card-section>
           </q-card>
         </q-intersection>
       </div>
       <div class="q-pa-lg flex flex-center">
-        <q-pagination v-model="current" :max="10" :max-pages="6" :direction-links="true"></q-pagination>
+        <q-pagination v-model="current" :max="10" :max-pages="6" :direction-links="true" :boundary-links="true"></q-pagination>
       </div>
     </div>
 
     <!-- 右边侧栏 -->
-    <div class="col-lg-4 col-md-6 col-sm-12" align="center">
-      <q-card class="my-card q-mt-sm">
+    <div class="col-lg-4 col-md-6 col-sm-12 q-mt-lg">
+      <q-card class="my-card">
         <q-card-section class="bg-blue-3 text-white">
-          <div class="text-h6">分类</div>
+          <div class="text-h6 text-center">分类</div>
         </q-card-section>
         <div class="q-pa-md" style="max-width: 100%">
           <q-list bordered>
@@ -72,14 +72,14 @@
             </q-item>
           </q-list>
         </div>
-
+        <!--  空白栏
         <q-card-actions align="around">
           <div class="q-pa-md q-gutter-md"></div>
-        </q-card-actions>
+        </q-card-actions> -->
       </q-card>
       <q-card class="my-card q-mt-lg">
         <q-card-section class="bg-indigo-3 text-white">
-          <div class="text-h6">标签</div>
+          <div class="text-h6 text-center">标签</div>
         </q-card-section>
 
         <q-card-actions align="around">
@@ -99,7 +99,7 @@
       </q-card>
       <q-card class="my-card q-mt-lg">
         <q-card-section class="bg-purple-3 text-white">
-          <div class="text-h6">最新推荐</div>
+          <div class="text-h6 text-center">最新推荐</div>
         </q-card-section>
 
         <q-card-actions align="around">
@@ -167,7 +167,7 @@
       </q-card>
       <q-card class="my-card q-mt-lg">
         <q-card-section class="bg-teal text-white">
-          <div class="text-h6">联系我</div>
+          <div class="text-h6 text-center">联系我</div>
         </q-card-section>
 
         <q-card-actions align="around">
@@ -197,7 +197,7 @@
             </q-card>
           </q-dialog>
 
-         <q-dialog v-model="weChatBar">
+          <q-dialog v-model="weChatBar">
             <q-card>
               <q-toolbar style="padding:0;">
                 <!-- <q-btn flat round dense icon="close" v-close-popup />                 -->
@@ -205,7 +205,6 @@
               </q-toolbar>
             </q-card>
           </q-dialog>
-
         </q-card-actions>
       </q-card>
     </div>
@@ -247,7 +246,7 @@ export default {
     max-width: 422px;
   }
 }
-.blogTitle {
+.title {
   a {
     color: #90caf9;
   }

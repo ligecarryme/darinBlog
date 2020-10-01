@@ -1,6 +1,6 @@
 <template>
-  <div class="q-ma-md" align="center">
-    <q-card class="blogDetailCard q-mt-xl">
+  <div class="q-ma-md">
+    <q-card class="blogDetailCard q-mt-lg">
       <q-item>
         <q-item-section avatar>
           <q-avatar>
@@ -37,14 +37,18 @@
       </div>
 
       <q-card-section>
-        <div class="text-h6 q-mt-lg">Our Changing Planet</div>
+        <div class="text-h6 q-mt-lg text-center">Our Changing Planet</div>
       </q-card-section>
-      <div v-for="n in 50" :key="n" class="q-pa-xs">
-        Lorem ipsum dolor sit amet, consectetur adipisicing
-        elit, sed do eiusmod tempor incididunt ut labore et
-        dolore magna aliqua.
+      <div>
+        <p v-for="n in 50" :key="n" class="q-pa-xs">
+          Lorem ipsum dolor sit amet, consectetur adipisicing
+          elit, sed do eiusmod tempor incididunt ut labore et
+          dolore magna aliqua.
+        </p>
       </div>
-      <q-btn outline rounded style="color: #FF0080;" label="赞赏" size="12px" class="q-mt-md" />
+      <div align="center">
+        <q-btn outline rounded style="color: #FF0080;" label="赞赏" size="12px" class="q-mt-md" />
+      </div>
       <div class="q-mt-lg authorList">
         <br>
         <ul align="left">
@@ -67,7 +71,7 @@
           <q-chat-message name="Jane" avatar="https://cdn.quasar.dev/img/avatar5.jpg" :text="['Did it work?']" stamp="1 minutes ago" text-color="white" bg-color="primary" />
         </div>
       </div>
-      <div class="q-pa-md q-gutter-sm" >
+      <div class="q-pa-md q-gutter-sm">
         <q-editor v-model="editor" min-height="8rem" placeholder="请输入你的评论吧..." align="left" :content-style="{fontSize:'16px'}" />
         <div class="row justify-end q-ma-md" style="height:50px">
           <q-select outlined placeholder="选择一个头像" v-model="model" :options="options" stack-label label="avatar" color="secondary" style="max-width:200px;" class="q-mr-md">
@@ -78,11 +82,14 @@
               </q-chip>
             </template>
           </q-select>
-          <q-input outlined v-model="name" placeholder="姓名" label="name" style="max-width:300px;" class="q-mr-md"/>
-          <q-btn color="secondary" icon="mail" label="发布" style="max-height:40px;" class="q-mt-md"/>
+          <q-input outlined v-model="name" placeholder="姓名" label="name" style="max-width:300px;" class="q-mr-md" />
+          <q-btn color="secondary" icon="mail" label="发布" style="max-height:40px; margin-top:15px" />
         </div>
       </div>
     </q-card>
+    <q-page-scroller position="bottom-right" :scroll-offset="150" :offset="[18, 18]">
+      <q-btn fab icon="keyboard_arrow_up" color="blue-grey" />
+    </q-page-scroller>
   </div>
 </template>
 <script>
@@ -92,6 +99,7 @@ export default {
     return {
       editor: '',
       name: '',
+      drawer: '',
       model: {
         label: 'Google',
         value: 'goog',
@@ -152,6 +160,7 @@ export default {
 <style lang="scss" scoped>
 .blogDetailCard {
   width: 80%;
+  margin: 24px auto;
 }
 
 .blogDetailHeader {
