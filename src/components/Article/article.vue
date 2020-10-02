@@ -73,8 +73,8 @@
       </div>
       <div class="q-pa-md q-gutter-sm">
         <q-editor v-model="editor" min-height="8rem" placeholder="请输入你的评论吧..." align="left" :content-style="{fontSize:'16px'}" />
-        <div class="row justify-end q-ma-md" style="height:50px">
-          <q-select outlined placeholder="选择一个头像" v-model="model" :options="options" stack-label label="avatar" color="secondary" style="max-width:200px;" class="q-mr-md">
+        <div class="row justify-end q-ma-md">
+          <q-select outlined placeholder="选择一个头像" v-model="model" :options="options" stack-label label="avatar" color="secondary" style="max-width:200px;" class="q-mr-md q-mt-md">
             <template v-slot:selected-item="scope">
               <q-chip dense @remove="scope.removeAtIndex(scope.index)" :tabindex="scope.tabindex" color="white" text-color="secondary" class="q-ma-none">
                 <q-avatar color="secondary" text-color="white" :icon="scope.opt.icon" />
@@ -82,8 +82,8 @@
               </q-chip>
             </template>
           </q-select>
-          <q-input outlined v-model="name" placeholder="姓名" label="name" style="max-width:300px;" class="q-mr-md" />
-          <q-btn color="secondary" icon="mail" label="发布" style="max-height:40px; margin-top:15px" />
+          <q-input outlined v-model="name" placeholder="姓名" label="name" style="max-width:300px;" class="q-mt-md q-mr-md" />
+          <q-btn color="secondary" icon="mail" label="发布" style="max-height:40px; margin-top:28px" />
         </div>
       </div>
     </q-card>
