@@ -33,7 +33,7 @@
     </div>
 
     <!-- 右边侧栏 -->
-    <div class="col-lg-4 col-md-6 col-sm-12 q-mt-lg">
+    <div class="col-lg-4 col-md-6 col-sm-12 q-mt-lg column items-center">
       <q-card class="my-card">
         <q-card-section class="bg-blue-3 text-white">
           <div class="text-h6 text-center">分类</div>
