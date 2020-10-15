@@ -7,5 +7,18 @@ module.exports = {
   },
   transpileDependencies: [
     'quasar'
-  ]
+  ],
+  devServer: {
+    proxy: {
+      '/api':{
+        target: 'http://localhost:8079',
+        ws: true,
+        changeOrigin: true,
+        pathRewrite:{
+            '^api': ''
+        }
+      }
+    }
+  }
+
 }

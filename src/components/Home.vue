@@ -7,7 +7,7 @@
           <q-card class="q-ma-sm">
             <q-item clickable v-ripple class="imgItem" to="/article">
               <q-item-section>
-                <q-img src="https://cdn.quasar.dev/img/mountains.jpg" />
+                <q-img src="https://picsum.photos/500" />
               </q-item-section>
             </q-item>
             <q-card-section>
@@ -28,7 +28,7 @@
         </q-intersection>
       </div>
       <div class="q-pa-lg flex flex-center">
-        <q-pagination v-model="current" :max="10" :max-pages="6" :direction-links="true" :boundary-links="true"></q-pagination>
+        <q-pagination v-model="pagger.current" :max="10" :max-pages="6" :direction-links="true" :boundary-links="true"></q-pagination>
       </div>
     </div>
 
@@ -216,15 +216,30 @@ export default {
   name: "Home",
   data() {
     return {
+      pagger: {
+        current: 1,
+        total: 6
+      },
       right: false,
       qqBar: false,
       weChatBar: false,
-      content:
-        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-      current: 1,
+      content: "If you want something you've never had, you must be willing to do something you've never done.",
     };
   },
-};
+  created:function() {
+    this.queryindex();
+  },
+  methods: {
+    queryindex() {
+      const currentPage = this.pagger.current;
+      this.axios.get('/', currentPage).then((res) => {
+        console.log(res)
+      }).catch((err)=>{
+        console.log(err)
+      })
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>
@@ -244,6 +259,7 @@ export default {
   padding: 6px 6px;
   .q-img {
     max-width: 422px;
+    max-height: 281px;
   }
 }
 .title {
