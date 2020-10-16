@@ -7,10 +7,8 @@
           <img src="./assets/logo.jpg" />
         </q-avatar>
         <q-toolbar-title>Darin's Blog</q-toolbar-title>
-
         <!-- 右侧菜单开启按钮 -->
         <!-- <q-btn dense flat round icon="menu" @click="right = !right" class="q-mr-md" /> -->
-
       </q-toolbar>
       <div class="headerTabs">
         <q-tabs v-model="tab" inline-label align="left" class="q-pl-md">
@@ -33,17 +31,13 @@
       <!-- drawer content -->
     </q-drawer>
     <!-- 主体 -->
-    <q-page-container>
+    <q-page-container :style="{backgroundImage:'url('+ img +')'}">
       <router-view />
     </q-page-container>
     <!-- 底部 -->
     <div class="blogFooter">
-      <!-- <div class="footerfirst">
-        <h5>Blog</h5>
-        <p>这是我的个人博客、会分享关于编程、写作、思考相关的任何内容，希望可以给来到这儿的人有所帮助...</p>
-      </div> -->
       <q-separator dark />
-      <div class="footersecond">
+      <div class="footer">
         <p>网站已运行<span>1</span>天 总访客数<span>888</span> 总浏览量<span>888</span></p>
         <p>托管于<a href="https://github.com/">Github</a>. Design by Darin. Powered by <a href="https://cn.vuejs.org/">Vue</a>. Theme By <a href="http://www.quasarchs.com/">Quasar</a>.</p>
         <p>Copyright © 2020-2020</p>
@@ -60,7 +54,8 @@ export default {
     return {
       right: false,
       tab: '',
-      text: ''
+      text: '',
+      img: require('./assets/logo.jpg')
     };
   },
   created() { },
@@ -79,31 +74,19 @@ export default {
 .searchBar {
   overflow: hidden;
 }
-
 .blogFooter {
-  height: 80px;
+  height: 100px;
   color: #616161;
-  background-color: rgba($color: #64b5f6, $alpha: 0.9);
   text-align: center;
-  .footerfirst {
-    padding-top: 10px;
-    h5 {
-      color: aliceblue;
-      font-size: 20px;
-      margin: 0;
-    }
-    p {
-      margin: 5px 0px;
-    }
-  }
-  .footersecond {
-    padding-top: 5px;
+  background-image: linear-gradient(to top, #86bcfa 0%, #e7f0fd 100%);
+  .footer {
+    padding-top: 15px;
     a {
       color: #795548;
       z-index: 3;
     }
     a:hover {
-      color: aliceblue;
+      color: blue;
     }
   }
   p {

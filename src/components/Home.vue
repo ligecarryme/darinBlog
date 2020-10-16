@@ -3,32 +3,32 @@
     <!-- blog主页 -->
     <div class="col-lg-8 col-md-6 col-sm-12 q-mt-md">
       <div class="row justify-center q-gutter-sm">
-        <q-intersection v-for="index in 6" :key="index" transition="scale" class="card-item">
+        <q-intersection v-for="item in bloglist" :key="item.id" transition="scale" class="card-item">
           <q-card class="q-ma-sm">
             <q-item clickable v-ripple class="imgItem" to="/article">
               <q-item-section>
-                <q-img src="https://picsum.photos/500" />
+                <q-img :src="item.firstPicture" ratio="1" />
               </q-item-section>
             </q-item>
             <q-card-section>
               <div class="text-h6 title">
-                <a href="/article">Card #{{ index }}</a>
+                <a href="/article">{{ item.title }}</a>
               </div>
               <div class="flex">
-                <div class="text-subtitle2">by John Doe</div>
+                <div class="text-subtitle2">by {{nickname}}</div>
                 <div class="q-ml-md">
                   <q-icon name="far fa-calendar-alt" size="mini"></q-icon>
-                  <span class="q-ml-xs">2020-09-26</span>
+                  <span class="q-ml-xs">{{item.updateTime}}</span>
                 </div>
               </div>
             </q-card-section>
             <!-- 文章简介 -->
-            <q-card-section class="q-pt-none">{{ content }}</q-card-section>
+            <q-card-section class="q-pt-none text-body1 descript">{{ item.description }}</q-card-section>
           </q-card>
         </q-intersection>
       </div>
       <div class="q-pa-lg flex flex-center">
-        <q-pagination v-model="pagger.current" :max="10" :max-pages="6" :direction-links="true" :boundary-links="true"></q-pagination>
+        <q-pagination v-model="pagger.current" :max="pagger.total" :max-pages="6" :direction-links="true" :boundary-links="true"></q-pagination>
       </div>
     </div>
 
@@ -39,35 +39,11 @@
           <div class="text-h6 text-center">分类</div>
         </q-card-section>
         <div class="q-pa-md" style="max-width: 100%">
-          <q-list bordered>
-            <q-item clickable v-ripple>
-              <q-item-section>Icon as avatar</q-item-section>
+          <q-list bordered separator v-for="(item,index) in types" :key="item.id">
+            <q-item clickable v-ripple to="/types">
+              <q-item-section class="text-body1">{{item.name}}</q-item-section>
               <q-item-section avatar>
-                <q-icon color="primary" name="bluetooth" />
-              </q-item-section>
-            </q-item>
-            <q-separator />
-
-            <q-item clickable v-ripple>
-              <q-item-section>Avatar-type icon</q-item-section>
-              <q-item-section avatar>
-                <q-avatar color="teal" text-color="white" icon="bluetooth" />
-              </q-item-section>
-            </q-item>
-            <q-separator />
-
-            <q-item clickable v-ripple>
-              <q-item-section>Rounded avatar-type icon</q-item-section>
-              <q-item-section avatar>
-                <q-avatar rounded color="purple" text-color="white" icon="bluetooth" />
-              </q-item-section>
-            </q-item>
-            <q-separator />
-
-            <q-item clickable v-ripple>
-              <q-item-section>Letter avatar-type</q-item-section>
-              <q-item-section avatar>
-                <q-avatar color="primary" text-color="white">R</q-avatar>
+                <q-avatar color="primary" text-color="white" :icon="typeicon[index]"></q-avatar>
               </q-item-section>
             </q-item>
           </q-list>
@@ -81,19 +57,9 @@
         <q-card-section class="bg-indigo-3 text-white">
           <div class="text-h6 text-center">标签</div>
         </q-card-section>
-
         <q-card-actions align="around">
-          <div class="q-pa-md q-gutter-md">
-            <q-chip square color="primary" text-color="white" icon="event">Add to calendar</q-chip>
-            <q-chip class="glossy" square color="teal" text-color="white" icon="bookmark">Bookmark</q-chip>
-            <q-chip square color="orange" text-color="white" icon-right="star">Star</q-chip>
-            <q-chip square color="red" text-color="white" icon="alarm" label="Set alarm" />
-            <q-chip square color="deep-orange" text-color="white" icon="directions">Get directions</q-chip>
-            <q-chip square color="primary" text-color="white" icon="event">Add to calendar</q-chip>
-            <q-chip class="glossy" square color="teal" text-color="white" icon="bookmark">Bookmark</q-chip>
-            <q-chip square color="orange" text-color="white" icon-right="star">Star</q-chip>
-            <q-chip square color="red" text-color="white" icon="alarm" label="Set alarm" />
-            <q-chip square color="deep-orange" text-color="white" icon="directions">Get directions</q-chip>
+          <div class="q-pa-md q-gutter-md flex justify-around">
+            <q-chip square size="md" clickable @click="toTagPage" v-for="(item,index) of tags" :key="item.id" :color="tagcolor[index]" text-color="white" :icon="tagicon[index]">{{item.name}}</q-chip>
           </div>
         </q-card-actions>
       </q-card>
@@ -101,69 +67,26 @@
         <q-card-section class="bg-purple-3 text-white">
           <div class="text-h6 text-center">最新推荐</div>
         </q-card-section>
-
-        <q-card-actions align="around">
-          <q-item-label header>List Header</q-item-label>
-
-          <q-item>
-            <q-item-section avatar></q-item-section>
-            <q-item-section>List item</q-item-section>
-            <q-item-section side>
-              <q-item-label caption>meta</q-item-label>
-            </q-item-section>
-          </q-item>
-
-          <q-separator spaced inset="item" />
-
-          <q-item>
-            <q-item-section top avatar>
-              <q-avatar color="primary" text-color="white" icon="bluetooth" />
-            </q-item-section>
-
+        <div class="q-pa-md">
+          <q-item v-for="item of topblogs" :key="item.id" style="border-bottom: 1px solid rgba(0, 0, 0, 0.12)">
             <q-item-section>
-              <q-item-label>Single line item</q-item-label>
-              <q-item-label caption lines="2">Secondary line text. Lorem ipsum dolor sit amet, consectetur adipiscit elit.</q-item-label>
+              <q-item-label class="recoma">
+                <a href="/article" class="text-body1">{{item.title}}</a>
+              </q-item-label>
+              <q-item-label caption>
+                <span class="text-body2">{{item.description}}</span>
+              </q-item-label>
             </q-item-section>
-
             <q-item-section side top>
-              <q-item-label caption>5 min ago</q-item-label>
-              <q-icon name="star" color="yellow" />
+              <q-badge color="teal" :label="item.views" />
+              <div class="text-orange" v-show="item.recommend">
+                <q-icon name="star" />
+                <q-icon name="star" />
+                <q-icon name="star" />
+              </div>
             </q-item-section>
           </q-item>
-
-          <q-item>
-            <q-item-section top avatar>
-              <q-avatar rounded>
-                <img src="https://cdn.quasar.dev/img/boy-avatar.png" />
-              </q-avatar>
-            </q-item-section>
-
-            <q-item-section>
-              <q-item-label>Single line item</q-item-label>
-              <q-item-label caption>Secondary line text. Lorem ipsum dolor sit amet, consectetur adipiscit elit.</q-item-label>
-            </q-item-section>
-
-            <q-item-section side top>
-              <q-item-label caption>meta</q-item-label>
-            </q-item-section>
-          </q-item>
-          <q-separator spaced inset="item" />
-
-          <q-item>
-            <q-item-section top avatar>
-              <q-avatar color="primary" text-color="white" square icon="bluetooth" />
-            </q-item-section>
-
-            <q-item-section>
-              <q-item-label>Single line item</q-item-label>
-              <q-item-label caption>Secondary line text. Lorem ipsum dolor sit amet, consectetur adipiscit elit.</q-item-label>
-            </q-item-section>
-
-            <q-item-section side top>
-              <q-item-label caption>meta</q-item-label>
-            </q-item-section>
-          </q-item>
-        </q-card-actions>
+        </div>
       </q-card>
       <q-card class="my-card q-mt-lg">
         <q-card-section class="bg-teal text-white">
@@ -175,10 +98,10 @@
           <q-btn type="a" href="https://github.com/ligecarryme" glossy color="primary" round flat icon="fab fa-github">
             <q-tooltip transition-show="rotate" transition-hide="rotate" max-height="200px" max-width="200px">github</q-tooltip>
           </q-btn>
-          <q-btn glossy color="primary" round flat icon="fab fa-qq" @click="qqBar = true">
+          <q-btn glossy color="primary" round flat icon="fab fa-qq" @click="sideBar.qqBar = true">
             <q-tooltip transition-show="rotate" transition-hide="rotate" max-height="200px" max-width="200px">qq</q-tooltip>
           </q-btn>
-          <q-btn glossy color="primary" round flat icon="fab fa-weixin" @click="weChatBar = true">
+          <q-btn glossy color="primary" round flat icon="fab fa-weixin" @click="sideBar.weChatBar = true">
             <q-tooltip transition-show="rotate" transition-hide="rotate" max-height="200px" max-width="200px">wechat</q-tooltip>
           </q-btn>
           <q-btn glossy color="primary" round flat icon="mail">
@@ -188,7 +111,7 @@
             <q-tooltip transition-show="rotate" transition-hide="rotate" max-height="200px" max-width="200px">me</q-tooltip>
           </q-btn>
 
-          <q-dialog v-model="qqBar">
+          <q-dialog v-model="sideBar.qqBar">
             <q-card>
               <q-toolbar style="padding:0;">
                 <!-- <q-btn flat round dense icon="close" v-close-popup />                 -->
@@ -197,7 +120,7 @@
             </q-card>
           </q-dialog>
 
-          <q-dialog v-model="weChatBar">
+          <q-dialog v-model="sideBar.weChatBar">
             <q-card>
               <q-toolbar style="padding:0;">
                 <!-- <q-btn flat round dense icon="close" v-close-popup />                 -->
@@ -220,23 +143,53 @@ export default {
         current: 1,
         total: 6
       },
-      right: false,
-      qqBar: false,
-      weChatBar: false,
-      content: "If you want something you've never had, you must be willing to do something you've never done.",
+      sideBar: {
+        qqBar: false,
+        weChatBar: false,
+      },
+      bloglist: [{
+        id: 1,
+        title: 'title',
+        firstPicture: 'https://picsum.photos/500',
+        updateTime: '2020-10-16 14:04:25',
+        description: "If you want something you've never had, you must be willing to do something you've never done.",
+      }],
+      types: [{ id: 1, name: '学习' }, { id: 2, name: '算法' }, { id: 3, name: '生活' }, { id: 4, name: '工作' }],
+      tags: [{ id: 1, name: 'JavaScript' }, { id: 2, name: 'Java' }, { id: 3, name: 'VUE' }, { id: 4, name: 'Html' }, { id: 5, name: 'Spring Boot' },],
+      topblogs: [{
+        id: 1,
+        title: 'title',
+        views: '1k',
+        description: "If you want something you've never had, you must be willing to do something you've never done.",
+      }],
+      typeicon: ['fas fa-laptop-code', 'fas fa-atom', 'fas fa-heartbeat', 'fas fa-briefcase'],
+      tagicon: ['event', 'bookmark', 'star', 'directions', 'event', 'bookmark', 'star', 'directions'],
+      tagcolor: ['primary', 'teal', 'orange', 'red', 'primary', 'teal', 'orange', 'red'],
+      nickname: 'darin'
     };
   },
-  created:function() {
+  created: function () {
     this.queryindex();
   },
   methods: {
     queryindex() {
-      const currentPage = this.pagger.current;
-      this.axios.get('/', currentPage).then((res) => {
-        console.log(res)
-      }).catch((err)=>{
+      this.$axios.get('/', { params: { currentPage: this.pagger.current } }).then((res) => {
+        const { data } = res;
+        if (data.code === 200) {
+          const content = data.data;
+          console.log(content);
+          this.bloglist = content.blog;
+          this.pagger.total = content.pageinfo.pages;
+          this.types = content.type;
+          this.tags = content.tag;
+          this.topblogs = content.topBlog;
+        }
+      }).catch((err) => {
         console.log(err)
       })
+    },
+    toTagPage() {
+
     }
   }
 }
@@ -263,18 +216,22 @@ export default {
   }
 }
 .title {
-  a {
+  a{
     color: #90caf9;
   }
   a:hover {
     color: #2196f3;
   }
 }
-// .row > div
-//   padding: 5px 10px
-// background: rgba(86,61,124,.15)
-// border: 1px solid rgba(86,61,124,.2)
-
-// .row + .row
-//   margin-top: 1rem
+.recoma{
+  a{
+    color: #90caf9;
+  }
+  a:hover {
+    color: #2196f3;
+  }
+}
+.descript{
+  min-height: 64px;
+}
 </style>

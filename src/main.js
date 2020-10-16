@@ -2,14 +2,18 @@ import Vue from 'vue'
 import App from './App.vue'
 import router from '@/router'
 import axios from 'axios'
-import VueAxios from 'vue-axios'
 import './quasar'
+import VueParticles from 'vue-particles'
 
-axios.defaults.baseURL = "http://localhost:8079"
+Vue.use(VueParticles)
+
+var $axios = axios.create({
+  baseURL: 'http://localhost:8079',
+  timeout: '10000'
+})
 
 Vue.config.productionTip = false
-// Vue.prototype.$axios = axios
-Vue.use(axios,VueAxios)
+Vue.prototype.$axios = $axios
 
 new Vue({
   router,
