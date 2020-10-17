@@ -141,7 +141,7 @@ export default {
     return {
       pagger: {
         current: 1,
-        total: 6
+        total: 1
       },
       sideBar: {
         qqBar: false,

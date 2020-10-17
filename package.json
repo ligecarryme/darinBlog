@@ -11,10 +11,10 @@
     "@quasar/extras": "^1.0.0",
     "axios": "^0.20.0",
     "core-js": "^3.6.5",
+    "particles.js": "^2.0.0",
     "quasar": "^1.0.0",
     "vue": "^2.6.11",
     "vue-axios": "^3.0.1",
-    "vue-particles": "^1.0.9",
     "vue-route": "^1.5.1",
     "vue-router": "^3.4.3"
   },

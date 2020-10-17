@@ -30,8 +30,9 @@
     <q-drawer v-model="right" side="right" overlay behavior="desktop" elevated>
       <!-- drawer content -->
     </q-drawer>
-    <!-- 主体 -->
-    <q-page-container :style="{backgroundImage:'url('+ img +')'}">
+    <!-- 主体 :style="{backgroundImage:'url('+ img +')'}"-->
+    <q-page-container class="bg">
+      <particlesJS />
       <router-view />
     </q-page-container>
     <!-- 底部 -->
@@ -47,9 +48,10 @@
 </template>
 
 <script>
+import particlesJS from './components/ParticlesJS';
 export default {
   name: "App",
-  components: {},
+  components: { particlesJS },
   data() {
     return {
       right: false,
@@ -76,9 +78,10 @@ export default {
 }
 .blogFooter {
   height: 100px;
+  position: relative;
   color: #616161;
   text-align: center;
-  background-image: linear-gradient(to top, #86bcfa 0%, #e7f0fd 100%);
+  background-image: linear-gradient(to top, #86bcfa 0%, #e9f2f6 100%);
   .footer {
     padding-top: 15px;
     a {
@@ -93,4 +96,9 @@ export default {
     margin: 0;
   }
 }
+
+.bg {
+  background-color: #e9f2f6;
+}
+
 </style>
