@@ -1,5 +1,5 @@
 <template>
-  <div class="q-ma-md">
+  <div class="q-mt-md">
     <q-card class="blogDetailCard q-mt-lg">
       <q-item>
         <q-item-section avatar>
@@ -11,11 +11,11 @@
         <q-item-section class="blogDetailHeader" side>
           <div class="q-mt-sm q-mr-md">
             <q-icon name="event" size="sm"></q-icon>
-            <span class="q-ml-xs">2020-09-26</span>
+            <span class="q-ml-xs">{{blogdetail.updateTime}}</span>
           </div>
           <div class="q-mt-sm">
             <q-icon name="visibility" size="sm"></q-icon>
-            <span class="q-ml-xs">520</span>
+            <span class="q-ml-xs">{{blogdetail.views}}</span>
           </div>
         </q-item-section>
 
@@ -26,26 +26,20 @@
 
       </q-item>
       <q-parallax src="https://cdn.quasar.dev/img/parallax1.jpg" :height="300" />
-      <div class="dfb">
-        <q-chip square class="q-ma-md">
+      <div class="row justify-between">
+        <q-chip square class="q-ma-md" v-for="item of blogdetail.tags" :key="item.id">
           <q-avatar icon="bookmark" color="red" text-color="white" />
-          Bookmark
+          {{item.name}}
         </q-chip>
         <div class="q-ma-md">
-          <q-btn outline style="color: goldenrod;" label="原创" size="11px" />
+          <q-btn outline style="color: goldenrod;" :label="blogdetail.flag" size="11px" />
         </div>
       </div>
 
       <q-card-section>
-        <div class="text-h6 q-mt-lg text-center">Our Changing Planet</div>
+        <div class="text-h5 q-mt-lg text-center text-weight-bold">{{blogdetail.title}}</div>
       </q-card-section>
-      <div>
-        <p v-for="n in 50" :key="n" class="q-pa-xs">
-          Lorem ipsum dolor sit amet, consectetur adipisicing
-          elit, sed do eiusmod tempor incididunt ut labore et
-          dolore magna aliqua.
-        </p>
-      </div>
+      <vue-markdown class="markdown-body q-pa-md" :source="blogdetail.content"></vue-markdown>
       <div align="center">
         <q-btn outline rounded style="color: #FF0080;" label="赞赏" size="12px" class="q-mt-md" />
       </div>
@@ -93,10 +87,20 @@
   </div>
 </template>
 <script>
+import VueMarkdown from 'vue-markdown'
 export default {
   name: "Article",
+  components: { VueMarkdown },
   data() {
     return {
+      blogdetail: {
+        content: '',
+        updateTime: '2020-10-18 22:11:11',
+        views: '108',
+        tags: [],
+        flag: '原创',
+        title: 'Our Changing Planet'
+      },
       editor: '',
       name: '',
       drawer: '',
@@ -135,32 +139,29 @@ export default {
       ]
     }
   },
-  computed: {
-    thumbStyle() {
-      return {
-        right: "4px",
-        borderRadius: "5px",
-        backgroundColor: "#027be3",
-        width: "5px",
-        opacity: 0.75,
-      };
-    },
-    barStyle() {
-      return {
-        right: "2px",
-        borderRadius: "9px",
-        backgroundColor: "#027be3",
-        width: "9px",
-        opacity: 0.2,
-      };
-    },
+  created: function () {
+    this.querydetail(window.location.href.split('=')[1])
   },
-};
+  computed: {},
+  methods: {
+    querydetail(blogid) {
+      this.$axios.get('/blogDetail/' + blogid).then((res) => {
+        const { data } = res;
+        if (data.code === 200) {
+          this.blogdetail = data.data;
+        }
+        // console.log(res);
+      }).catch((err) => {
+        console.log(err);
+      })
+    }
+  }
+}
 </script>
 <style lang="scss" scoped>
 .blogDetailCard {
-  width: 80%;
-  margin: 24px auto;
+  width: 60%;
+  margin: 24px auto 0 auto;
 }
 
 .blogDetailHeader {
@@ -178,5 +179,17 @@ export default {
 }
 .q-chat-message {
   max-width: 400px;
+}
+.markdown-body {
+  box-sizing: border-box;
+  min-width: 200px;
+  max-width: 980px;
+  margin: 0 auto;
+  padding: 45px;
+}
+@media (max-width: 767px) {
+  .markdown-body {
+    padding: 15px;
+  }
 }
 </style>

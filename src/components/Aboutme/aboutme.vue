@@ -10,7 +10,7 @@
       <h3 class="text-white">Video</h3>
     </q-parallax>
     <div class="row justify-center q-ma-lg">
-      <q-card class="my-card q-mr-md">
+      <q-card class="my-card q-ma-md">
         <q-card-section class="bg-cyan text-white text-center">
           <div class="text-h6">关于我</div>
         </q-card-section>
@@ -23,7 +23,7 @@
           <q-btn color="white" text-color="black" label="Standard"/>
         </q-card-section>
       </q-card>
-      <q-card class="my-card">
+      <q-card class="my-card q-mt-md">
         <q-card-section class="bg-cyan-8 text-white text-center">
           <div class="text-h6">联系我</div>
         </q-card-section>

@@ -1,5 +1,6 @@
 <template>
   <q-layout view="hHh lpR fFf">
+    
     <!-- 顶部导航栏 -->
     <q-header elevated class="bg-blue-4 text-white" height-hint="98">
       <q-toolbar class="q-ml-md">
@@ -19,9 +20,9 @@
           <q-route-tab to="/aboutme" name="aboutme" icon="perm_identity" label="关于我" />
         </q-tabs>
         <!-- 搜索框 -->
-        <q-input color="teal" borderless v-model="text" label="search..." class="q-ml-md searchBar q-mr-md">
+        <q-input color="grey-3" dark standout borderless v-model="text" label="search..." class="q-ml-md searchBar q-mr-md">
           <template v-slot:append>
-            <q-icon name="search" class="cursor-pointer" />
+            <q-btn round dense flat icon="search" to="/search" />
           </template>
         </q-input>
       </div>
@@ -32,7 +33,7 @@
     </q-drawer>
     <!-- 主体 :style="{backgroundImage:'url('+ img +')'}"-->
     <q-page-container class="bg">
-      <particlesJS />
+      <particles />
       <router-view />
     </q-page-container>
     <!-- 底部 -->
@@ -48,10 +49,10 @@
 </template>
 
 <script>
-import particlesJS from './components/ParticlesJS';
+import particles from './components/ParticlesJS';
 export default {
   name: "App",
-  components: { particlesJS },
+  components: { particles },
   data() {
     return {
       right: false,
@@ -100,5 +101,4 @@ export default {
 .bg {
   background-color: #e9f2f6;
 }
-
 </style>

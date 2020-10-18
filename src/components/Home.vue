@@ -4,15 +4,15 @@
     <div class="col-lg-8 col-md-6 col-sm-12 q-mt-md">
       <div class="row justify-center q-gutter-sm">
         <q-intersection v-for="item in bloglist" :key="item.id" transition="scale" class="card-item">
-          <q-card class="q-ma-sm">
-            <q-item clickable v-ripple class="imgItem" to="/article">
+          <q-card class="q-ma-sm my-card">
+            <q-item clickable v-ripple class="imgItem" :to="'/article?id=' + item.id">
               <q-item-section>
                 <q-img :src="item.firstPicture" ratio="1" />
               </q-item-section>
             </q-item>
             <q-card-section>
               <div class="text-h6 title">
-                <a href="/article">{{ item.title }}</a>
+                <a :href="'/article?id=' + item.id">{{ item.title }}</a>
               </div>
               <div class="flex">
                 <div class="text-subtitle2">by {{nickname}}</div>
@@ -165,8 +165,8 @@ export default {
       typeicon: ['fas fa-laptop-code', 'fas fa-atom', 'fas fa-heartbeat', 'fas fa-briefcase'],
       tagicon: ['event', 'bookmark', 'star', 'directions', 'event', 'bookmark', 'star', 'directions'],
       tagcolor: ['primary', 'teal', 'orange', 'red', 'primary', 'teal', 'orange', 'red'],
-      nickname: 'darin'
-    };
+      nickname: 'darin',
+    }
   },
   created: function () {
     this.queryindex();
@@ -177,19 +177,31 @@ export default {
         const { data } = res;
         if (data.code === 200) {
           const content = data.data;
-          console.log(content);
-          this.bloglist = content.blog;
+          // console.log(content);
+          let blogs = content.blog;
+          this.bloglist = this.handleDescript(blogs);
           this.pagger.total = content.pageinfo.pages;
           this.types = content.type;
           this.tags = content.tag;
           this.topblogs = content.topBlog;
         }
       }).catch((err) => {
-        console.log(err)
+        console.log(err);
       })
     },
     toTagPage() {
 
+    },
+    handleDescript(list){
+      if (!list) {
+        return;
+      }
+      for (let item of list) {
+        if (item.description.length > 45) {
+         item.description = item.description.slice(0,45) + '...'
+        }
+      }
+      return list;
     }
   }
 }

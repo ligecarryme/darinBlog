@@ -2,11 +2,6 @@ a{
     text-decoration: none;
 }
 
-.dfb{
-    display: flex;
-    justify-content: space-between;
-}
-
 /* ----margin----- */
 .m-margin-top-small{
     margin-top: 0.5em;

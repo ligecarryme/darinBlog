@@ -6,6 +6,7 @@ import Aboutme from '../components/Aboutme/aboutme.vue'
 import Archives from '../components/Archives/archives.vue'
 import Tags from '../components/Tags/tags.vue'
 import Types from '../components/Types/types.vue'
+import Search from '../views/Search/Search.vue'
 
 Vue.use(Router)
 
@@ -21,11 +22,19 @@ export default new Router({
             }
         },
         {
+            path: '/search',
+            name: 'search',
+            component: Search,
+            meta: {
+                title: '搜索结果'
+            }
+        },
+        {
             path: '/article',
             name: 'article',
             component: Article,
             meta: {
-                title: '详情页'
+                title: '博客详情'
             }
         },
         {

@@ -3,10 +3,11 @@
 </template>
 
 <script>
+import 'particles.js'
 export default {
-  name: 'ParticlesJS',
+  name: 'Particles',
   mounted() {
-    require('particles.js')
+    // require('particles.js')
     this.$nextTick(() => {
       this.initParticlesJS()
     })
@@ -70,7 +71,6 @@ export default {
         },
         retina_detect: true
       })
-      requestAnimationFrame(update);
     }
   }
 
