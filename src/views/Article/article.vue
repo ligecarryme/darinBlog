@@ -28,10 +28,10 @@
       </q-item>
       <q-parallax src="https://cdn.quasar.dev/img/parallax1.jpg" :height="300" />
       <div class="row justify-between">
-          <q-chip square class="q-ma-md" v-for="item of blogdetail.tags" :key="item.id">
-            <q-avatar icon="bookmark" color="red" text-color="white" />
-            {{item.name}}
-          </q-chip>
+        <q-chip square class="q-ma-md" v-for="item of blogdetail.tags" :key="item.id">
+          <q-avatar icon="bookmark" color="red" text-color="white" />
+          {{item.name}}
+        </q-chip>
         <q-space />
         <div class="q-ma-md">
           <q-btn outline style="color: goldenrod;" :label="blogdetail.flag" size="11px" />
@@ -43,7 +43,19 @@
       </q-card-section>
       <vue-markdown class="markdown-body q-pa-md" :source="blogdetail.content"></vue-markdown>
       <div align="center">
-        <q-btn push color="white" text-color="red" label="赞赏" class="q-mt-md" size="md" />
+        <q-btn push color="white" text-color="red" label="赞赏" class="q-mt-md" size="md">
+          <q-menu anchor="bottom middle" self="top middle">
+            <div class="row q-ma-md">
+              <q-avatar square size="120px">
+                <img src="@/assets/images/alipay.png">
+              </q-avatar>
+              <q-separator vertical inset class="q-mx-lg" />
+              <q-avatar square size="120px">
+                <img src="@/assets/images/wepay.png">
+              </q-avatar>
+            </div>
+          </q-menu>
+        </q-btn>
       </div>
       <div class="q-mt-lg authorList">
         <br>

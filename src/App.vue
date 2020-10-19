@@ -20,11 +20,13 @@
           <q-route-tab to="/aboutme" name="aboutme" icon="perm_identity" label="关于我" />
         </q-tabs>
         <!-- 搜索框 -->
-        <q-input color="grey-3" dark standout borderless v-model="searchtext" label="search..." class="q-ml-md searchBar q-mr-md">
-          <template v-slot:append>
-            <q-btn round dense flat icon="search" class="q-pt-xs" @click="search" />
-          </template>
-        </q-input>
+        <q-form ref="searchform" @submit.prevent="simulateSubmit">
+          <q-input color="grey-3" dark standout borderless v-model="searchtext" label="search..." class="q-ml-md searchBar q-mr-md">
+            <template v-slot:append>
+              <q-btn round flat icon="search" type="button" class="q-pt-xs" :loading="load" @click="search" />
+            </template>
+          </q-input>
+        </q-form>
       </div>
     </q-header>
     <!-- 右侧边栏 -->
@@ -55,6 +57,7 @@ export default {
   components: { particles },
   data() {
     return {
+      load: false,
       isRouterAlive: true,
       right: false,
       tab: '',
@@ -64,6 +67,12 @@ export default {
   },
   created() { },
   methods: {
+    simulateSubmit() {
+      setTimeout(() => {
+        this.search();
+        // this.$refs.searchform.reset();
+      }, 100)
+    },
     search() {
       if (!this.searchtext) {
         this.$q.notify({
@@ -75,13 +84,17 @@ export default {
         })
         return;
       }
-      this.$router.push({ path: '/search', query: { param: this.searchtext } });
-      this.searchtext = '',
+      this.load = true;
+      setTimeout(() => {
+        this.load = false;
+        this.$router.push({ path: '/search', query: { param: this.searchtext } });
+        this.searchtext = '';
+      }, 500)
       this.reload();
     },
-    reload(){
+    reload() {
       this.isRouterAlive = false;
-      this.$nextTick(function(){
+      this.$nextTick(function () {
         this.isRouterAlive = true;
       })
     }

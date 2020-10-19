@@ -104,7 +104,7 @@
           <q-btn glossy color="primary" round flat icon="fab fa-weixin" @click="sideBar.weChatBar = true">
             <q-tooltip transition-show="rotate" transition-hide="rotate" max-height="200px" max-width="200px">wechat</q-tooltip>
           </q-btn>
-          <q-btn glossy color="primary" round flat icon="mail">
+          <q-btn type="a" href="https://mail.google.com" glossy color="primary" round flat icon="mail">
             <q-tooltip transition-show="rotate" transition-hide="rotate" max-height="200px" max-width="200px">e-mail</q-tooltip>
           </q-btn>
           <q-btn glossy color="primary" round flat icon="send">
@@ -115,7 +115,7 @@
             <q-card>
               <q-toolbar style="padding:0;">
                 <!-- <q-btn flat round dense icon="close" v-close-popup />                 -->
-                <img src="../assets/images/qq.png" style="width:400px;height:716.8px;">
+                <img src="../assets/images/qq.png" style="width:300px;height:537.6px;">
               </q-toolbar>
             </q-card>
           </q-dialog>

@@ -13,7 +13,7 @@
           </q-card-section>
           <q-card-section class="q-pt-xs">
             <div class="text-h5 q-mt-sm q-mb-xs title">
-              <a href="/article">{{item.title}}</a>
+              <a :href="'/article?id='+item.id">{{item.title}}</a>
             </div>
             <div class="flex">
               <div class="text-subtitle2">{{user.nickname}}</div>
@@ -56,7 +56,8 @@ export default {
       }
     }
   },
-  created: function () {
+  created: function () { },
+  mounted: function() {
     const { param } = this.$route.query;
     this.searchblog(param);
   },
