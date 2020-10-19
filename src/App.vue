@@ -1,6 +1,6 @@
 <template>
   <q-layout view="hHh lpR fFf">
-    
+
     <!-- 顶部导航栏 -->
     <q-header elevated class="bg-blue-4 text-white" height-hint="98">
       <q-toolbar class="q-ml-md">
@@ -20,9 +20,9 @@
           <q-route-tab to="/aboutme" name="aboutme" icon="perm_identity" label="关于我" />
         </q-tabs>
         <!-- 搜索框 -->
-        <q-input color="grey-3" dark standout borderless v-model="text" label="search..." class="q-ml-md searchBar q-mr-md">
+        <q-input color="grey-3" dark standout borderless v-model="searchtext" label="search..." class="q-ml-md searchBar q-mr-md">
           <template v-slot:append>
-            <q-btn round dense flat icon="search" to="/search" />
+            <q-btn round dense flat icon="search" class="q-pt-xs" @click="search" />
           </template>
         </q-input>
       </div>
@@ -34,7 +34,7 @@
     <!-- 主体 :style="{backgroundImage:'url('+ img +')'}"-->
     <q-page-container class="bg">
       <particles />
-      <router-view />
+      <router-view v-if="isRouterAlive" />
     </q-page-container>
     <!-- 底部 -->
     <div class="blogFooter">
@@ -55,14 +55,38 @@ export default {
   components: { particles },
   data() {
     return {
+      isRouterAlive: true,
       right: false,
       tab: '',
-      text: '',
-      img: require('./assets/logo.jpg')
+      searchtext: '',
+      // img: require('./assets/logo.jpg')
     };
   },
   created() { },
-};
+  methods: {
+    search() {
+      if (!this.searchtext) {
+        this.$q.notify({
+          position: 'top',
+          message: '请输入查询条件',
+          color: 'negative',
+          timeout: '1200',
+          icon: 'report_problem'
+        })
+        return;
+      }
+      this.$router.push({ path: '/search', query: { param: this.searchtext } });
+      this.searchtext = '',
+      this.reload();
+    },
+    reload(){
+      this.isRouterAlive = false;
+      this.$nextTick(function(){
+        this.isRouterAlive = true;
+      })
+    }
+  }
+}
 </script>
 
 <style lang="scss" scoped>
@@ -82,7 +106,12 @@ export default {
   position: relative;
   color: #616161;
   text-align: center;
-  background-image: linear-gradient(to top, #86bcfa 0%, #e9f2f6 100%);
+  background-image: linear-gradient(
+    to top,
+    #64b5f6 0%,
+    #93bef7 50%,
+    #ffffff 100%
+  ); // #86bcfa
   .footer {
     padding-top: 15px;
     a {
@@ -97,8 +126,7 @@ export default {
     margin: 0;
   }
 }
-
 .bg {
-  background-color: #e9f2f6;
+  position: relative;
 }
 </style>

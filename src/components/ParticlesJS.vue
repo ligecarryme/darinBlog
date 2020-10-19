@@ -78,18 +78,35 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-/* Your styles */
-#particles-js {
-  position: absolute;
-  width: 100%;
-  height: calc(100% - 106px);
-  background-repeat: no-repeat;
-  overflow: hidden;
-  // background-size: cover;
-  // background-position: 50% 50%;
+
+#particles-js canvas {
+    display: block;
+    vertical-align: bottom;
+    -webkit-transform: scale(1);
+    -ms-transform: scale(1);
+    transform: scale(1);
+    opacity: 1;
+    -webkit-transition: opacity .8s ease, -webkit-transform 1.4s ease;
+    transition: opacity .8s ease, transform 1.4s ease
 }
 
-canvas {
-  display: block;
+#particles-js {
+    width: 100%;
+    height: 100%;
+    position: fixed;
+    // z-index: -10;
+    top: 0;
+    left: 0
 }
+
+// #particles-js {
+//   position: absolute;
+//   width: 100%;
+//   height: calc(100% - 106px);
+//   background-repeat: no-repeat;
+//   overflow: hidden;
+//   // background-size: cover;
+//   background-position: 50% 50%;
+// }
+
 </style>

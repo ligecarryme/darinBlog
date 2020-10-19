@@ -179,26 +179,26 @@ export default {
           const content = data.data;
           // console.log(content);
           let blogs = content.blog;
-          this.bloglist = this.handleDescript(blogs);
+          this.bloglist = this.handleDescript(blogs, 45);
           this.pagger.total = content.pageinfo.pages;
           this.types = content.type;
           this.tags = content.tag;
-          this.topblogs = content.topBlog;
+          this.topblogs = this.handleDescript(content.topBlog, 60);
         }
       }).catch((err) => {
         console.log(err);
       })
     },
     toTagPage() {
-
+      this.$router.push('/tags')
     },
-    handleDescript(list){
+    handleDescript(list,count){
       if (!list) {
         return;
       }
       for (let item of list) {
-        if (item.description.length > 45) {
-         item.description = item.description.slice(0,45) + '...'
+        if (item.description.length > count) {
+         item.description = item.description.slice(0,count) + '...'
         }
       }
       return list;

@@ -1,14 +1,20 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Article from '../components/Article/article.vue'
-import Home from '../components/Home.vue'
-import Aboutme from '../components/Aboutme/aboutme.vue'
-import Archives from '../components/Archives/archives.vue'
-import Tags from '../components/Tags/tags.vue'
-import Types from '../components/Types/types.vue'
-import Search from '../views/Search/Search.vue'
+import Article from '../views/Article/article.vue'
+import Home from '../views/Home.vue'
+import Aboutme from '../views/Aboutme/aboutme.vue'
+import Archives from '../views/Archives/archives.vue'
+import Tags from '../views/Tags/tags.vue'
+import Types from '../views/Types/types.vue'
+import Search from '../components/Search/Search.vue'
 
 Vue.use(Router)
+
+const originalPush = Router.prototype.push;
+Router.prototype.push = function push(location){
+    return originalPush.call(this, location).catch(err=>err)
+}
+
 
 export default new Router({
     mode: 'history',

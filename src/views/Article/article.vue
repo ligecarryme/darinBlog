@@ -20,17 +20,19 @@
         </q-item-section>
 
         <q-card-actions class="blogDetailShare">
-          <q-btn flat round color="red" icon="favorite" />
-          <q-btn flat round color="primary" icon="share" />
+          <!-- <q-btn flat round color="red" icon="favorite" ripple="center" /> -->
+          <q-rating v-model="heart" max="1" size="2em" color="red" color-selected="red-9" icon="favorite_border" icon-selected="favorite" icon-half="favorite" no-dimming />
+          <q-btn flat round color="primary" class="q-ml-md" icon="share" @click="shareblog('right')" />
         </q-card-actions>
 
       </q-item>
       <q-parallax src="https://cdn.quasar.dev/img/parallax1.jpg" :height="300" />
       <div class="row justify-between">
-        <q-chip square class="q-ma-md" v-for="item of blogdetail.tags" :key="item.id">
-          <q-avatar icon="bookmark" color="red" text-color="white" />
-          {{item.name}}
-        </q-chip>
+          <q-chip square class="q-ma-md" v-for="item of blogdetail.tags" :key="item.id">
+            <q-avatar icon="bookmark" color="red" text-color="white" />
+            {{item.name}}
+          </q-chip>
+        <q-space />
         <div class="q-ma-md">
           <q-btn outline style="color: goldenrod;" :label="blogdetail.flag" size="11px" />
         </div>
@@ -41,13 +43,13 @@
       </q-card-section>
       <vue-markdown class="markdown-body q-pa-md" :source="blogdetail.content"></vue-markdown>
       <div align="center">
-        <q-btn outline rounded style="color: #FF0080;" label="赞赏" size="12px" class="q-mt-md" />
+        <q-btn push color="white" text-color="red" label="赞赏" class="q-mt-md" size="md" />
       </div>
       <div class="q-mt-lg authorList">
         <br>
         <ul align="left">
-          <li>作者：<span>邢大立</span></li>
-          <li>发表时间：<span>2020-09-27 23:07</span></li>
+          <li>作者：<span>{{user.nickname}}</span></li>
+          <li>发表时间：<span>{{blogdetail.updateTime}}</span></li>
           <li>版权声明：自由转载-非商用-非衍生-保持署名（创意共享3.0许可证）</li>
         </ul>
         <br>
@@ -93,13 +95,17 @@ export default {
   components: { VueMarkdown },
   data() {
     return {
+      heart: 0,
       blogdetail: {
         content: '',
         updateTime: '2020-10-18 22:11:11',
         views: '108',
         tags: [],
         flag: '原创',
-        title: 'Our Changing Planet'
+        title: 'Our Changing Planet',
+      },
+      user: {
+        nickname: 'darin'
       },
       editor: '',
       name: '',
@@ -110,32 +116,11 @@ export default {
         icon: 'mail'
       },
       options: [
-        {
-          label: 'Google',
-          value: 'goog',
-          icon: 'mail'
-        },
-        {
-          label: 'Facebook',
-          value: 'fb',
-          icon: 'bluetooth'
-        },
-        {
-          label: 'Twitter',
-          value: 'twt',
-          icon: 'map'
-        },
-        {
-          label: 'Apple',
-          value: 'app',
-          icon: 'golf_course'
-        },
-        {
-          label: 'Oracle',
-          value: 'ora',
-          disable: true,
-          icon: 'casino'
-        }
+        { label: 'Google', value: 'goog', icon: 'mail' },
+        { label: 'Facebook', value: 'fb', icon: 'bluetooth' },
+        { label: 'Twitter', value: 'twt', icon: 'map' },
+        { label: 'Apple', value: 'app', icon: 'golf_course' },
+        { label: 'Oracle', value: 'ora', disable: true, icon: 'casino' }
       ]
     }
   },
@@ -149,10 +134,19 @@ export default {
         const { data } = res;
         if (data.code === 200) {
           this.blogdetail = data.data;
+          this.user = data.data.user;
         }
         // console.log(res);
       }).catch((err) => {
         console.log(err);
+      })
+    },
+    shareblog(position) {
+      // document.execCommand('copy');
+      this.$q.notify({
+        position,
+        message: '链接已复制',
+        color: 'positive'
       })
     }
   }
