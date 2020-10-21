@@ -21,7 +21,7 @@
         </q-tabs>
         <!-- 搜索框 -->
         <q-form ref="searchform" @submit.prevent="simulateSubmit">
-          <q-input color="grey-3" dark standout borderless v-model="searchtext" label="search..." class="q-ml-md searchBar q-mr-md">
+          <q-input type="search" color="grey-3" dark standout borderless v-model="searchtext" label="search..." class="q-ml-md searchBar q-mr-md">
             <template v-slot:append>
               <q-btn round flat icon="search" type="button" class="q-pt-xs" :loading="load" @click="search" />
             </template>
