@@ -2,91 +2,101 @@
   <div class="q-pa-md">
     <q-card class="my-card q-mt-lg">
       <q-card-section class="bg-blue-3 text-white">
-        <div class="text-h6 text-center">分类 共<span class="q-ma-xs text-h5">6</span>类</div>
+        <div class="text-h6 text-center">分类 共<span class="q-ma-xs text-h5">{{types.length}}</span>类</div>
       </q-card-section>
       <div class="q-pa-md" style="max-width: 100%">
-        <q-list bordered>
-          <q-item clickable v-ripple>
-            <q-item-section>Icon as avatar</q-item-section>
+        <q-list bordered separator v-for="(item,index) of types" :key="item.id">
+          <q-item clickable v-ripple @click="searchTypes(item.id)" :active="link === item.id" active-class="typeactive">
+            <q-item-section class="text-body1">{{item.name}}</q-item-section>
             <q-item-section avatar>
-              <q-icon color="primary" name="bluetooth" />
-            </q-item-section>
-          </q-item>
-          <q-separator />
-
-          <q-item clickable v-ripple>
-            <q-item-section>Avatar-type icon</q-item-section>
-            <q-item-section avatar>
-              <q-avatar color="teal" text-color="white" icon="bluetooth" />
-            </q-item-section>
-          </q-item>
-          <q-separator />
-
-          <q-item clickable v-ripple>
-            <q-item-section>Rounded avatar-type icon</q-item-section>
-            <q-item-section avatar>
-              <q-avatar rounded color="purple" text-color="white" icon="bluetooth" />
-            </q-item-section>
-          </q-item>
-          <q-separator />
-
-          <q-item clickable v-ripple>
-            <q-item-section>Letter avatar-type</q-item-section>
-            <q-item-section avatar>
-              <q-avatar color="primary" text-color="white">R</q-avatar>
+              <q-avatar color="primary" text-color="white" :icon="typeicon[index]" />
             </q-item-section>
           </q-item>
         </q-list>
+        <q-separator />
       </div>
-      <!-- 
-      <q-card-actions align="around">
-        <div class="q-pa-md q-gutter-md"></div>
-      </q-card-actions> -->
     </q-card>
 
-    <q-intersection v-for="index in 2" :key="index" transition="scale">
-      <q-card class="my-card q-mt-lg" flat bordered>
+    <q-intersection once v-for="item of blog" :key="item.id" transition="scale" class="my-card q-mb-lg">
+      <q-card class="q-mt-lg" flat bordered>
         <q-card-section horizontal>
-          <q-card-section class="col-4">
-            <q-img class="rounded-borders" :ratio="16/9" src="https://cdn.quasar.dev/img/parallax2.jpg" />
+          <q-card-section class="col-4"> 
+            <q-img class="rounded-borders" :ratio="16/9" :src="item.firstPicture" spinner-color="amber"></q-img>
           </q-card-section>
           <q-card-section class="q-pt-xs">
             <div class="text-h5 q-mt-sm q-mb-xs title">
-              <a href="/article">Title #{{ index }}</a>
+              <a :href="'/article?id'+item.id">{{ item.title }}</a>
             </div>
             <div class="flex">
-              <div class="text-subtitle2">by John Doe</div>
+              <div class="text-subtitle2">by {{user.nickname}}</div>
               <div class="q-ml-md">
                 <q-icon name="far fa-calendar-alt" size="mini"></q-icon>
-                <span class="q-ml-xs">2020-09-26</span>
+                <span class="q-ml-xs">{{item.updateTime}}</span>
               </div>
             </div>
-            <div v-for="n in 2" :key="n" class="q-mt-xs text-caption text-grey">
-              {{content}}
-            </div>
+            <div class="q-mt-xs text-caption text-grey">{{item.description}}</div>
           </q-card-section>
         </q-card-section>
       </q-card>
     </q-intersection>
     <div class="q-pa-lg flex flex-center">
-      <q-pagination v-model="current" :max="3" :direction-links="true">
+      <q-pagination v-model="pagger.current" :max="pagger.total" :direction-links="true">
       </q-pagination>
     </div>
   </div>
 </template>
 <script>
+import { showcharacter } from '@/utils/utils'
 export default {
+  name: 'types',
   data() {
     return {
-      content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-      current: 1,
+      link: '',
+      blog: [{
+        firstPicture: 'https://picsum.photos/300/200', title: 'new object', updateTime: '2020-10-19 15:53:53',
+        description: "If you want something you've never had, you must be willing to do something you've never done.",
+      }],
+      user: {
+        nickname: 'darin'
+      },
+      pagger: {
+        current: 1,
+        total: 3
+      },
+      types: [{ id: 1, name: '学习' }],
+      typeicon: ['fas fa-laptop-code', 'fas fa-atom', 'fas fa-heartbeat', 'fas fa-briefcase'],
+    }
+  },
+  created: function () {
+    this.searchTypes();
+  },
+  methods: {
+    searchTypes(val) {
+      this.link = val;
+      const param = {
+        current: this.pagger.current,
+        id: val || -1,
+      }
+      this.$axios.get('/types/' + param.id, { params: { current: param.current } }).then(res => {
+        const { data } = res;
+        if (data.code === 200) {
+          const d = data.data;
+          this.types = d.types;
+          this.blog = showcharacter(d.blogs.content, 200);
+          const { pageable } = d.blogs;
+          this.pagger.total = d.blogs.totalPages;
+          this.pagger.current = pageable.pageNumber + 1;
+        }
+      }).catch(e => {
+        console.log(e);
+      })
     }
   }
 }
 </script>
 <style lang="scss" scoped>
 .my-card {
-  width: 80%;
+  width: 60%;
   margin-left: auto;
   margin-right: auto;
 }
@@ -97,5 +107,11 @@ export default {
   a:hover {
     color: #0d47a1;
   }
+}
+.typeactive {
+  box-sizing: border-box;
+  border: 2px solid #21ba45;
+  // color: white;
+  // background: #F2C037;
 }
 </style>

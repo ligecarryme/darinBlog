@@ -6,64 +6,92 @@
       </q-card-section>
 
       <q-card-actions align="around">
-        <div class="q-pa-md q-gutter-md">
-          <q-chip square clickable color="primary" text-color="white" icon="event">Add to calendar</q-chip>
-          <q-chip clickable class="glossy" square color="teal" text-color="white" icon="bookmark">Bookmark</q-chip>
-          <q-chip square color="orange" text-color="white" icon="star">Star</q-chip>
-          <q-chip square color="red" text-color="white" icon="alarm" label="Set alarm" />
-          <q-chip square color="deep-orange" text-color="white" icon="directions">Get directions</q-chip>
-          <q-chip square color="primary" text-color="white" icon="event">Add to calendar</q-chip>
-          <q-chip class="glossy" square color="teal" text-color="white" icon="bookmark">Bookmark</q-chip>
-          <q-chip square color="orange" text-color="white" icon="star">Star</q-chip>
-          <q-chip square color="red" text-color="white" icon="alarm" label="Set alarm" />
-          <q-chip square color="deep-orange" text-color="white" icon="directions">Get directions</q-chip>
+        <div class="q-pa-md q-gutter-md flex justify-around">
+          <q-chip square size="md" clickable @click="searchTags(item.id)" v-for="(item,index) of tags" :key="item.id" :color="tagcolor[index % 5]" text-color="white" :icon="tagicon[index % 8]">{{item.name}}</q-chip>
         </div>
       </q-card-actions>
     </q-card>
 
-    <q-intersection v-for="index in 2" :key="index" transition="scale">
-      <q-card class="my-card q-mt-lg" flat bordered>
+    <q-intersection once v-for="item of blog" :key="item.id" transition="scale" class="my-card q-mb-lg">
+      <q-card class="q-mt-lg" flat bordered>
         <q-card-section horizontal>
-          <q-card-section class="col-4">
-            <q-img class="rounded-borders" :ratio="16/9" src="https://cdn.quasar.dev/img/parallax2.jpg" />
+          <q-card-section class="col-4"> 
+            <q-img class="rounded-borders" :ratio="16/9" :src="item.firstPicture" spinner-color="amber"></q-img>
           </q-card-section>
           <q-card-section class="q-pt-xs">
             <div class="text-h5 q-mt-sm q-mb-xs title">
-              <a href="/article">Title #{{ index }}</a>
+              <a :href="'/article?id'+item.id">{{ item.title }}</a>
             </div>
             <div class="flex">
-              <div class="text-subtitle2">by John Doe</div>
+              <div class="text-subtitle2">by {{user.nickname}}</div>
               <div class="q-ml-md">
                 <q-icon name="far fa-calendar-alt" size="mini"></q-icon>
-                <span class="q-ml-xs">2020-09-26</span>
+                <span class="q-ml-xs">{{item.updateTime}}</span>
               </div>
             </div>
-            <div v-for="n in 2" :key="n" class="q-mt-xs text-caption text-grey">
-              {{content}}
-            </div>
+            <div class="q-mt-xs text-caption text-grey">{{item.description}}</div>
           </q-card-section>
         </q-card-section>
       </q-card>
     </q-intersection>
     <div class="q-pa-lg flex flex-center">
-      <q-pagination v-model="current" :max="3" :direction-links="true">
+      <q-pagination v-model="pagger.current" :max="pagger.total" :direction-links="true">
       </q-pagination>
     </div>
   </div>
 </template>
 <script>
+import { showcharacter } from '@/utils/utils'
 export default {
   data() {
     return {
-      content: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.",
-      current: 1,
+      blog: [{
+        firstPicture: 'https://picsum.photos/300/200', title: 'new object', updateTime: '2020-10-19 15:53:53',
+        description: "If you want something you've never had, you must be willing to do something you've never done.",
+      }],
+      user: {
+        nickname: 'darin'
+      },
+      pagger: {
+        current: 1,
+        total: 3
+      },
+      tags: [{ id: 1, name: 'JavaScript' }, { id: 2, name: 'Java' }, { id: 3, name: 'VUE' }, { id: 4, name: 'Html' }, { id: 5, name: 'Spring Boot' },],
+      tagicon: ['keyboard', 'bookmark', 'star', 'photo_camera', 'eco','flag','cloud','mouse'],
+      tagcolor: ['primary', 'teal', 'orange', 'red','warning'],
+    }
+  },
+  created: function(){
+    this.searchTags();
+  },
+  methods: {
+    // eslint-disable-next-line no-unused-vars
+    searchTags(val){
+      this.link = val;
+      const param = {
+        current: this.pagger.current,
+        id: val || -1,
+      }
+      this.$axios.get('/tags/' + param.id, { params: { current: param.current } }).then(res => {
+        const { data } = res;
+        if (data.code === 200) {
+          const d = data.data;
+          this.tags = d.tags;
+          this.blog = showcharacter(d.blogs.content, 200);
+          const { pageable } = d.blogs;
+          this.pagger.total = d.blogs.totalPages;
+          this.pagger.current = pageable.pageNumber + 1;
+        }
+      }).catch(e => {
+        console.log(e);
+      })
     }
   }
 }
 </script>
 <style lang="scss" scoped>
 .my-card {
-  width: 80%;
+  width: 60%;
   margin-left: auto;
   margin-right: auto;
 }

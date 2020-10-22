@@ -7,7 +7,7 @@
           <q-card class="q-ma-sm my-card">
             <q-item clickable v-ripple class="imgItem" :to="'/article?id=' + item.id">
               <q-item-section>
-                <q-img :src="item.firstPicture" ratio="1" />
+                <q-img :src="item.firstPicture" ratio="1" spinner-color="amber" />
               </q-item-section>
             </q-item>
             <q-card-section>
@@ -59,7 +59,7 @@
         </q-card-section>
         <q-card-actions align="around">
           <div class="q-pa-md q-gutter-md flex justify-around">
-            <q-chip square size="md" clickable @click="toTagPage" v-for="(item,index) of tags" :key="item.id" :color="tagcolor[index]" text-color="white" :icon="tagicon[index]">{{item.name}}</q-chip>
+            <q-chip square size="md" clickable @click="toTagPage" v-for="(item,index) of tags" :key="item.id" :color="tagcolor[index % 5]" text-color="white" :icon="tagicon[index % 8]">{{item.name}}</q-chip>
           </div>
         </q-card-actions>
       </q-card>
@@ -170,8 +170,8 @@ export default {
       { id: 3, title: 'title', views: '1k', description: "If you want something you've never had, you must be willing to do something you've never done."}
       ],
       typeicon: ['fas fa-laptop-code', 'fas fa-atom', 'fas fa-heartbeat', 'fas fa-briefcase'],
-      tagicon: ['event', 'bookmark', 'star', 'directions', 'event', 'bookmark', 'star', 'directions'],
-      tagcolor: ['primary', 'teal', 'orange', 'red', 'primary', 'teal', 'orange', 'red'],
+      tagicon: ['keyboard', 'bookmark', 'star', 'photo_camera', 'eco','flag','cloud','mouse'],
+      tagcolor: ['primary', 'teal', 'orange', 'red','warning'],
       nickname: 'darin',
     }
   },

@@ -1,6 +1,5 @@
 <template>
   <q-layout view="hHh lpR fFf">
-
     <!-- 顶部导航栏 -->
     <q-header elevated class="bg-blue-4 text-white" height-hint="98">
       <q-toolbar class="q-ml-md">
@@ -37,6 +36,7 @@
     <q-page-container class="bg">
       <particles />
       <router-view v-if="isRouterAlive" />
+      <q-ajax-bar position="top" size="3px" color="warning"/>
     </q-page-container>
     <!-- 底部 -->
     <div class="blogFooter">
@@ -65,7 +65,8 @@ export default {
       // img: require('./assets/logo.jpg')
     };
   },
-  created() { },
+  created() {},
+  computed: {},
   methods: {
     simulateSubmit() {
       setTimeout(() => {
@@ -141,5 +142,6 @@ export default {
 }
 .bg {
   position: relative;
+  min-height: 836px;
 }
 </style>
