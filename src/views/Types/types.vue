@@ -2,7 +2,7 @@
   <div class="q-pa-md">
     <q-card class="my-card q-mt-lg">
       <q-card-section class="bg-blue-3 text-white">
-        <div class="text-h6 text-center">分类 共<span class="q-ma-xs text-h5">{{types.length}}</span>类</div>
+        <div class="text-h6 text-center">分类 共<span class="q-ma-xs text-h5 text-yellow">{{types.length}}</span>类</div>
       </q-card-section>
       <div class="q-pa-md" style="max-width: 100%">
         <q-list bordered separator v-for="(item,index) of types" :key="item.id">

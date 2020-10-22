@@ -1,10 +1,12 @@
 <template>
   <div class="q-pa-md">
     <q-timeline color="secondary" class="archivesTimeline">
-      <div class="row justify-between q-mt-lg q-pa-md shadow-2">
-        <div class="text-h4">归档</div>
-        <div class="text-h6">共<span class="text-h4 q-ma-xs" style="color:orange;">110</span>篇文章</div>
-      </div>
+      <q-card class="q-mt-lg shadow-2 bg-purple-3">
+        <q-card-section class="row justify-center text-white">
+          <div class="text-h6 q-mr-md">归档</div>
+          <div class="text-h6">共<span class="text-h5 q-pa-xs text-yellow">110</span>篇文章</div>
+        </q-card-section>
+      </q-card>
       <q-timeline-entry heading body="Timeline heading" />
 
       <q-timeline-entry title="Event Title" subtitle="February 22, 1986" avatar="https://cdn.quasar.dev/img/avatar3.jpg" :body="body" />
@@ -35,9 +37,10 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
-.archivesTimeline{
-    width: 80%;
-    margin-left: auto;
-    margin-right: auto;
+.archivesTimeline {
+  width: 60%;
+  margin-left: auto;
+  margin-right: auto;
+  z-index: 999;
 }
 </style>
