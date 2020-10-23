@@ -94,19 +94,9 @@ export default {
     width: 100%;
     height: 100%;
     position: fixed;
-    // z-index: -10;
+    z-index: 0;
     top: 0;
     left: 0
 }
-
-// #particles-js {
-//   position: absolute;
-//   width: 100%;
-//   height: calc(100% - 106px);
-//   background-repeat: no-repeat;
-//   overflow: hidden;
-//   // background-size: cover;
-//   background-position: 50% 50%;
-// }
 
 </style>

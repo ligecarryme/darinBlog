@@ -25,7 +25,7 @@
           </q-card-section>
           <q-card-section class="q-pt-xs">
             <div class="text-h5 q-mt-sm q-mb-xs title">
-              <a :href="'/article?id'+item.id">{{ item.title }}</a>
+              <a :href="'/article?id='+item.id">{{ item.title }}</a>
             </div>
             <div class="flex">
               <div class="text-subtitle2">by {{user.nickname}}</div>
@@ -51,7 +51,7 @@ export default {
   name: 'types',
   data() {
     return {
-      link: '',
+      link: '1',
       blog: [{
         firstPicture: 'https://picsum.photos/300/200', title: 'new object', updateTime: '2020-10-19 15:53:53',
         description: "If you want something you've never had, you must be willing to do something you've never done.",
@@ -70,9 +70,13 @@ export default {
   created: function () {
     this.searchTypes();
   },
+  // watch:{
+  //   link: function(val,old){
+  //     console.log('new: %s, old: %s',val,old);
+  //   }
+  // },
   methods: {
     searchTypes(val) {
-      this.link = val;
       const param = {
         current: this.pagger.current,
         id: val || -1,
@@ -86,6 +90,7 @@ export default {
           const { pageable } = d.blogs;
           this.pagger.total = d.blogs.totalPages;
           this.pagger.current = pageable.pageNumber + 1;
+          this.link = val || this.types[0].id;
         }
       }).catch(e => {
         console.log(e);

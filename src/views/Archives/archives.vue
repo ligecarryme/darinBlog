@@ -1,29 +1,20 @@
 <template>
   <div class="q-pa-md">
-    <q-timeline color="secondary" class="archivesTimeline">
-      <q-card class="q-mt-lg shadow-2 bg-purple-3">
-        <q-card-section class="row justify-center text-white">
-          <div class="text-h6 q-mr-md">归档</div>
-          <div class="text-h6">共<span class="text-h5 q-pa-xs text-yellow">110</span>篇文章</div>
-        </q-card-section>
-      </q-card>
-      <q-timeline-entry heading body="Timeline heading" />
-
-      <q-timeline-entry title="Event Title" subtitle="February 22, 1986" avatar="https://cdn.quasar.dev/img/avatar3.jpg" :body="body" />
-
-      <q-timeline-entry title="Event Title" subtitle="February 21, 1986" icon="delete" :body="body" />
-
-      <q-timeline-entry heading body="November, 2017" />
-
-      <q-timeline-entry title="Event Title" subtitle="February 22, 1986" :body="body" />
-
-      <q-timeline-entry title="Event Title" subtitle="February 22, 1986" :body="body" />
-
-      <q-timeline-entry title="Event Title" subtitle="February 22, 1986" color="orange" icon="done_all" :body="body" />
-
-      <q-timeline-entry title="Event Title" subtitle="February 22, 1986" :body="body" />
-
-      <q-timeline-entry title="Event Title" subtitle="February 22, 1986" :body="body" />
+    <q-card class="q-my-lg archivesTimeline shadow-2 bg-purple-3">
+      <q-card-section class="row justify-center text-white">
+        <div class="text-h6 q-mr-md">归档</div>
+        <div class="text-h6">共<span class="text-h5 q-pa-xs text-yellow">{{count}}</span>篇文章</div>
+      </q-card-section>
+    </q-card>
+    <q-timeline color="secondary" class="archivesTimeline" v-for="(items,name) of archives" :key="name">
+      <q-timeline-entry heading>{{'2020年'+name+'月'}}</q-timeline-entry>
+      <q-timeline-entry v-for="(item,index) of items" :key="item.id" :color="color[index%2]" :icon="icon[index%2]">
+        <template v-slot:title><a :href="'article?id='+item.id">{{item.title}}</a></template>
+        <template v-slot:subtitle>{{item.updateTime}}</template>
+        <div>{{item.description}}</div>
+        <!-- 属性版本 
+          <q-timeline-entry :title="item.title" :subtitle="item.updateTime" :body="item.description" :color="color[index%2]" :icon="icon[index%2]" v-for="(item,index) of items" :key="item.id" /> -->
+      </q-timeline-entry>
     </q-timeline>
   </div>
 </template>
@@ -31,7 +22,33 @@
 export default {
   data() {
     return {
-      body: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.'
+      archives: {10:[{id:1,title:'title',updateTime:'2020-10-23 20:06:06',description:"If you want something you've never had, you must be willing to do something you've never done."},
+                    {id:2,title:'title',updateTime:'2020-10-23 20:06:06',description:"If you want something you've never had, you must be willing to do something you've never done."}],
+                  9:[{id:3,title:'title',updateTime:'2020-10-23 20:06:06',description:"If you want something you've never had, you must be willing to do something you've never done."},
+                    {id:4,title:'title',updateTime:'2020-10-23 20:06:06',description:"If you want something you've never had, you must be willing to do something you've never done."}]},
+      color: ["orange", ""],
+      icon: ["done_all", ""],
+      count: 10,
+    }
+  },
+  mounted: function () {
+    this.queryarchives()
+  },
+  methods: {
+    queryarchives() {
+      this.$axios.get('/archives').then((res) => {
+        const { data } = res;
+        if (data.code == 200) {
+          const d = data.data;
+          const archives = d.archives;
+          const ordered = {};
+          Object.keys(archives).sort((a, b) => b - a).forEach(function (key) { ordered[key] = archives[key] });
+          this.archives = ordered;
+          this.count = d.count;
+        }
+      }).catch(e => {
+        console.log(e);
+      })
     }
   }
 }
@@ -41,6 +58,29 @@ export default {
   width: 60%;
   margin-left: auto;
   margin-right: auto;
-  z-index: 999;
+  /deep/.q-timeline__heading {
+    h3 {
+      font-size: 2rem;
+    }
+    .q-timeline__heading-title {
+      padding-bottom: 10px;
+    }
+  }
+  /deep/.q-timeline__content {
+    h6 {
+      font-size: 1.15rem;
+      font-weight: bold;
+    }
+    .q-timeline__title {
+      margin-bottom: 8px;
+      a {
+        color: #3f51b5;
+      }
+      a:hover {
+        color: #00bcd4;
+      }
+    }
+    padding-bottom: 12px;
+  }
 }
 </style>

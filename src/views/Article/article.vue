@@ -46,13 +46,19 @@
         <q-btn push color="white" text-color="red" label="赞赏" class="q-mt-md" size="md">
           <q-menu anchor="bottom middle" self="top middle">
             <div class="row q-ma-md">
-              <q-avatar square size="120px">
-                <img src="@/assets/images/alipay.png">
-              </q-avatar>
+              <div class="column items-center">
+                <q-avatar square size="120px">
+                  <img src="@/assets/images/alipay.png">
+                </q-avatar>
+                <div class="text-body1 q-mt-xs">支付宝扫一扫</div>
+              </div>
               <q-separator vertical inset class="q-mx-lg" />
-              <q-avatar square size="120px">
-                <img src="@/assets/images/wepay.png">
-              </q-avatar>
+              <div class="column items-center">
+                <q-avatar square size="120px">
+                  <img src="@/assets/images/wepay.png">
+                </q-avatar>
+                <div class="text-body1 q-mt-xs">微信扫一扫</div>
+              </div>
             </div>
           </q-menu>
         </q-btn>
@@ -68,20 +74,31 @@
       </div>
     </q-card>
 
-    <q-card class="q-mt-lg blogDetailCard">
-      <div class="q-pa-md row justify-center">
-        <div style="width: 100%;">
+    <q-card class="blogDetailCard">
+      <q-card-section>
+        <div class="text-body1 text-weight-bold">聊天区</div>
+      </q-card-section>
+      <q-separator inset />
+      <q-card-section class="q-pa-md row justify-center">
+        <q-scroll-area :thumb-style="thumbStyle" style="width:100%;height:500px;" class="q-px-lg">
           <q-chat-message name="me" avatar="https://cdn.quasar.dev/img/avatar3.jpg" :text="['hey, how are you?']" stamp="7 minutes ago" sent bg-color="amber-7" />
           <q-chat-message name="Jane" avatar="https://cdn.quasar.dev/img/avatar5.jpg" :text="[
           'doing fine, how r you?',
           'I just feel like typing a really, really, REALY long message to annoy you...'
         ]" stamp="4 minutes ago" text-color="white" bg-color="primary" />
           <q-chat-message name="Jane" avatar="https://cdn.quasar.dev/img/avatar5.jpg" :text="['Did it work?']" stamp="1 minutes ago" text-color="white" bg-color="primary" />
-        </div>
-      </div>
-      <div class="q-pa-md q-gutter-sm">
+          <q-chat-message name="me" avatar="https://cdn.quasar.dev/img/avatar3.jpg" :text="['hey, how are you?']" stamp="7 minutes ago" sent bg-color="amber-7" />
+          <q-chat-message name="Jane" avatar="https://cdn.quasar.dev/img/avatar5.jpg" :text="[
+          'doing fine, how r you?',
+          'I just feel like typing a really, really, REALY long message to annoy you...'
+        ]" stamp="4 minutes ago" text-color="white" bg-color="primary" />
+          <q-chat-message name="Jane" avatar="https://cdn.quasar.dev/img/avatar5.jpg" :text="['Did it work?']" stamp="1 minutes ago" text-color="white" bg-color="primary" />
+        </q-scroll-area>
+      </q-card-section>
+      <q-separator inset />
+      <q-card-section class="q-pa-md q-gutter-sm">
         <q-editor v-model="editor" min-height="8rem" placeholder="请输入你的评论吧..." align="left" :content-style="{fontSize:'16px'}" />
-        <div class="row justify-end q-ma-md">
+        <q-form class="row justify-end q-ma-md">
           <q-select outlined placeholder="选择一个头像" v-model="model" :options="options" stack-label label="avatar" color="secondary" style="max-width:200px;" class="q-mr-md q-mt-md">
             <template v-slot:selected-item="scope">
               <q-chip dense @remove="scope.removeAtIndex(scope.index)" :tabindex="scope.tabindex" color="white" text-color="secondary" class="q-ma-none">
@@ -91,9 +108,9 @@
             </template>
           </q-select>
           <q-input outlined v-model="name" placeholder="姓名" label="name" style="max-width:300px;" class="q-mt-md q-mr-md" />
-          <q-btn color="secondary" icon="mail" label="发布" style="max-height:40px; margin-top:28px" />
-        </div>
-      </div>
+          <q-btn color="secondary" icon="far fa-paper-plane" label="发布" style="max-height:40px; margin-top:30px" />
+        </q-form>
+      </q-card-section>
     </q-card>
     <q-page-scroller position="bottom-right" :scroll-offset="150" :offset="[18, 18]">
       <q-btn fab icon="keyboard_arrow_up" color="blue-grey" />
@@ -108,6 +125,13 @@ export default {
   data() {
     return {
       heart: 0,
+      thumbStyle: {
+        right: '2px',
+        borderRadius: '5px',
+        backgroundColor: '#027be3',
+        width: '5px',
+        opacity: 0.75
+      },
       blogdetail: {
         content: '',
         updateTime: '2020-10-18 22:11:11',
@@ -167,7 +191,7 @@ export default {
 <style lang="scss" scoped>
 .blogDetailCard {
   width: 60%;
-  margin: 24px auto 0 auto;
+  margin: 24px auto 10px auto;
 }
 
 .blogDetailHeader {

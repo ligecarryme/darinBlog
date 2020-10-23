@@ -5,7 +5,7 @@
         <div class="text-h6 text-center">搜索结果 共<span class="q-ma-xs text-h5 text-amber">{{pagger.totalelements}}</span>个</div>
       </q-card-section>
     </q-card>
-    <q-intersection v-for="item in blog" :key="item.id" transition="scale" class="my-card">
+    <q-intersection v-for="item in blog" :key="item.id" class="my-card">
       <q-card class="q-mt-lg" flat bordered>
         <q-card-section horizontal>
           <q-card-section class="col-4">

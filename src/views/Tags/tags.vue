@@ -4,14 +4,13 @@
       <q-card-section class="bg-indigo-3 text-white">
         <div class="text-h6 text-center">标签  共<span class="q-ma-xs text-h5 text-yellow">11</span>个</div>
       </q-card-section>
-
       <q-card-actions align="around">
         <div class="q-pa-md q-gutter-md flex justify-around">
-          <q-chip square size="md" clickable @click="searchTags(item.id)" v-for="(item,index) of tags" :key="item.id" :color="tagcolor[index % 5]" text-color="white" :icon="tagicon[index % 8]">{{item.name}}</q-chip>
+          <q-chip square size="md" clickable :selected="link === item.id" @click="searchTags(item.id)" v-for="(item,index) of tags" :key="item.id" :color="tagcolor[index % 5]" text-color="white" :icon="tagicon[index % 8]">{{item.name}}</q-chip>
         </div>
       </q-card-actions>
     </q-card>
-
+<!-- 博客列表 -->
     <q-intersection once v-for="item of blog" :key="item.id" transition="scale" class="my-card q-mb-lg">
       <q-card class="q-mt-lg" flat bordered>
         <q-card-section horizontal>
@@ -20,7 +19,7 @@
           </q-card-section>
           <q-card-section class="q-pt-xs">
             <div class="text-h5 q-mt-sm q-mb-xs title">
-              <a :href="'/article?id'+item.id">{{ item.title }}</a>
+              <a :href="'/article?id='+item.id">{{ item.title }}</a>
             </div>
             <div class="flex">
               <div class="text-subtitle2">by {{user.nickname}}</div>
@@ -45,6 +44,7 @@ import { showcharacter } from '@/utils/utils'
 export default {
   data() {
     return {
+      link: '',
       blog: [{
         firstPicture: 'https://picsum.photos/300/200', title: 'new object', updateTime: '2020-10-19 15:53:53',
         description: "If you want something you've never had, you must be willing to do something you've never done.",
@@ -65,9 +65,7 @@ export default {
     this.searchTags();
   },
   methods: {
-    // eslint-disable-next-line no-unused-vars
     searchTags(val){
-      this.link = val;
       const param = {
         current: this.pagger.current,
         id: val || -1,
@@ -78,6 +76,7 @@ export default {
           const d = data.data;
           this.tags = d.tags;
           this.blog = showcharacter(d.blogs.content, 200);
+          this.link = val || this.tags[0].id;
           const { pageable } = d.blogs;
           this.pagger.total = d.blogs.totalPages;
           this.pagger.current = pageable.pageNumber + 1;
