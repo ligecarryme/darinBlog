@@ -80,12 +80,40 @@
       </q-card-section>
       <q-separator inset />
       <q-card-section class="q-pa-md row justify-center">
-        <q-scroll-area :thumb-style="thumbStyle" style="width:100%;height:500px;" class="q-px-lg">
+        <q-scroll-area ref="scrollArea" :thumb-style="thumbStyle" style="width:100%;height:500px;" class="q-px-lg">
           <q-chat-message name="me" avatar="https://cdn.quasar.dev/img/avatar3.jpg" :text="['hey, how are you?']" stamp="7 minutes ago" sent bg-color="amber-7" />
           <q-chat-message name="Jane" avatar="https://cdn.quasar.dev/img/avatar5.jpg" :text="[
           'doing fine, how r you?',
           'I just feel like typing a really, really, REALY long message to annoy you...'
         ]" stamp="4 minutes ago" text-color="white" bg-color="primary" />
+          <q-chat-message name="Jane" avatar="https://cdn.quasar.dev/img/avatar5.jpg" :text="['Did it work?']" stamp="1 minutes ago" text-color="white" bg-color="primary" />
+          <q-chat-message name="me" avatar="https://cdn.quasar.dev/img/avatar3.jpg" :text="['hey, how are you?']" stamp="7 minutes ago" sent bg-color="amber-7" />
+          <q-chat-message name="Jane" avatar="https://cdn.quasar.dev/img/avatar5.jpg" :text="[
+          'doing fine, how r you?',
+          'I just feel like typing a really, really, REALY long message to annoy you...'
+        ]" stamp="4 minutes ago" text-color="white" bg-color="primary" />
+          <q-chat-message name="Jane" avatar="https://cdn.quasar.dev/img/avatar5.jpg" :text="['Did it work?']" stamp="1 minutes ago" text-color="white" bg-color="primary" />
+          <q-chat-message name="Jane" avatar="https://cdn.quasar.dev/img/avatar5.jpg" :text="['Did it work?']" stamp="1 minutes ago" text-color="white" bg-color="primary" />
+          <q-chat-message name="me" avatar="https://cdn.quasar.dev/img/avatar3.jpg" :text="['hey, how are you?']" stamp="7 minutes ago" sent bg-color="amber-7" />
+          <q-chat-message name="Jane" avatar="https://cdn.quasar.dev/img/avatar5.jpg" :text="[
+          'doing fine, how r you?',
+          'I just feel like typing a really, really, REALY long message to annoy you...'
+        ]" stamp="4 minutes ago" text-color="white" bg-color="primary" />
+          <q-chat-message name="Jane" avatar="https://cdn.quasar.dev/img/avatar5.jpg" :text="['Did it work?']" stamp="1 minutes ago" text-color="white" bg-color="primary" />
+          <q-chat-message name="Jane" avatar="https://cdn.quasar.dev/img/avatar5.jpg" :text="['Did it work?']" stamp="1 minutes ago" text-color="white" bg-color="primary" />
+          <q-chat-message name="me" avatar="https://cdn.quasar.dev/img/avatar3.jpg" :text="['hey, how are you?']" stamp="7 minutes ago" sent bg-color="amber-7" />
+          <q-chat-message name="Jane" avatar="https://cdn.quasar.dev/img/avatar5.jpg" :text="[
+          'doing fine, how r you?',
+          'I just feel like typing a really, really, REALY long message to annoy you...'
+        ]" stamp="4 minutes ago" text-color="white" bg-color="primary" />
+          <q-chat-message name="Jane" avatar="https://cdn.quasar.dev/img/avatar5.jpg" :text="['Did it work?']" stamp="1 minutes ago" text-color="white" bg-color="primary" />
+          <q-chat-message name="Jane" avatar="https://cdn.quasar.dev/img/avatar5.jpg" :text="['Did it work?']" stamp="1 minutes ago" text-color="white" bg-color="primary" />
+          <q-chat-message name="me" avatar="https://cdn.quasar.dev/img/avatar3.jpg" :text="['hey, how are you?']" stamp="7 minutes ago" sent bg-color="amber-7" />
+          <q-chat-message name="Jane" avatar="https://cdn.quasar.dev/img/avatar5.jpg" :text="[
+          'doing fine, how r you?',
+          'I just feel like typing a really, really, REALY long message to annoy you...'
+        ]" stamp="4 minutes ago" text-color="white" bg-color="primary" />
+          <q-chat-message name="Jane" avatar="https://cdn.quasar.dev/img/avatar5.jpg" :text="['Did it work?']" stamp="1 minutes ago" text-color="white" bg-color="primary" />
           <q-chat-message name="Jane" avatar="https://cdn.quasar.dev/img/avatar5.jpg" :text="['Did it work?']" stamp="1 minutes ago" text-color="white" bg-color="primary" />
           <q-chat-message name="me" avatar="https://cdn.quasar.dev/img/avatar3.jpg" :text="['hey, how are you?']" stamp="7 minutes ago" sent bg-color="amber-7" />
           <q-chat-message name="Jane" avatar="https://cdn.quasar.dev/img/avatar5.jpg" :text="[
@@ -99,7 +127,7 @@
       <q-card-section class="q-pa-md q-gutter-sm">
         <q-editor v-model="editor" min-height="8rem" placeholder="请输入你的评论吧..." align="left" :content-style="{fontSize:'16px'}" />
         <q-form class="row justify-end q-ma-md">
-          <q-select outlined placeholder="选择一个头像" v-model="model" :options="options" stack-label label="avatar" color="secondary" style="max-width:200px;" class="q-mr-md q-mt-md">
+          <q-select outlined placeholder="选择一个头像" v-model="model" :options="options" stack-label label="avatar" color="secondary" style="max-width:200px;" class="q-ma-md">
             <template v-slot:selected-item="scope">
               <q-chip dense @remove="scope.removeAtIndex(scope.index)" :tabindex="scope.tabindex" color="white" text-color="secondary" class="q-ma-none">
                 <q-avatar color="secondary" text-color="white" :icon="scope.opt.icon" />
@@ -107,8 +135,8 @@
               </q-chip>
             </template>
           </q-select>
-          <q-input outlined v-model="name" placeholder="姓名" label="name" style="max-width:300px;" class="q-mt-md q-mr-md" />
-          <q-btn color="secondary" icon="far fa-paper-plane" label="发布" style="max-height:40px; margin-top:30px" />
+          <q-input outlined v-model="name" placeholder="姓名" label="name" style="max-width:300px;" class="q-ma-md" />
+          <q-btn color="secondary" icon="far fa-paper-plane" label="发布" class="q-mx-md q-mt-lg" size="md" style="max-height:40px;"/>
         </q-form>
       </q-card-section>
     </q-card>
@@ -162,6 +190,9 @@ export default {
   },
   created: function () {
     this.querydetail(window.location.href.split('=')[1])
+  },
+  mounted: function(){
+    this.$refs.scrollArea.setScrollPosition(Number.MAX_SAFE_INTEGER);
   },
   computed: {},
   methods: {

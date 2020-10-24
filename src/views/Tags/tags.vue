@@ -34,7 +34,7 @@
       </q-card>
     </q-intersection>
     <div class="q-pa-lg flex flex-center">
-      <q-pagination v-model="pagger.current" :max="pagger.total" :direction-links="true">
+      <q-pagination v-model="pagger.current" :max="pagger.total" :direction-links="true" @click="searchTags">
       </q-pagination>
     </div>
   </div>

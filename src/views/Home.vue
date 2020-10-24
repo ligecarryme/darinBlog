@@ -28,7 +28,7 @@
         </q-intersection>
       </div>
       <div class="q-pa-lg flex flex-center">
-        <q-pagination v-model="pagger.current" :max="pagger.total" :max-pages="6" :direction-links="true" :boundary-links="true"></q-pagination>
+        <q-pagination v-model="pagger.current" :max="pagger.total" :max-pages="6" :direction-links="true" :boundary-links="true" @click="queryindex"></q-pagination>
       </div>
     </div>
 

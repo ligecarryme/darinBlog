@@ -71,7 +71,7 @@ export default {
     simulateSubmit() {
       setTimeout(() => {
         this.search();
-        // this.$refs.searchform.reset();
+        this.$refs.searchform.reset();
       }, 100)
     },
     search() {
@@ -88,9 +88,9 @@ export default {
       this.load = true;
       setTimeout(() => {
         this.load = false;
-        this.$router.push({ path: '/search', query: { param: this.searchtext } });
         this.searchtext = '';
       }, 500)
+      this.$router.push({ path: '/search', query: { param: this.searchtext } });
       this.reload();
     },
     reload() {

@@ -6,28 +6,38 @@
         <div class="text-h6">共<span class="text-h5 q-pa-xs text-yellow">{{count}}</span>篇文章</div>
       </q-card-section>
     </q-card>
-    <q-timeline color="secondary" class="archivesTimeline" v-for="(items,name) of archives" :key="name">
-      <q-timeline-entry heading>{{'2020年'+name+'月'}}</q-timeline-entry>
-      <q-timeline-entry v-for="(item,index) of items" :key="item.id" :color="color[index%2]" :icon="icon[index%2]">
-        <template v-slot:title><a :href="'article?id='+item.id">{{item.title}}</a></template>
-        <template v-slot:subtitle>{{item.updateTime}}</template>
-        <div>{{item.description}}</div>
-        <!-- 属性版本 
+    <!-- <q-infinite-scroll @load="onload" :offset="250"> -->
+      <q-timeline color="secondary" class="archivesTimeline" v-for="(items,name) of archives" :key="name">
+        <q-timeline-entry heading>{{'2020年'+name+'月'}}</q-timeline-entry>
+        <q-timeline-entry v-for="(item,index) of items" :key="item.id" :color="color[index%2]" :icon="icon[index%2]">
+          <template v-slot:title><a :href="'article?id='+item.id">{{item.title}}</a></template>
+          <template v-slot:subtitle>{{item.updateTime}}</template>
+          <div>{{item.description}}</div>
+          <!-- 属性版本 
           <q-timeline-entry :title="item.title" :subtitle="item.updateTime" :body="item.description" :color="color[index%2]" :icon="icon[index%2]" v-for="(item,index) of items" :key="item.id" /> -->
-      </q-timeline-entry>
-    </q-timeline>
+        </q-timeline-entry>
+      </q-timeline>
+      <!-- <template v-slot:loading>
+        <div class="row justify-center q-my-md">
+          <q-spinner-dots color="primary" size="40px" />
+        </div>
+      </template>
+    </q-infinite-scroll> -->
+
   </div>
 </template>
 <script>
 export default {
   data() {
     return {
-      archives: {10:[{id:1,title:'title',updateTime:'2020-10-23 20:06:06',description:"If you want something you've never had, you must be willing to do something you've never done."},
-                    {id:2,title:'title',updateTime:'2020-10-23 20:06:06',description:"If you want something you've never had, you must be willing to do something you've never done."}],
-                  9:[{id:3,title:'title',updateTime:'2020-10-23 20:06:06',description:"If you want something you've never had, you must be willing to do something you've never done."},
-                    {id:4,title:'title',updateTime:'2020-10-23 20:06:06',description:"If you want something you've never had, you must be willing to do something you've never done."}]},
+      archives: {
+        10: [{ id: 1, title: 'title', updateTime: '2020-10-23 20:06:06', description: "If you want something you've never had, you must be willing to do something you've never done." },
+        { id: 2, title: 'title', updateTime: '2020-10-23 20:06:06', description: "If you want something you've never had, you must be willing to do something you've never done." }],
+        9: [{ id: 3, title: 'title', updateTime: '2020-10-23 20:06:06', description: "If you want something you've never had, you must be willing to do something you've never done." },
+        { id: 4, title: 'title', updateTime: '2020-10-23 20:06:06', description: "If you want something you've never had, you must be willing to do something you've never done." }]
+      },
       color: ["orange", ""],
-      icon: ["done_all", ""],
+      icon: ["done_all", "add_task"],
       count: 10,
     }
   },
@@ -49,6 +59,14 @@ export default {
       }).catch(e => {
         console.log(e);
       })
+    },
+    onload(index,done){
+      setTimeout(()=>{
+        if (this.archives) {
+            // this.archives.set({},{})
+            done()
+        }
+      },2000)
     }
   }
 }

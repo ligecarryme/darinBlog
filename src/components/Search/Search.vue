@@ -28,7 +28,7 @@
       </q-card>
     </q-intersection>
     <div class="q-mt-lg q-pa-lg flex flex-center">
-      <q-pagination v-model="pagger.current" :max="pagger.totalpages" :direction-links="true">
+      <q-pagination v-model="pagger.current" :max="pagger.totalpages" :direction-links="true" @click="searchblog">
       </q-pagination>
     </div>
     <div style="height:20px;"></div>
@@ -56,7 +56,9 @@ export default {
       }
     }
   },
-  created: function () { },
+  created: function () {
+      
+  },
   mounted: function() {
     const { param } = this.$route.query;
     this.searchblog(param);
