@@ -71,7 +71,7 @@
           <q-item v-for="item of topblogs" :key="item.id" style="border-bottom: 1px solid rgba(0, 0, 0, 0.12)">
             <q-item-section>
               <q-item-label class="recoma">
-                <a href="/article" class="text-body1">{{item.title}}</a>
+                <a :href="'/article?id='+item.id" class="text-body1">{{item.title}}</a>
               </q-item-label>
               <q-item-label caption>
                 <span class="text-body2">{{item.description}}</span>

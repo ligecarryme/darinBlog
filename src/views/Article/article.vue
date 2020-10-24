@@ -43,7 +43,7 @@
       </q-card-section>
       <vue-markdown class="markdown-body q-pa-md" :source="blogdetail.content"></vue-markdown>
       <div align="center">
-        <q-btn push color="white" text-color="red" label="赞赏" class="q-mt-md" size="md">
+        <q-btn push color="white" text-color="red" label="赞赏" class="q-mt-md" size="medium">
           <q-menu anchor="bottom middle" self="top middle">
             <div class="row q-ma-md">
               <div class="column items-center">
@@ -63,7 +63,7 @@
           </q-menu>
         </q-btn>
       </div>
-      <div class="q-mt-lg authorList">
+      <div class="q-mt-lg authorList text-body1">
         <br>
         <ul align="left">
           <li>作者：<span>{{user.nickname}}</span></li>
@@ -76,11 +76,11 @@
 
     <q-card class="blogDetailCard">
       <q-card-section>
-        <div class="text-body1 text-weight-bold">聊天区</div>
+        <div class="text-h6 text-weight-bold text-light-blue text-center">聊天区</div>
       </q-card-section>
       <q-separator inset />
       <q-card-section class="q-pa-md row justify-center">
-        <q-scroll-area ref="scrollArea" :thumb-style="thumbStyle" style="width:100%;height:500px;" class="q-px-lg">
+        <q-scroll-area ref="scrollArea" :thumb-style="thumbStyle" style="width:100%;height:500px;" class="q-px-lg text-body2">
           <q-chat-message name="me" avatar="https://cdn.quasar.dev/img/avatar3.jpg" :text="['hey, how are you?']" stamp="7 minutes ago" sent bg-color="amber-7" />
           <q-chat-message name="Jane" avatar="https://cdn.quasar.dev/img/avatar5.jpg" :text="[
           'doing fine, how r you?',
@@ -106,37 +106,28 @@
           'doing fine, how r you?',
           'I just feel like typing a really, really, REALY long message to annoy you...'
         ]" stamp="4 minutes ago" text-color="white" bg-color="primary" />
-          <q-chat-message name="Jane" avatar="https://cdn.quasar.dev/img/avatar5.jpg" :text="['Did it work?']" stamp="1 minutes ago" text-color="white" bg-color="primary" />
-          <q-chat-message name="Jane" avatar="https://cdn.quasar.dev/img/avatar5.jpg" :text="['Did it work?']" stamp="1 minutes ago" text-color="white" bg-color="primary" />
-          <q-chat-message name="me" avatar="https://cdn.quasar.dev/img/avatar3.jpg" :text="['hey, how are you?']" stamp="7 minutes ago" sent bg-color="amber-7" />
-          <q-chat-message name="Jane" avatar="https://cdn.quasar.dev/img/avatar5.jpg" :text="[
-          'doing fine, how r you?',
-          'I just feel like typing a really, really, REALY long message to annoy you...'
-        ]" stamp="4 minutes ago" text-color="white" bg-color="primary" />
-          <q-chat-message name="Jane" avatar="https://cdn.quasar.dev/img/avatar5.jpg" :text="['Did it work?']" stamp="1 minutes ago" text-color="white" bg-color="primary" />
-          <q-chat-message name="Jane" avatar="https://cdn.quasar.dev/img/avatar5.jpg" :text="['Did it work?']" stamp="1 minutes ago" text-color="white" bg-color="primary" />
-          <q-chat-message name="me" avatar="https://cdn.quasar.dev/img/avatar3.jpg" :text="['hey, how are you?']" stamp="7 minutes ago" sent bg-color="amber-7" />
-          <q-chat-message name="Jane" avatar="https://cdn.quasar.dev/img/avatar5.jpg" :text="[
-          'doing fine, how r you?',
-          'I just feel like typing a really, really, REALY long message to annoy you...'
-        ]" stamp="4 minutes ago" text-color="white" bg-color="primary" />
-          <q-chat-message name="Jane" avatar="https://cdn.quasar.dev/img/avatar5.jpg" :text="['Did it work?']" stamp="1 minutes ago" text-color="white" bg-color="primary" />
         </q-scroll-area>
       </q-card-section>
       <q-separator inset />
       <q-card-section class="q-pa-md q-gutter-sm">
-        <q-editor v-model="editor" min-height="8rem" placeholder="请输入你的评论吧..." align="left" :content-style="{fontSize:'16px'}" />
+        <q-editor v-model="editor" min-height="8rem" placeholder="请输入你的评论吧..." align="left" :content-style="{fontSize:'17px'}" />
         <q-form class="row justify-end q-ma-md">
-          <q-select outlined placeholder="选择一个头像" v-model="model" :options="options" stack-label label="avatar" color="secondary" style="max-width:200px;" class="q-ma-md">
-            <template v-slot:selected-item="scope">
-              <q-chip dense @remove="scope.removeAtIndex(scope.index)" :tabindex="scope.tabindex" color="white" text-color="secondary" class="q-ma-none">
-                <q-avatar color="secondary" text-color="white" :icon="scope.opt.icon" />
-                {{ scope.opt.label }}
-              </q-chip>
+          <q-select outlined options-selected-class="text-deep-orange" v-model="model" :options="options" stack-label label="avatar(头像)" color="secondary" style="width:150px;" class="q-ma-md">
+            <template v-slot:option="scope">
+              <q-item v-bind="scope.itemProps" v-on="scope.itemEvents" color="white" text-color="secondary" class="q-ma-none">
+                <q-item-section>
+                  <q-avatar>
+                    <img :src="scope.opt.icon">
+                  </q-avatar>
+                </q-item-section>
+                <q-item-section>
+                  <q-item-label v-html="scope.opt.label" />
+                </q-item-section>
+              </q-item>
             </template>
           </q-select>
-          <q-input outlined v-model="name" placeholder="姓名" label="name" style="max-width:300px;" class="q-ma-md" />
-          <q-btn color="secondary" icon="far fa-paper-plane" label="发布" class="q-mx-md q-mt-lg" size="md" style="max-height:40px;"/>
+          <q-input color="secondary" outlined v-model="name" placeholder="姓名" label="name" style="max-width:300px;" class="q-ma-md" />
+          <q-btn color="secondary" icon="far fa-paper-plane" label="发布" class="q-mx-md" size="md" style="max-height:40px;margin-top:30px;" />
         </q-form>
       </q-card-section>
     </q-card>
@@ -168,6 +159,9 @@ export default {
         flag: '原创',
         title: 'Our Changing Planet',
       },
+      comment: {
+
+      },
       user: {
         nickname: 'darin'
       },
@@ -175,23 +169,24 @@ export default {
       name: '',
       drawer: '',
       model: {
-        label: 'Google',
-        value: 'goog',
-        icon: 'mail'
+        label: 'Aaron',
+        value: 'Aaron',
+        icon: 'https://cdn.quasar.dev/img/avatar1.jpg'
       },
       options: [
-        { label: 'Google', value: 'goog', icon: 'mail' },
-        { label: 'Facebook', value: 'fb', icon: 'bluetooth' },
-        { label: 'Twitter', value: 'twt', icon: 'map' },
-        { label: 'Apple', value: 'app', icon: 'golf_course' },
-        { label: 'Oracle', value: 'ora', disable: true, icon: 'casino' }
+        { label: 'Aaron', value: 'Aaron', icon: 'https://cdn.quasar.dev/img/avatar1.jpg' },
+        { label: 'Alice', value: 'Alice', icon: 'https://cdn.quasar.dev/img/avatar2.jpg' },
+        { label: 'Chris', value: 'Chris', icon: 'https://cdn.quasar.dev/img/avatar3.jpg' },
+        { label: 'Tommy', value: 'Tommy', icon: 'https://cdn.quasar.dev/img/avatar4.jpg' },
+        { label: 'Daisy', value: 'Daisy', icon: 'https://cdn.quasar.dev/img/avatar5.jpg' },
+        { label: 'Kelly', value: 'Kelly', icon: 'https://cdn.quasar.dev/img/avatar6.jpg' }
       ]
     }
   },
   created: function () {
     this.querydetail(window.location.href.split('=')[1])
   },
-  mounted: function(){
+  mounted: function () {
     this.$refs.scrollArea.setScrollPosition(Number.MAX_SAFE_INTEGER);
   },
   computed: {},
