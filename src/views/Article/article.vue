@@ -80,39 +80,19 @@
       </q-card-section>
       <q-separator inset />
       <q-card-section class="q-pa-md row justify-center">
-        <q-scroll-area ref="scrollArea" :thumb-style="thumbStyle" style="width:100%;height:500px;" class="q-px-lg text-body2">
-          <q-chat-message name="me" avatar="https://cdn.quasar.dev/img/avatar3.jpg" :text="['hey, how are you?']" stamp="7 minutes ago" sent bg-color="amber-7" />
-          <q-chat-message name="Jane" avatar="https://cdn.quasar.dev/img/avatar5.jpg" :text="[
-          'doing fine, how r you?',
-          'I just feel like typing a really, really, REALY long message to annoy you...'
-        ]" stamp="4 minutes ago" text-color="white" bg-color="primary" />
-          <q-chat-message name="Jane" avatar="https://cdn.quasar.dev/img/avatar5.jpg" :text="['Did it work?']" stamp="1 minutes ago" text-color="white" bg-color="primary" />
-          <q-chat-message name="me" avatar="https://cdn.quasar.dev/img/avatar3.jpg" :text="['hey, how are you?']" stamp="7 minutes ago" sent bg-color="amber-7" />
-          <q-chat-message name="Jane" avatar="https://cdn.quasar.dev/img/avatar5.jpg" :text="[
-          'doing fine, how r you?',
-          'I just feel like typing a really, really, REALY long message to annoy you...'
-        ]" stamp="4 minutes ago" text-color="white" bg-color="primary" />
-          <q-chat-message name="Jane" avatar="https://cdn.quasar.dev/img/avatar5.jpg" :text="['Did it work?']" stamp="1 minutes ago" text-color="white" bg-color="primary" />
-          <q-chat-message name="Jane" avatar="https://cdn.quasar.dev/img/avatar5.jpg" :text="['Did it work?']" stamp="1 minutes ago" text-color="white" bg-color="primary" />
-          <q-chat-message name="me" avatar="https://cdn.quasar.dev/img/avatar3.jpg" :text="['hey, how are you?']" stamp="7 minutes ago" sent bg-color="amber-7" />
-          <q-chat-message name="Jane" avatar="https://cdn.quasar.dev/img/avatar5.jpg" :text="[
-          'doing fine, how r you?',
-          'I just feel like typing a really, really, REALY long message to annoy you...'
-        ]" stamp="4 minutes ago" text-color="white" bg-color="primary" />
-          <q-chat-message name="Jane" avatar="https://cdn.quasar.dev/img/avatar5.jpg" :text="['Did it work?']" stamp="1 minutes ago" text-color="white" bg-color="primary" />
-          <q-chat-message name="Jane" avatar="https://cdn.quasar.dev/img/avatar5.jpg" :text="['Did it work?']" stamp="1 minutes ago" text-color="white" bg-color="primary" />
-          <q-chat-message name="me" avatar="https://cdn.quasar.dev/img/avatar3.jpg" :text="['hey, how are you?']" stamp="7 minutes ago" sent bg-color="amber-7" />
-          <q-chat-message name="Jane" avatar="https://cdn.quasar.dev/img/avatar5.jpg" :text="[
-          'doing fine, how r you?',
-          'I just feel like typing a really, really, REALY long message to annoy you...'
-        ]" stamp="4 minutes ago" text-color="white" bg-color="primary" />
+        <!-- -->
+        <q-scroll-area ref="chatArea" @scroll="scrollinfo" :thumb-style="thumbStyle" style="width:100%;height:500px;" class="q-px-lg text-body2">
+          <div v-for="(item,index) of message" :key="item.id">
+            <q-chat-message :name="item.nickname" :avatar="item.avatar" :text="[item.content]" :stamp="item.createTime" :sent="index === msgNum-1" text-color="white" :bg-color="msgcolor[index%5]" />
+          </div>
+          <q-scroll-observer />
         </q-scroll-area>
       </q-card-section>
       <q-separator inset />
       <q-card-section class="q-pa-md q-gutter-sm">
-        <q-editor v-model="editor" min-height="8rem" placeholder="请输入你的评论吧..." align="left" :content-style="{fontSize:'17px'}" />
-        <q-form class="row justify-end q-ma-md">
-          <q-select outlined options-selected-class="text-deep-orange" v-model="model" :options="options" stack-label label="avatar(头像)" color="secondary" style="width:150px;" class="q-ma-md">
+        <q-editor v-model="submitComment.content" min-height="8rem" placeholder="请输入你的评论吧..." align="left" :content-style="{fontSize:'17px'}" />
+        <q-form ref="myForm" class="row justify-end q-mx-md">
+          <q-select outlined options-selected-class="text-deep-orange" v-model="avatarmodel" :options="options" stack-label label="avatar(头像)" color="secondary" style="width:150px;padding-bottom:18px;" class="q-ma-md">
             <template v-slot:option="scope">
               <q-item v-bind="scope.itemProps" v-on="scope.itemEvents" color="white" text-color="secondary" class="q-ma-none">
                 <q-item-section>
@@ -126,8 +106,8 @@
               </q-item>
             </template>
           </q-select>
-          <q-input color="secondary" outlined v-model="name" placeholder="姓名" label="name" style="max-width:300px;" class="q-ma-md" />
-          <q-btn color="secondary" icon="far fa-paper-plane" label="发布" class="q-mx-md" size="md" style="max-height:40px;margin-top:30px;" />
+          <q-input color="secondary" ref="input" lazy-rules="ondemand" outlined v-model="submitComment.nickname" :rules="[val => !!val || '请输入你的名字']" placeholder="姓名" label="name" style="width:200px;" class="q-ma-md" />
+          <q-btn color="secondary" icon="far fa-paper-plane" label="发布" class="q-ml-md" size="md" @click="submitcomment" style="max-height:40px;margin-top:30px;" />
         </q-form>
       </q-card-section>
     </q-card>
@@ -144,6 +124,8 @@ export default {
   data() {
     return {
       heart: 0,
+      msgNum: 0,
+      sizeinfo: 500,
       thumbStyle: {
         right: '2px',
         borderRadius: '5px',
@@ -159,16 +141,18 @@ export default {
         flag: '原创',
         title: 'Our Changing Planet',
       },
-      comment: {
-
+      submitComment: {
+        content: '',
+        nickname: ''
       },
+      message: [{
+
+      }],
+      msgcolor: ['blue', 'ligth-blue', 'cyan', 'teal', 'green'],
       user: {
         nickname: 'darin'
       },
-      editor: '',
-      name: '',
-      drawer: '',
-      model: {
+      avatarmodel: {
         label: 'Aaron',
         value: 'Aaron',
         icon: 'https://cdn.quasar.dev/img/avatar1.jpg'
@@ -184,12 +168,18 @@ export default {
     }
   },
   created: function () {
-    this.querydetail(window.location.href.split('=')[1])
+    const bid = window.location.href.split('=')[1];
+    this.querydetail(bid);
+    this.querycomment(bid);
   },
   mounted: function () {
-    this.$refs.scrollArea.setScrollPosition(Number.MAX_SAFE_INTEGER);
+      // this.$refs.chatArea.setScrollPosition(this.sizeinfo-500,100);
   },
-  computed: {},
+  computed: {
+    pos : function(){
+      return this.sizeinfo;
+    }
+  },
   methods: {
     querydetail(blogid) {
       this.$axios.get('/blogDetail/' + blogid).then((res) => {
@@ -203,6 +193,56 @@ export default {
         console.log(err);
       })
     },
+    submitcomment() {
+      let rmhtmlcontent = this.submitComment.content.replace(/<\/?[^>]*>/g, '');
+      rmhtmlcontent = rmhtmlcontent.replace(/&nbsp;/ig, ' ');
+      if (!(rmhtmlcontent.trim())) {
+        this.$q.notify({
+          message: '输入一些评论吧。。',
+          icon: 'info',
+          color: 'teal',
+          position: 'center',
+          timeout: 1000
+        })
+        return;
+      }
+      this.$refs.myForm.validate().then(success => {
+        if (success) {
+          const param = {
+            content: rmhtmlcontent,
+            blogId: parseInt(window.location.href.split('=')[1]),
+            avatar: this.avatarmodel.icon,
+            nickname: this.submitComment.nickname
+          }
+          this.$axios.post('/comments', param).then(res => {
+            const { data } = res;
+            if (data.code === 200) {
+              this.$q.notify({
+                message: '评论成功',
+                icon: 'done',
+                color: 'positive',
+                position: 'center',
+                timeout: 1000
+              });
+              this.submitComment.content = '';
+              this.querycomment(param.blogId);
+            }
+          })
+        } else return;
+      })
+    },
+    querycomment(blogid) {
+      this.$axios.get('/comments/' + blogid).then((res) => {
+        const { data } = res;
+        if (data.code === 200) {
+          this.message = data.data;
+          this.msgNum = data.data.length;
+        }
+      }).catch(err => {
+        console.log(err);
+      })
+      // this.$refs.chatArea.setScrollPosition(this.sizeinfo-500,50);
+    },
     shareblog(position) {
       // document.execCommand('copy');
       this.$q.notify({
@@ -210,6 +250,17 @@ export default {
         message: '链接已复制',
         color: 'positive'
       })
+    },
+    // scroll() {
+      // const scrollArea = this.$refs.chatArea;
+      // console.log(scrollArea);
+      // const scrollTarget = scrollArea.getScrollTarget();
+      // const duration = 0;
+      // console.log(scrollTarget.scrollHeight);
+      // scrollArea.setScrollPosition(scrollTarget.scrollHeight, duration)
+    // },
+    scrollinfo(info){
+      this.sizeinfo = info.verticalSize;
     }
   }
 }

@@ -35,7 +35,7 @@
     <!-- 主体 :style="{backgroundImage:'url('+ img +')'}"-->
     <q-page-container class="bg">
       <particles />
-      <router-view v-if="isRouterAlive" />
+      <router-view :key="componentKey" />
       <q-ajax-bar position="top" size="3px" color="warning"/>
     </q-page-container>
     <!-- 底部 -->
@@ -57,8 +57,8 @@ export default {
   components: { particles },
   data() {
     return {
+      componentKey: 0,
       load: false,
-      isRouterAlive: true,
       right: false,
       tab: '',
       searchtext: '',
@@ -91,13 +91,10 @@ export default {
         this.searchtext = '';
       }, 500)
       this.$router.push({ path: '/search', query: { param: this.searchtext } });
-      this.reload();
+      this.forceRerender();
     },
-    reload() {
-      this.isRouterAlive = false;
-      this.$nextTick(function () {
-        this.isRouterAlive = true;
-      })
+    forceRerender(){
+      this.componentKey += 1; 
     }
   }
 }

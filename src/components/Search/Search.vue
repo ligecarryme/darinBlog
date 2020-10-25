@@ -56,9 +56,7 @@ export default {
       }
     }
   },
-  created: function () {
-      
-  },
+  created: function () { },
   mounted: function() {
     const { param } = this.$route.query;
     this.searchblog(param);
