@@ -95,7 +95,7 @@
       <q-separator inset />
       <q-card-section class="q-pa-md q-gutter-sm">
         <q-editor v-model="submitComment.content" min-height="8rem" placeholder="请输入你的评论吧..." align="left" :content-style="{fontSize:'17px'}" />
-        <q-form ref="myForm" class="row justify-end q-mx-md">
+        <q-form @submit="submitcomment" ref="myForm" class="row justify-end q-mx-md">
           <q-select outlined options-selected-class="text-deep-orange" v-model="avatarmodel" :options="options" stack-label label="avatar(头像)" color="secondary" style="width:150px;padding-bottom:18px;" class="q-ma-md">
             <template v-slot:option="scope">
               <q-item v-bind="scope.itemProps" v-on="scope.itemEvents" color="white" text-color="secondary" class="q-ma-none">
@@ -108,10 +108,10 @@
                   <q-item-label v-html="scope.opt.label" />
                 </q-item-section>
               </q-item>
-            </template>
+            </template>                                                                                                 <!--  @click="submitcomment"-->
           </q-select>
           <q-input color="secondary" ref="input" lazy-rules="ondemand" outlined v-model="submitComment.nickname" :rules="[val => !!val || '请输入你的名字']" placeholder="姓名" label="name" style="width:200px;" class="q-ma-md" />
-          <q-btn color="secondary" icon="far fa-paper-plane" label="发布" class="q-ml-md" size="md" @click="submitcomment" style="max-height:40px;margin-top:30px;" />
+          <q-btn color="secondary" type="submit" icon="far fa-paper-plane" label="发布" class="q-ml-md" size="md" style="max-height:40px;margin-top:30px;" />
         </q-form>
       </q-card-section>
     </q-card>
@@ -321,7 +321,7 @@ export default {
       list-style-type: none;
       padding-inline-start: 0;
       li {
-        padding-left: 15px;
+        padding: 2px 15px 2px 10px;
       }
     }
     a {
