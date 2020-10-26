@@ -36,7 +36,7 @@
     <q-page-container class="bg">
       <particles />
       <router-view :key="componentKey" />
-      <q-ajax-bar position="top" size="3px" color="warning"/>
+      <q-ajax-bar position="top" size="3px" color="warning" />
     </q-page-container>
     <!-- 底部 -->
     <div class="blogFooter">
@@ -65,7 +65,7 @@ export default {
       // img: require('./assets/logo.jpg')
     };
   },
-  created() {},
+  created() { },
   computed: {},
   methods: {
     simulateSubmit() {
@@ -93,8 +93,8 @@ export default {
       this.$router.push({ path: '/search', query: { param: this.searchtext } });
       this.forceRerender();
     },
-    forceRerender(){
-      this.componentKey += 1; 
+    forceRerender() {
+      this.componentKey += 1;
     }
   }
 }

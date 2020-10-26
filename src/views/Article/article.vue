@@ -1,5 +1,10 @@
 <template>
   <div class="q-mt-md">
+    <!--  -->
+    <q-drawer v-model="drawer" side="right" persistent overlay behavior="desktop" :width="180">
+      <div id="toc" class="toc"></div>
+    </q-drawer>
+
     <q-card class="blogDetailCard q-mt-lg">
       <q-item>
         <q-item-section avatar>
@@ -24,7 +29,6 @@
           <q-rating v-model="heart" max="1" size="2em" color="red" color-selected="red-9" icon="favorite_border" icon-selected="favorite" icon-half="favorite" no-dimming />
           <q-btn flat round color="primary" class="q-ml-md" icon="share" @click="shareblog('right')" />
         </q-card-actions>
-
       </q-item>
       <q-parallax src="https://cdn.quasar.dev/img/parallax1.jpg" :height="300" />
       <div class="row justify-between">
@@ -37,11 +41,11 @@
           <q-btn outline style="color: goldenrod;" :label="blogdetail.flag" size="11px" />
         </div>
       </div>
-
+      <!-- 博客内容 -->
       <q-card-section>
         <div class="text-h5 q-mt-lg text-center text-weight-bold">{{blogdetail.title}}</div>
       </q-card-section>
-      <vue-markdown class="markdown-body q-pa-md" :source="blogdetail.content"></vue-markdown>
+      <vue-markdown class="markdown-body q-pa-md" :source="blogdetail.content" :toc-anchor-link="false" :toc="true" toc-id="toc" :toc-first-level="3" toc-rendered="tocAllRight"></vue-markdown>
       <div align="center">
         <q-btn push color="white" text-color="red" label="赞赏" class="q-mt-md" size="medium">
           <q-menu anchor="bottom middle" self="top middle">
@@ -80,9 +84,9 @@
       </q-card-section>
       <q-separator inset />
       <q-card-section class="q-pa-md row justify-center">
-        <!-- -->
+        <!-- 聊天滚动区域 -->
         <q-scroll-area ref="chatArea" @scroll="scrollinfo" :thumb-style="thumbStyle" style="width:100%;height:500px;" class="q-px-lg text-body2">
-          <div v-for="(item,index) of message" :key="item.id">
+          <div v-for="(item,index) of message" :key="item.id" class="text-body1">
             <q-chat-message :name="item.nickname" :avatar="item.avatar" :text="[item.content]" :stamp="item.createTime" :sent="index === msgNum-1" text-color="white" :bg-color="msgcolor[index%5]" />
           </div>
           <q-scroll-observer />
@@ -125,7 +129,8 @@ export default {
     return {
       heart: 0,
       msgNum: 0,
-      sizeinfo: 500,
+      scrollsize: 500,
+      drawer: true,
       thumbStyle: {
         right: '2px',
         borderRadius: '5px',
@@ -146,7 +151,10 @@ export default {
         nickname: ''
       },
       message: [{
-
+        nickname: 'darin',
+        avatar: 'https://cdn.quasar.dev/img/avatar1.jpg',
+        content: 'Hello World',
+        createTime: '2020-10-26 10:30:00'
       }],
       msgcolor: ['blue', 'ligth-blue', 'cyan', 'teal', 'green'],
       user: {
@@ -172,12 +180,11 @@ export default {
     this.querydetail(bid);
     this.querycomment(bid);
   },
-  mounted: function () {
-      // this.$refs.chatArea.setScrollPosition(this.sizeinfo-500,100);
-  },
-  computed: {
-    pos : function(){
-      return this.sizeinfo;
+  mounted: function () { },
+  computed: {},
+  watch: {
+    scrollsize: function (val) {
+      this.$refs.chatArea.setScrollPosition(val - 500, 100);
     }
   },
   methods: {
@@ -241,7 +248,6 @@ export default {
       }).catch(err => {
         console.log(err);
       })
-      // this.$refs.chatArea.setScrollPosition(this.sizeinfo-500,50);
     },
     shareblog(position) {
       // document.execCommand('copy');
@@ -252,15 +258,20 @@ export default {
       })
     },
     // scroll() {
-      // const scrollArea = this.$refs.chatArea;
-      // console.log(scrollArea);
-      // const scrollTarget = scrollArea.getScrollTarget();
-      // const duration = 0;
-      // console.log(scrollTarget.scrollHeight);
-      // scrollArea.setScrollPosition(scrollTarget.scrollHeight, duration)
+    // const scrollArea = this.$refs.chatArea;
+    // console.log(scrollArea);
+    // const scrollTarget = scrollArea.getScrollTarget();
+    // const duration = 0;
+    // console.log(scrollTarget.scrollHeight);
+    // scrollArea.setScrollPosition(scrollTarget.scrollHeight, duration)
     // },
-    scrollinfo(info){
-      this.sizeinfo = info.verticalSize;
+    scrollinfo(info) {
+      const size = info.verticalSize;
+      this.scrollsize = size;
+      // this.$refs.chatArea.setScrollPosition(this.scrollsize-500,50);
+    },
+    tocAllRight(tocHtmlStr) {
+      console.log(tocHtmlStr);
     }
   }
 }
@@ -297,6 +308,28 @@ export default {
 @media (max-width: 767px) {
   .markdown-body {
     padding: 15px;
+  }
+}
+
+/deep/.q-drawer {
+  background: transparent;
+  .toc {
+    position: absolute;
+    top: 50px;
+    font-size: 14px;
+    ul {
+      list-style-type: none;
+      padding-inline-start: 0;
+      li {
+        padding-left: 15px;
+      }
+    }
+    a {
+      color: #616161;
+    }
+    a:hover {
+      color: #2196f3;
+    }
   }
 }
 </style>
