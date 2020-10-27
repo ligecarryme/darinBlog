@@ -70,7 +70,7 @@
         <div class="q-pa-md">
           <q-item v-for="item of topblogs" :key="item.id" style="border-bottom: 1px solid rgba(0, 0, 0, 0.12)">
             <q-item-section>
-              <q-item-label class="recoma">
+              <q-item-label class="title">
                 <a :href="'/article?id='+item.id" class="text-body1">{{item.title}}</a>
               </q-item-label>
               <q-item-label caption>
@@ -92,25 +92,28 @@
         <q-card-section class="bg-teal text-white">
           <div class="text-h6 text-center">联系我</div>
         </q-card-section>
-
         <q-card-actions align="around">
-          <q-img src="https://cdn.quasar.dev/img/mountains.jpg" style="margin-bottom: 0.3em" />
-          <q-btn type="a" href="https://github.com/ligecarryme" glossy color="primary" round flat icon="fab fa-github">
+          <q-img :ratio="3/2" :src="require('../assets/images/me.png')" style="margin-bottom: 0.3em;">
+            <transition appear enter-active-class="animated tada slow" leave-active-class="animated flipOutY slow">
+              <div v-if="helloshow" class="text-black helloworld" v-html="helloworld"></div>
+            </transition>
+          </q-img>
+          <q-separator inset />
+          <q-btn type="a" href="https://github.com/ligecarryme" glossy color="primary" round icon="fab fa-github">
             <q-tooltip transition-show="rotate" transition-hide="rotate" max-height="200px" max-width="200px">github</q-tooltip>
           </q-btn>
-          <q-btn glossy color="primary" round flat icon="fab fa-qq" @click="sideBar.qqBar = true">
+          <q-btn glossy color="primary" round icon="fab fa-qq" @click="sideBar.qqBar = true">
             <q-tooltip transition-show="rotate" transition-hide="rotate" max-height="200px" max-width="200px">qq</q-tooltip>
           </q-btn>
-          <q-btn glossy color="primary" round flat icon="fab fa-weixin" @click="sideBar.weChatBar = true">
+          <q-btn glossy color="primary" round icon="fab fa-weixin" @click="sideBar.weChatBar = true">
             <q-tooltip transition-show="rotate" transition-hide="rotate" max-height="200px" max-width="200px">wechat</q-tooltip>
           </q-btn>
-          <q-btn type="a" href="https://mail.google.com" glossy color="primary" round flat icon="mail">
+          <q-btn type="a" href="https://mail.google.com" glossy color="primary" round icon="mail">
             <q-tooltip transition-show="rotate" transition-hide="rotate" max-height="200px" max-width="200px">e-mail</q-tooltip>
           </q-btn>
-          <q-btn glossy color="primary" round flat icon="send">
+          <q-btn glossy color="primary" round icon="send" to="/aboutme">
             <q-tooltip transition-show="rotate" transition-hide="rotate" max-height="200px" max-width="200px">me</q-tooltip>
           </q-btn>
-
           <q-dialog v-model="sideBar.qqBar">
             <q-card>
               <q-toolbar style="padding:0;">
@@ -135,10 +138,17 @@
 </template>
 
 <script>
+import '@quasar/extras/animate/tada.css'
+import '@quasar/extras/animate/flipOutY.css'
 export default {
   name: "Home",
   data() {
     return {
+      helloshow: true,
+      helloworld: `<div><span style="color: #1976d2">System.out.println</span> </br> 
+                  <span style="color: #6a8759">('Hello World')</span></br> 
+                  <span style="color: #4caf50"> su - </span></br> 
+                  <span style="color: #f2c037"> rm -rf /*</span></div>`,
       pagger: {
         current: 1,
         total: 1
@@ -153,11 +163,11 @@ export default {
         firstPicture: 'https://picsum.photos/500',
         updateTime: '2020-10-16 14:04:25',
         description: "If you want something you've never had, you must be willing to do something you've never done.",
-      },{id: 2, title: 'title', firstPicture: 'https://picsum.photos/500', updateTime: '2020-10-16 14:04:25', description: "If you want something you've never had, you must be willing to do something you've never done."},
-      {id: 3, title: 'title', firstPicture: 'https://picsum.photos/500', updateTime: '2020-10-16 14:04:25', description: "If you want something you've never had, you must be willing to do something you've never done."},
-      {id: 4, title: 'title', firstPicture: 'https://picsum.photos/500', updateTime: '2020-10-16 14:04:25', description: "If you want something you've never had, you must be willing to do something you've never done."},
-      {id: 5, title: 'title', firstPicture: 'https://picsum.photos/500', updateTime: '2020-10-16 14:04:25', description: "If you want something you've never had, you must be willing to do something you've never done."},
-      {id: 6, title: 'title', firstPicture: 'https://picsum.photos/500', updateTime: '2020-10-16 14:04:25', description: "If you want something you've never had, you must be willing to do something you've never done."}
+      }, { id: 2, title: 'title', firstPicture: 'https://picsum.photos/500', updateTime: '2020-10-16 14:04:25', description: "If you want something you've never had, you must be willing to do something you've never done." },
+      { id: 3, title: 'title', firstPicture: 'https://picsum.photos/500', updateTime: '2020-10-16 14:04:25', description: "If you want something you've never had, you must be willing to do something you've never done." },
+      { id: 4, title: 'title', firstPicture: 'https://picsum.photos/500', updateTime: '2020-10-16 14:04:25', description: "If you want something you've never had, you must be willing to do something you've never done." },
+      { id: 5, title: 'title', firstPicture: 'https://picsum.photos/500', updateTime: '2020-10-16 14:04:25', description: "If you want something you've never had, you must be willing to do something you've never done." },
+      { id: 6, title: 'title', firstPicture: 'https://picsum.photos/500', updateTime: '2020-10-16 14:04:25', description: "If you want something you've never had, you must be willing to do something you've never done." }
       ],
       types: [{ id: 1, name: '学习' }, { id: 2, name: '算法' }, { id: 3, name: '生活' }, { id: 4, name: '工作' }],
       tags: [{ id: 1, name: 'JavaScript' }, { id: 2, name: 'Java' }, { id: 3, name: 'VUE' }, { id: 4, name: 'Html' }, { id: 5, name: 'Spring Boot' },],
@@ -166,17 +176,18 @@ export default {
         title: 'title',
         views: '1k',
         description: "If you want something you've never had, you must be willing to do something you've never done."
-      },{ id: 2, title: 'title', views: '1k', description: "If you want something you've never had, you must be willing to do something you've never done."},
-      { id: 3, title: 'title', views: '1k', description: "If you want something you've never had, you must be willing to do something you've never done."}
+      }, { id: 2, title: 'title', views: '1k', description: "If you want something you've never had, you must be willing to do something you've never done." },
+      { id: 3, title: 'title', views: '1k', description: "If you want something you've never had, you must be willing to do something you've never done." }
       ],
       typeicon: ['fas fa-laptop-code', 'fas fa-atom', 'fas fa-heartbeat', 'fas fa-briefcase'],
-      tagicon: ['keyboard', 'bookmark', 'star', 'photo_camera', 'eco','flag','cloud','mouse'],
-      tagcolor: ['primary', 'teal', 'orange', 'red','warning'],
+      tagicon: ['keyboard', 'bookmark', 'star', 'photo_camera', 'eco', 'flag', 'cloud', 'mouse'],
+      tagcolor: ['primary', 'teal', 'orange', 'red', 'warning'],
       nickname: 'darin',
     }
   },
   created: function () {
     this.queryindex();
+    this.showIn();
   },
   methods: {
     queryindex() {
@@ -199,16 +210,28 @@ export default {
     toTagPage() {
       this.$router.push('/tags')
     },
-    handleDescript(list,count){
+    handleDescript(list, count) {
       if (!list) {
         return;
       }
       for (let item of list) {
         if (item.description.length > count) {
-         item.description = item.description.slice(0,count) + '...'
+          item.description = item.description.slice(0, count) + '...'
         }
       }
       return list;
+    },
+    showIn(){
+      this.helloshow = true;
+      setTimeout(()=>{
+        this.showOut();
+      },5000)
+    },
+    showOut(){
+      this.helloshow = false;
+      setTimeout(()=>{
+        this.showIn();
+      },3000)
     }
   }
 }
@@ -235,22 +258,24 @@ export default {
   }
 }
 .title {
-  a{
+  a {
     color: #90caf9;
   }
   a:hover {
     color: #2196f3;
   }
 }
-.recoma{
-  a{
-    color: #90caf9;
-  }
-  a:hover {
-    color: #2196f3;
-  }
-}
-.descript{
+.descript {
   min-height: 64px;
+}
+.slow {
+  -webkit-animation-duration: 3s;
+          animation-duration: 3s;
+}
+.helloworld{
+  background: transparent;
+  position: relative;
+  top: 73px;
+  left: 95px;
 }
 </style>

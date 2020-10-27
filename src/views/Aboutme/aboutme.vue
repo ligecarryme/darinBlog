@@ -29,7 +29,11 @@
         </q-card-section>
 
         <q-card-actions align="around">
-          <q-img src="https://cdn.quasar.dev/img/mountains.jpg" style="margin-bottom: 0.3em" />
+          <q-img :ratio="3/2" :src="require('@/assets/images/me.png')" style="margin-bottom: 0.3em;">
+            <transition appear enter-active-class="animated fadeIn slow" leave-active-class="animated fadeOut slow">
+              <div v-if="helloshow" class="text-black helloworld" v-html="helloworld"></div>
+            </transition>
+          </q-img>
           <q-btn type="a" href="https://github.com/ligecarryme" glossy color="primary" round flat icon="fab fa-github">
             <q-tooltip transition-show="rotate" transition-hide="rotate" max-height="200px" max-width="200px">github</q-tooltip>
           </q-btn>
@@ -70,19 +74,53 @@
   </div>
 </template>
 <script>
+import '@quasar/extras/animate/fadeIn.css'
+import '@quasar/extras/animate/fadeOut.css'
 export default {
   data() {
     return {
       qqBar: false,
       weChatBar: false,
+      helloshow: true,
+      helloworld: `<div style="text-align:center;">程序员必读书目 </br>
+                《代码大全》 </br>
+                《程序员修炼之道》 </br>
+                《如何优雅的删库跑路》</div>`
     }
   },
+  mounted: function(){
+    this.showIn();
+  },
   computed: {},
+  methods: {
+    showIn(){
+      this.helloshow = true;
+      setTimeout(()=>{
+        this.showOut();
+      },5000)
+    },
+    showOut(){
+      this.helloshow = false;
+      setTimeout(()=>{
+        this.showIn();
+      },3000)
+    }
+  }
 }
 </script>
 <style lang="scss" scoped>
 .my-card {
   width: 430px;
   height: 400px;
+}
+.slow{
+  -webkit-animation-duration: 5s;
+          animation-duration: 5s;
+}
+.helloworld{
+  background: transparent;
+  position: relative;
+  top: 73px;
+  left: -33px;
 }
 </style>
