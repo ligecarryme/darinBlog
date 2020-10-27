@@ -86,7 +86,7 @@ export default {
         if (data.code === 200) {
           const d = data.data;
           this.types = d.types;
-          this.blog = showcharacter(d.blogs.content, 200);
+          this.blog = showcharacter(d.blogs.content, 120);
           const { pageable } = d.blogs;
           this.pagger.total = d.blogs.totalPages;
           this.pagger.current = pageable.pageNumber + 1;

@@ -15,7 +15,7 @@
           <div class="text-h6">关于我</div>
         </q-card-section>
         <q-card-section>
-          <q-img :src="require('../../assets/images/aboutme.png')" style="height: 140px; max-width: 150px" />
+          <q-img :src="require('@/assets/images/aboutme.png')" style="height: 140px; max-width: 150px" />
           <div class="text-body1">欢迎你的来到！ 我是一个啥也不会的小白，在这里记录每天学到知识，一起进步吧！</div>
         </q-card-section>
         <q-card-section class="column items-center">
@@ -45,9 +45,6 @@
           </q-btn>
           <q-btn glossy color="primary" round flat icon="mail">
             <q-tooltip transition-show="rotate" transition-hide="rotate" max-height="200px" max-width="200px">e-mail</q-tooltip>
-          </q-btn>
-          <q-btn glossy color="primary" round flat icon="send">
-            <q-tooltip transition-show="rotate" transition-hide="rotate" max-height="200px" max-width="200px">me</q-tooltip>
           </q-btn>
 
           <q-dialog v-model="qqBar">

@@ -98,7 +98,7 @@
               <div v-if="helloshow" class="text-black helloworld" v-html="helloworld"></div>
             </transition>
           </q-img>
-          <q-separator inset />
+          <q-separator inset class="q-mb-xs" />
           <q-btn type="a" href="https://github.com/ligecarryme" glossy color="primary" round icon="fab fa-github">
             <q-tooltip transition-show="rotate" transition-hide="rotate" max-height="200px" max-width="200px">github</q-tooltip>
           </q-btn>

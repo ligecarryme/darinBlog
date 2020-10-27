@@ -75,7 +75,7 @@ export default {
         if (data.code === 200) {
           const d = data.data;
           this.tags = d.tags;
-          this.blog = showcharacter(d.blogs.content, 200);
+          this.blog = showcharacter(d.blogs.content, 120);
           this.link = val || this.tags[0].id;
           const { pageable } = d.blogs;
           this.pagger.total = d.blogs.totalPages;

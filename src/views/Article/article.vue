@@ -3,6 +3,9 @@
     <!--  -->
     <q-drawer v-model="drawer" side="right" persistent overlay behavior="desktop" :width="180">
       <div id="toc" class="toc"></div>
+      <q-page-scroller position="bottom-right" :scroll-offset="150" :offset="[30, 18]">
+        <q-btn fab icon="keyboard_arrow_up" color="blue-grey" />
+      </q-page-scroller>
     </q-drawer>
 
     <q-card class="blogDetailCard q-mt-lg">
@@ -12,7 +15,6 @@
             <img src="https://cdn.quasar.dev/img/boy-avatar.png">
           </q-avatar>
         </q-item-section>
-
         <q-item-section class="blogDetailHeader" side>
           <div class="q-mt-sm q-mr-md">
             <q-icon name="event" size="sm"></q-icon>
@@ -23,7 +25,6 @@
             <span class="q-ml-xs">{{blogdetail.views}}</span>
           </div>
         </q-item-section>
-
         <q-card-actions class="blogDetailShare">
           <!-- <q-btn flat round color="red" icon="favorite" ripple="center" /> -->
           <q-rating v-model="heart" max="1" size="2em" color="red" color-selected="red-9" icon="favorite_border" icon-selected="favorite" icon-half="favorite" no-dimming />
@@ -108,16 +109,13 @@
                   <q-item-label v-html="scope.opt.label" />
                 </q-item-section>
               </q-item>
-            </template>                                                                                                 <!--  @click="submitcomment"-->
+            </template> <!--  @click="submitcomment"-->
           </q-select>
           <q-input color="secondary" ref="input" lazy-rules="ondemand" outlined v-model="submitComment.nickname" :rules="[val => !!val || '请输入你的名字']" placeholder="姓名" label="name" style="width:200px;" class="q-ma-md" />
           <q-btn color="secondary" type="submit" icon="far fa-paper-plane" label="发布" class="q-ml-md" size="md" style="max-height:40px;margin-top:30px;" />
         </q-form>
       </q-card-section>
     </q-card>
-    <q-page-scroller position="bottom-right" :scroll-offset="150" :offset="[18, 18]">
-      <q-btn fab icon="keyboard_arrow_up" color="blue-grey" />
-    </q-page-scroller>
   </div>
 </template>
 <script>
