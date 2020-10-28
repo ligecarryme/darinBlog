@@ -46,7 +46,7 @@
       <q-card-section>
         <div class="text-h5 q-mt-lg text-center text-weight-bold">{{blogdetail.title}}</div>
       </q-card-section>
-      <vue-markdown class="markdown-body q-pa-md" :source="blogdetail.content" :toc-anchor-link="false" :toc="true" toc-id="toc" :toc-first-level="3" toc-rendered="tocAllRight"></vue-markdown>
+      <vue-markdown class="markdown-body q-pa-md" :source="blogdetail.content" :toc-anchor-link="false" :toc="true" toc-id="toc" :toc-first-level="3"></vue-markdown>
       <div align="center">
         <q-btn push color="white" text-color="red" label="赞赏" class="q-mt-md" size="medium">
           <q-menu anchor="bottom middle" self="top middle">
@@ -267,9 +267,6 @@ export default {
       const size = info.verticalSize;
       this.scrollsize = size;
       // this.$refs.chatArea.setScrollPosition(this.scrollsize-500,50);
-    },
-    tocAllRight(tocHtmlStr) {
-      console.log(tocHtmlStr);
     }
   }
 }
@@ -315,6 +312,7 @@ export default {
     position: absolute;
     top: 50px;
     font-size: 14px;
+    font-weight: 600;
     ul {
       list-style-type: none;
       padding-inline-start: 0;
@@ -329,5 +327,8 @@ export default {
       color: #2196f3;
     }
   }
+}
+.tocRight{
+  margin-top: 106px;
 }
 </style>
