@@ -1,6 +1,7 @@
 <template>
   <div class="q-mt-md">
     <!--  -->
+    <q-resize-observer @resize="onResize" />
     <q-drawer v-model="drawer" side="right" persistent overlay behavior="desktop" :width="180">
       <div id="toc" class="toc"></div>
       <q-page-scroller position="bottom-right" :scroll-offset="150" :offset="[30, 18]">
@@ -48,7 +49,7 @@
       </q-card-section>
       <vue-markdown class="markdown-body q-pa-md" :source="blogdetail.content" :toc-anchor-link="false" :toc="true" toc-id="toc" :toc-first-level="3"></vue-markdown>
       <div align="center">
-        <q-btn push color="white" text-color="red" label="赞赏" class="q-mt-md" size="medium">
+        <q-btn v-if="blogdetail.appreciation" push color="white" text-color="red" label="赞赏" class="q-my-md" size="medium">
           <q-menu anchor="bottom middle" self="top middle">
             <div class="row q-ma-md">
               <div class="column items-center">
@@ -68,7 +69,7 @@
           </q-menu>
         </q-btn>
       </div>
-      <div class="q-mt-lg authorList text-body1">
+      <div v-if="blogdetail.shareStatement" class="q-mt-md authorList text-body1">
         <br>
         <ul align="left">
           <li>作者：<span>{{user.nickname}}</span></li>
@@ -79,7 +80,7 @@
       </div>
     </q-card>
 
-    <q-card class="blogDetailCard">
+    <q-card v-if="blogdetail.commentabled" class="blogDetailCard">
       <q-card-section>
         <div class="text-h6 text-weight-bold text-light-blue text-center">聊天区</div>
       </q-card-section>
@@ -143,6 +144,9 @@ export default {
         tags: [],
         flag: '原创',
         title: 'Our Changing Planet',
+        appreciation: true, //赞赏
+        commentabled: true, //评论
+        shareStatement: true
       },
       submitComment: {
         content: '',
@@ -267,7 +271,14 @@ export default {
       const size = info.verticalSize;
       this.scrollsize = size;
       // this.$refs.chatArea.setScrollPosition(this.scrollsize-500,50);
-    }
+    },
+    onResize (size) {
+      if (size.width < 950) {
+        this.drawer = false;
+      } else {
+        this.drawer = true;
+      }
+    },
   }
 }
 </script>
@@ -317,7 +328,7 @@ export default {
       list-style-type: none;
       padding-inline-start: 0;
       li {
-        padding: 2px 15px 2px 10px;
+        padding: 2px 5px 2px 10px;
       }
     }
     a {
