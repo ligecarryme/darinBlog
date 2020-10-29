@@ -1,6 +1,6 @@
 <template>
   <div class="q-pa-md q-mt-lg">
-    <!-- <div class="text-body2 text-center q-mb-xs text-brown">Are you winning son? --video from bilibili</div> -->
+    <div class="text-h6 text-center q-mb-xs text-brown">Are you winning son? --video from bilibili, it's so funny</div>
     <q-card class="sonVideo">
       <!-- <video poster="@/assets/images/son.png" playsinline loop atuobuffer controls width="852" height="480">
         <source type="video/mp4" :src="require('@/assets/video/son.mp4')">
@@ -13,14 +13,14 @@
           <div class="text-h6">关于我</div>
         </q-card-section>
         <q-card-section>
-          <q-img :src="require('@/assets/images/aboutme.png')" style="height: 140px; max-width: 150px" />
-          <div class="text-body1">欢迎你的来到！ 我是一个啥也不会但是很努力的小白，在这里记录每天学到知识，一起进步吧！</div>
+          <q-img :src="require('@/assets/images/aboutme.png')" ratio="1" transition="scale" style="height: 140px; max-width: 150px;" class="aboutmepng" />
+          <div class="text-body1">欢迎你的来到！ 我是一个啥也不会但是很努力的程序员，在这里记录每天学到知识，一起进步吧！</div>
         </q-card-section>
         <q-card-section class="column items-center">
-          <transition appear enter-active-class="animated wobble slow" leave-active-class="animated wobble slow">
-            <div v-show="helloshow" class="text-body1 text-center q-mb-md">Do you like my blog ?</div>
+          <transition appear enter-active-class="animated wobble slow" leave-active-class="animated flipInY slow">
+            <div v-show="helloshow" class="text-h6 text-teal text-center q-mb-md">Do you like my blog ?</div>
           </transition>
-          <q-btn color="white" text-color="black" label="Encourage" @click="encourage" />
+          <q-btn text-color="pink-12" glossy label="Encourage" @click="encourage" />
         </q-card-section>
       </q-card>
       <q-card class="my-card q-ma-md">
@@ -74,6 +74,7 @@
 import '@quasar/extras/animate/fadeIn.css'
 import '@quasar/extras/animate/fadeOut.css'
 import '@quasar/extras/animate/wobble.css'
+import '@quasar/extras/animate/flipInY.css'
 export default {
   data() {
     return {
@@ -129,5 +130,10 @@ export default {
   width: 852px;
   height: 480px;
   margin: 0 auto 0 auto;
+}
+.aboutmepng{
+  position: relative;
+  left: 50%;
+  transform: translate(-50%);
 }
 </style>

@@ -12,6 +12,7 @@ module.exports = {
         "vue"
     ],
     "rules": {
-        "vue/experimental-script-setup-vars": "off"
+        "vue/experimental-script-setup-vars": "off",
+        "vue/comment-directive": "off"
     }
 };
