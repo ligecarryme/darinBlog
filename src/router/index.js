@@ -17,10 +17,10 @@ Router.prototype.push = function push(location){
 
 
 export default new Router({
-  // mode: 'history',
+  mode: 'history',
   routes: [
     {
-      path: '/home',
+      path: '/',
       name: 'home',
       component: Home,
       meta: {
@@ -77,7 +77,7 @@ export default new Router({
     },
     {
       path: '*',
-      redirect: '/home'
+      redirect: '/'
     }
   ]
 })

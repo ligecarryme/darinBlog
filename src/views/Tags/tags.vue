@@ -2,7 +2,7 @@
   <div class="q-pa-md">
     <q-card class="my-card q-mt-lg">
       <q-card-section class="bg-indigo-3 text-white">
-        <div class="text-h6 text-center">标签  共<span class="q-ma-xs text-h5 text-yellow">11</span>个</div>
+        <div class="text-h6 text-center">标签  共<span class="q-ma-xs text-h5 text-yellow">{{tags.length}}</span>个</div>
       </q-card-section>
       <q-card-actions align="around">
         <div class="q-pa-md q-gutter-md flex justify-around">
