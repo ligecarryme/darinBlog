@@ -5,7 +5,7 @@
       <!-- <video poster="@/assets/images/son.png" playsinline loop atuobuffer controls width="852" height="480">
         <source type="video/mp4" :src="require('@/assets/video/son.mp4')">
       </video> -->
-      <iframe src="//player.bilibili.com/player.html?aid=329349812&bvid=BV1gA411n7vA&cid=227579539&page=1&high_quality=1&as_wide=1" width="852" height="480" border="0" frameborder="no" framespacing="0" allowfullscreen="true" sandbox="allow-top-navigation allow-same-origin allow-scripts"> </iframe>
+      <iframe src="https://player.bilibili.com/player.html?aid=329349812&bvid=BV1gA411n7vA&cid=227579539&page=1&high_quality=1&as_wide=1" width="852" height="480" border="0" frameborder="no" framespacing="0" allowfullscreen="true" sandbox="allow-top-navigation allow-same-origin allow-scripts"> </iframe>
     </q-card>
     <div class="row justify-center q-my-md">
       <q-card class="my-card q-ma-md">

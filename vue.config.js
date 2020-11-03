@@ -1,4 +1,6 @@
 module.exports = {
+  publicPath: './',
+  outputDir: 'dist',
   pluginOptions: {
     quasar: {
       importStrategy: 'kebab',
@@ -9,9 +11,11 @@ module.exports = {
     'quasar'
   ],
   devServer: {
+    open: true,
     proxy: {
       '/api':{
-        target: 'http://localhost:8079',
+        // http://localhost:8079/
+        target: 'http://47.102.214.242:8079/',
         ws: true,
         changeOrigin: true,
         pathRewrite:{

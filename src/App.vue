@@ -12,7 +12,7 @@
       </q-toolbar>
       <div class="headerTabs">
         <q-tabs v-model="tab" inline-label align="left" class="q-pl-md">
-          <q-route-tab to="/" name="home" icon="home" label="首页" />
+          <q-route-tab to="/home" name="home" icon="home" label="首页" />
           <q-route-tab to="/types" name="types" icon="table_chart" label="分类" />
           <q-route-tab to="/tags" name="tags" icon="bookmarks" label="标签" />
           <q-route-tab to="/archives" name="archives" icon="library_books" label="归档" />
