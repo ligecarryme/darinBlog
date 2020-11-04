@@ -14,8 +14,8 @@ module.exports = {
     open: true,
     proxy: {
       '/api':{
-        // http://localhost:8079/
-        target: 'http://47.102.214.242:8079/',
+        // http://localhost:8079/http://47.102.214.242:8079/
+        target: 'https://api.baidu.com/',
         ws: true,
         changeOrigin: true,
         pathRewrite:{

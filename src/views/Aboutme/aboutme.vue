@@ -94,6 +94,7 @@ export default {
   methods: {
     encourage() {
       // 点赞功能
+      window._hmt.push(['_trackEvent','button','click','-',1])  
     },
     showIn() {
       this.helloshow = true;

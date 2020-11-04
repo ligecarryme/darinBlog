@@ -42,8 +42,8 @@
     <div class="blogFooter">
       <q-separator dark />
       <div class="footer">
-        <p>网站已运行<span>1</span>天 总访客数<span>888</span> 总浏览量<span>888</span></p>
-        <p>托管于<a href="https://github.com/">Github</a>. Design by Darin. Powered by <a href="https://cn.vuejs.org/">Vue</a>. Theme By <a href="http://www.quasarchs.com/">Quasar</a>.</p>
+        <p>网站已运行<span>{{footer.date}}</span>天 总访客数<span>{{footer.totalperson}}</span> 总浏览量<span>{{footer.totalviews}}</span></p>
+        <p>Hosted at <a href="https://github.com/">Github</a>. Design by Darin. Powered by <a href="https://cn.vuejs.org/">Vue</a>. Theme By <a href="http://www.quasarchs.com/">Quasar</a>. Be monitored throughout <a href="https://tongji.baidu.com/">Baidu tongji</a>.</p>
         <p>Copyright © 2020-2020</p>
       </div>
     </div>
@@ -52,6 +52,8 @@
 
 <script>
 import particles from './components/ParticlesJS';
+import { dateFormat } from './utils/utils';
+import axios from 'axios';
 export default {
   name: "App",
   components: { particles },
@@ -62,12 +64,52 @@ export default {
       right: false,
       tab: '',
       searchtext: '',
+      footer: {
+        date: 10,
+        totalperson: 666,
+        totalviews: 888
+      }
       // img: require('./assets/logo.jpg')
     };
   },
   created() { },
+  mounted: function () {
+    this.queryvisit();
+  },
   computed: {},
   methods: {
+    queryvisit() {
+      let that = this;
+      const today = new Date();
+      this.footer.date = Math.ceil((today.getTime() - 1604160000000) / (1000 * 3600 * 24));
+      const axios_baidu = axios.create({
+        baseURL: '/api',
+      })
+      const data = JSON.stringify({
+        "header": { "username": "力哥来carry", "password": "Lige0635", "token": "ff2eb7424d3626148df11df92191af82", "account_type": 1 }, 
+        "body": { "site_id": "15982681", "start_date": "20201101", "end_date": dateFormat("YYYYmmdd", today), "order":"visitor_count,desc","metrics": "pv_count,visitor_count,ip_count", "method": "overview/getTimeTrendRpt" } 
+      });
+      const config = {
+        method: 'post',
+        url: '/json/tongji/v1/ReportService/getData',
+        withCredentials: true,
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        data: data
+      };
+      axios_baidu(config)
+        .then(function (response) {
+          const {body:{data}} = response.data;
+          const {result : {items}} = data[0];
+          const total = items[1][items[1].length-1];
+          that.footer.totalperson = total[1];
+          that.footer.totalviews = total[0];
+        })
+        .catch(function (error) {
+          console.log(error);
+        });
+    },
     simulateSubmit() {
       setTimeout(() => {
         this.search();
@@ -126,7 +168,7 @@ export default {
   .footer {
     padding-top: 15px;
     a {
-      color: #795548;
+      color: #fabda8;
       z-index: 3;
     }
     a:hover {

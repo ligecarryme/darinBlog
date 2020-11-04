@@ -11,6 +11,15 @@ var $axios = axios.create({
   timeout: '10000'
 })
 
+var _hmt = _hmt || [];
+window._hmt = _hmt;
+(function() {
+  var hm = document.createElement("script");
+  hm.src = "https://hm.baidu.com/hm.js?023ab785335840c3baaf0276935307de";
+  var s = document.getElementsByTagName("script")[0]; 
+  s.parentNode.insertBefore(hm, s);
+})();
+
 Vue.config.productionTip = false
 Vue.prototype.$axios = $axios
 Vue.prototype.$qs = qs;
