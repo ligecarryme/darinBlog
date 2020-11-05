@@ -35,7 +35,7 @@
   </div>
 </template>
 <script>
-import {showcharacter} from '@/utils/utils';
+import {showcharacter} from '@/utils/index';
 export default {
   name: 'search',
   data() {

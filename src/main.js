@@ -18,6 +18,7 @@ window._hmt = _hmt;
   hm.src = "https://hm.baidu.com/hm.js?023ab785335840c3baaf0276935307de";
   var s = document.getElementsByTagName("script")[0]; 
   s.parentNode.insertBefore(hm, s);
+  console.log(s);
 })();
 
 Vue.config.productionTip = false

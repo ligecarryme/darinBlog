@@ -20,8 +20,10 @@
           <transition appear enter-active-class="animated wobble slow" leave-active-class="animated flipInY slow">
             <div v-show="helloshow" class="text-h6 text-teal text-center q-mb-md">Do you like my blog ?</div>
           </transition>
-          <q-btn text-color="pink-12" glossy label="Encourage" @click="encourage" />
+          <!-- <q-btn text-color="pink-12" glossy label="Encourage" @click="encourage" /> -->
+          <div v-on:click="encourage" class="heart"></div>
         </q-card-section>
+        <div class="text-body text-center q-mt-xs">{{heart}}</div>
       </q-card>
       <q-card class="my-card q-ma-md">
         <q-card-section class="bg-cyan-8 text-white text-center">
@@ -75,6 +77,7 @@ import '@quasar/extras/animate/fadeIn.css'
 import '@quasar/extras/animate/fadeOut.css'
 import '@quasar/extras/animate/wobble.css'
 import '@quasar/extras/animate/flipInY.css'
+import { dateFormat } from '../../utils/index'
 export default {
   data() {
     return {
@@ -84,17 +87,31 @@ export default {
       helloworld: `<div style="text-align:center;">程序员必读书目 </br>
                 《代码大全》 </br>
                 《程序员修炼之道》 </br>
-                《如何优雅的删库跑路》</div>`
+                《如何优雅的删库跑路》</div>`,
+      heart: 19
     }
   },
   mounted: function () {
     this.showIn();
+    this.queryheart();
   },
   computed: {},
   methods: {
     encourage() {
       // 点赞功能
-      window._hmt.push(['_trackEvent','button','click','-',1])  
+      this.heart += 1 ;
+      window._hmt.push(['_trackEvent', 'button', 'click', '-', 1]);
+    },
+    queryheart(){
+      const today = dateFormat('YYYYmmdd',new Date());
+      const data = JSON.stringify({
+        "header": { "username": "力哥来carry", "password": "*******", "token": "ff2eb7424d3626148df11df92191af82", "account_type": 1 }, 
+        "body": { "site_id": "15982681", "start_date": "20201101", "end_date": today, "method": "event/a", 
+          "metrics": {"event": "any_","aggregation":"sum,1","filter":{"items":[],"op":"AND"}},
+          "dimensions":[{"key":"province_","discretize":null},{"key":"keyword_","discretize":null}],
+          "where":{"op":"AND","items":[{"key":"province_","op":"LIKE","val":[""]}]}, "order":"metirc_0,desc"} 
+      });
+      //baidu 分析云要掏钱。。。 后端服务，待开发
     },
     showIn() {
       this.helloshow = true;
@@ -112,6 +129,7 @@ export default {
 }
 </script>
 <style lang="scss" scoped>
+@import "../../assets/css/heart.css";
 .my-card {
   width: 430px;
   height: 400px;
@@ -132,7 +150,7 @@ export default {
   height: 480px;
   margin: 0 auto 0 auto;
 }
-.aboutmepng{
+.aboutmepng {
   position: relative;
   left: 50%;
   transform: translate(-50%);

@@ -52,7 +52,7 @@
 
 <script>
 import particles from './components/ParticlesJS';
-import { dateFormat } from './utils/utils';
+import { dateFormat } from './utils/index';
 import axios from 'axios';
 export default {
   name: "App",
@@ -102,7 +102,7 @@ export default {
         .then(function (response) {
           const {body:{data}} = response.data;
           const {result : {items}} = data[0];
-          const total = items[1][items[1].length-1];
+          const total = items[1][items[1].length-1].map((val,index)=>{return items[1][items[1].length-2][index]});
           that.footer.totalperson = total[1];
           that.footer.totalviews = total[0];
         })
