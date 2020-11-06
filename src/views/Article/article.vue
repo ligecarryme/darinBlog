@@ -98,7 +98,12 @@
       <q-card-section class="q-pa-md q-gutter-sm">
         <q-editor v-model="submitComment.content" min-height="8rem" placeholder="请输入你的评论吧..." align="left" :content-style="{fontSize:'17px'}" />
         <q-form @submit="submitcomment" ref="myForm" class="row justify-end q-mx-md">
-          <q-select outlined options-selected-class="text-deep-orange" v-model="avatarmodel" :options="options" stack-label label="avatar(头像)" color="secondary" style="width:150px;padding-bottom:18px;" class="q-ma-md">
+          <q-select outlined options-selected-class="text-deep-orange" v-model="avatarmodel" :options="options" stack-label label="avatar(头像)" color="secondary" style="width:175px;padding-bottom:18px;" class="q-ma-md">
+            <template v-slot:before>
+              <q-avatar>
+                <img :src="avatarmodel.icon" />
+              </q-avatar>
+            </template>
             <template v-slot:option="scope">
               <q-item v-bind="scope.itemProps" v-on="scope.itemEvents" color="white" text-color="secondary" class="q-ma-none">
                 <q-item-section>
@@ -158,22 +163,22 @@ export default {
         content: 'Hello World',
         createTime: '2020-10-26 10:30:00'
       }],
-      msgcolor: ['blue', 'ligth-blue', 'cyan', 'teal', 'green'],
+      msgcolor: ['blue', 'light-blue', 'cyan', 'teal', 'green'],
       user: {
         nickname: 'darin'
       },
       avatarmodel: {
-        label: 'Aaron',
+        label: '头像1',
         value: 'Aaron',
         icon: 'https://cdn.quasar.dev/img/avatar1.jpg'
       },
       options: [
-        { label: 'Aaron', value: 'Aaron', icon: 'https://cdn.quasar.dev/img/avatar1.jpg' },
-        { label: 'Alice', value: 'Alice', icon: 'https://cdn.quasar.dev/img/avatar2.jpg' },
-        { label: 'Chris', value: 'Chris', icon: 'https://cdn.quasar.dev/img/avatar3.jpg' },
-        { label: 'Tommy', value: 'Tommy', icon: 'https://cdn.quasar.dev/img/avatar4.jpg' },
-        { label: 'Daisy', value: 'Daisy', icon: 'https://cdn.quasar.dev/img/avatar5.jpg' },
-        { label: 'Kelly', value: 'Kelly', icon: 'https://cdn.quasar.dev/img/avatar6.jpg' }
+        { label: '头像1', value: 'Aaron', icon: 'https://cdn.quasar.dev/img/avatar1.jpg' },
+        { label: '头像2', value: 'Alice', icon: 'https://cdn.quasar.dev/img/avatar2.jpg' },
+        { label: '头像3', value: 'Chris', icon: 'https://cdn.quasar.dev/img/avatar3.jpg' },
+        { label: '头像4', value: 'Tommy', icon: 'https://cdn.quasar.dev/img/avatar4.jpg' },
+        { label: '头像5', value: 'Daisy', icon: 'https://cdn.quasar.dev/img/avatar5.jpg' },
+        { label: '头像6', value: 'Kelly', icon: 'https://cdn.quasar.dev/img/avatar6.jpg' }
       ]
     }
   },

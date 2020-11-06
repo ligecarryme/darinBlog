@@ -84,10 +84,11 @@ export default {
       this.footer.date = Math.ceil((today.getTime() - 1604160000000) / (1000 * 3600 * 24));
       const axios_baidu = axios.create({
         baseURL: '/api',
+        // baseURL: 'https://api.baidu.com/'
       })
       const data = JSON.stringify({
         "header": { "username": "力哥来carry", "password": "Lige0635", "token": "ff2eb7424d3626148df11df92191af82", "account_type": 1 }, 
-        "body": { "site_id": "15982681", "start_date": "20201101", "end_date": dateFormat("YYYYmmdd", today), "order":"visitor_count,desc","metrics": "pv_count,visitor_count,ip_count", "method": "overview/getTimeTrendRpt" } 
+        "body": { "site_id": "15982681", "start_date": "20201104", "end_date": dateFormat("YYYYmmdd", today), "order":"visitor_count,desc","metrics": "pv_count,visitor_count,ip_count", "method": "overview/getTimeTrendRpt" } 
       });
       const config = {
         method: 'post',
@@ -102,7 +103,16 @@ export default {
         .then(function (response) {
           const {body:{data}} = response.data;
           const {result : {items}} = data[0];
-          const total = items[1][items[1].length-1].map((val,index)=>{return items[1][items[1].length-2][index]});
+          const sumPVandUV = (function(){
+            let sum = [0,0,0];
+            for (const iterator of items[1]) {
+              sum = sum.map((val,index)=>{return iterator[index]+val});
+              // console.log(iterator);
+            }
+            return sum;
+          })
+          // const total = items[1][items[1].length-1].map((val,index)=>{return val+items[1][items[1].length-2][index]});
+          const total = sumPVandUV();
           that.footer.totalperson = total[1];
           that.footer.totalviews = total[0];
         })

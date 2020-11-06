@@ -15,7 +15,7 @@
                 <a :href="'/article?id=' + item.id">{{ item.title }}</a>
               </div>
               <div class="flex">
-                <div class="text-subtitle2">by {{nickname}}</div>
+                <div class="text-subtitle2">by {{item.user['nickname']}}</div>
                 <div class="q-ml-md">
                   <q-icon name="far fa-calendar-alt" size="mini"></q-icon>
                   <span class="q-ml-xs">{{item.updateTime}}</span>
@@ -162,12 +162,15 @@ export default {
         title: 'title',
         firstPicture: 'https://picsum.photos/500',
         updateTime: '2020-10-16 14:04:25',
+        user:{
+          nickname: 'darin',
+        },
         description: "If you want something you've never had, you must be willing to do something you've never done.",
-      }, { id: 2, title: 'title', firstPicture: 'https://picsum.photos/500', updateTime: '2020-10-16 14:04:25', description: "If you want something you've never had, you must be willing to do something you've never done." },
-      { id: 3, title: 'title', firstPicture: 'https://picsum.photos/500', updateTime: '2020-10-16 14:04:25', description: "If you want something you've never had, you must be willing to do something you've never done." },
-      { id: 4, title: 'title', firstPicture: 'https://picsum.photos/500', updateTime: '2020-10-16 14:04:25', description: "If you want something you've never had, you must be willing to do something you've never done." },
-      { id: 5, title: 'title', firstPicture: 'https://picsum.photos/500', updateTime: '2020-10-16 14:04:25', description: "If you want something you've never had, you must be willing to do something you've never done." },
-      { id: 6, title: 'title', firstPicture: 'https://picsum.photos/500', updateTime: '2020-10-16 14:04:25', description: "If you want something you've never had, you must be willing to do something you've never done." }
+      }, { id: 2, title: 'title', firstPicture: 'https://picsum.photos/500', updateTime: '2020-10-16 14:04:25',user:{ nickname: 'darin'}, description: "If you want something you've never had, you must be willing to do something you've never done." },
+      { id: 3, title: 'title', firstPicture: 'https://picsum.photos/500', updateTime: '2020-10-16 14:04:25',user:{ nickname: 'darin'}, description: "If you want something you've never had, you must be willing to do something you've never done." },
+      { id: 4, title: 'title', firstPicture: 'https://picsum.photos/500', updateTime: '2020-10-16 14:04:25',user:{ nickname: 'darin'}, description: "If you want something you've never had, you must be willing to do something you've never done." },
+      { id: 5, title: 'title', firstPicture: 'https://picsum.photos/500', updateTime: '2020-10-16 14:04:25',user:{ nickname: 'darin'}, description: "If you want something you've never had, you must be willing to do something you've never done." },
+      { id: 6, title: 'title', firstPicture: 'https://picsum.photos/500', updateTime: '2020-10-16 14:04:25',user:{ nickname: 'darin'}, description: "If you want something you've never had, you must be willing to do something you've never done." }
       ],
       types: [{ id: 1, name: '学习' }, { id: 2, name: '算法' }, { id: 3, name: '生活' }, { id: 4, name: '工作' }],
       tags: [{ id: 1, name: 'JavaScript' }, { id: 2, name: 'Java' }, { id: 3, name: 'VUE' }, { id: 4, name: 'Html' }, { id: 5, name: 'Spring Boot' },],
@@ -182,7 +185,6 @@ export default {
       typeicon: ['fas fa-laptop-code', 'fas fa-atom', 'fas fa-heartbeat', 'fas fa-briefcase'],
       tagicon: ['keyboard', 'bookmark', 'star', 'photo_camera', 'eco', 'flag', 'cloud', 'mouse'],
       tagcolor: ['primary', 'teal', 'orange', 'red', 'warning'],
-      nickname: 'darin',
     }
   },
   created: function () {
@@ -202,6 +204,7 @@ export default {
           this.types = content.type;
           this.tags = content.tag;
           this.topblogs = this.handleDescript(content.topBlog, 60);
+          this.user = content.user;
         }
       }).catch((err) => {
         console.log(err);
