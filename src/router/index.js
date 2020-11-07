@@ -29,14 +29,4 @@ const router = new Router({
   ]
 })
 
-router.beforeEach((to,from,next)=>{
-  if (_hmt) {
-    if (to.path) {
-      _hmt.push(['_trackPageview',to.fullPath]);
-    }
-  }
-  next();
-})
-
-
 export default router;

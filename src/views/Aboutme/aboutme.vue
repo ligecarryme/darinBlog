@@ -95,23 +95,22 @@ export default {
     this.showIn();
     this.queryheart();
   },
+  beforeDestroy: function(){
+    this.$axios.get('/upvote/update',{params:{votes:this.heart}});
+  },
   computed: {},
   methods: {
     encourage() {
       // 点赞功能
       this.heart += 1 ;
-      window._hmt.push(['_trackEvent', 'button', 'click', '-', 1]);
     },
     queryheart(){
-      const today = dateFormat('YYYYmmdd',new Date());
-      const data = JSON.stringify({
-        "header": { "username": "力哥来carry", "password": "*******", "token": "ff2eb7424d3626148df11df92191af82", "account_type": 1 }, 
-        "body": { "site_id": "15982681", "start_date": "20201101", "end_date": today, "method": "event/a", 
-          "metrics": {"event": "any_","aggregation":"sum,1","filter":{"items":[],"op":"AND"}},
-          "dimensions":[{"key":"province_","discretize":null},{"key":"keyword_","discretize":null}],
-          "where":{"op":"AND","items":[{"key":"province_","op":"LIKE","val":[""]}]}, "order":"metirc_0,desc"} 
-      });
-      //baidu 分析云要掏钱。。。 后端服务，待开发
+      this.$axios.get('/upvote/get').then(res=>{
+        const {data: {data}} = res;
+        this.heart = data.encourage;
+      }).catch(err=>{
+        console.log(err);
+      })
     },
     showIn() {
       this.helloshow = true;

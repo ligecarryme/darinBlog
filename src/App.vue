@@ -42,7 +42,7 @@
     <div class="blogFooter">
       <q-separator dark />
       <div class="footer">
-        <p>网站已运行<span>{{footer.date}}</span>天 总访客数<span>{{footer.totalperson}}</span> 总浏览量<span>{{footer.totalviews}}</span></p>
+        <p>网站已运行 <span>{{footer.date}}</span> 天 总访客数 <span>{{footer.totalperson}}</span> 总浏览量 <span>{{footer.totalviews}}</span></p>
         <p>Hosted at <a href="https://github.com/">Github</a>. Design by Darin. Powered by <a href="https://cn.vuejs.org/">Vue</a>. Theme By <a href="http://www.quasarchs.com/">Quasar</a>. Be monitored throughout <a href="https://tongji.baidu.com/">Baidu tongji</a>.</p>
         <p>Copyright © 2020-2020</p>
       </div>
@@ -106,7 +106,11 @@ export default {
           const sumPVandUV = (function(){
             let sum = [0,0,0];
             for (const iterator of items[1]) {
-              sum = sum.map((val,index)=>{return iterator[index]+val});
+              if (iterator[0] === '--') {
+                continue;
+              }else{
+                sum = sum.map((val,index)=>{return iterator[index]+val});
+              }
               // console.log(iterator);
             }
             return sum;
@@ -176,9 +180,12 @@ export default {
     #ffffff 100%
   ); // #86bcfa
   .footer {
-    padding-top: 15px;
+    padding-top: 20px;
+    span {
+      font-size: 15px;
+    }
     a {
-      color: #fabda8;
+      color: #f55f2d;
       z-index: 3;
     }
     a:hover {
