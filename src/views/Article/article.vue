@@ -13,7 +13,7 @@
       <q-item>
         <q-item-section avatar>
           <q-avatar>
-            <img src="https://cdn.quasar.dev/img/boy-avatar.png">
+            <img :src="user.avatar">
           </q-avatar>
         </q-item-section>
         <q-item-section class="blogDetailHeader" side>
@@ -165,7 +165,8 @@ export default {
       }],
       msgcolor: ['blue', 'light-blue', 'cyan', 'teal', 'green'],
       user: {
-        nickname: 'darin'
+        nickname: 'darin',
+        avatar: 'https://gitee.com/darinx/blog-img/raw/master/my/boy-avatar.png'
       },
       avatarmodel: {
         label: '头像1',
