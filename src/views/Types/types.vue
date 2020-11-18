@@ -28,7 +28,7 @@
               <a :href="'/article?id='+item.id">{{ item.title }}</a>
             </div>
             <div class="flex">
-              <div class="text-subtitle2">by {{user.nickname}}</div>
+              <div class="text-subtitle2">by {{item.user['nickname']}}</div>
               <div class="q-ml-md">
                 <q-icon name="far fa-calendar-alt" size="mini"></q-icon>
                 <span class="q-ml-xs">{{item.updateTime}}</span>
@@ -55,10 +55,8 @@ export default {
       blog: [{
         firstPicture: 'https://picsum.photos/300/200', title: 'new object', updateTime: '2020-10-19 15:53:53',
         description: "If you want something you've never had, you must be willing to do something you've never done.",
+        user: { nickname: 'darin' },
       }],
-      user: {
-        nickname: 'darin'
-      },
       pagger: {
         current: 1,
         total: 3
