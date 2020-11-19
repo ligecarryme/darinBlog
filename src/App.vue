@@ -44,7 +44,7 @@
       <div class="footer">
         <p>网站已运行 <span>{{footer.date}}</span> 天 总访客数 <span>{{footer.totalperson}}</span> 总浏览量 <span>{{footer.totalviews}}</span></p>
         <p>Hosted at <a href="https://github.com/">Github</a>. Design by Darin. Powered by <a href="https://cn.vuejs.org/">Vue</a>. Theme By <a href="http://www.quasarchs.com/">Quasar</a>. Be monitored throughout <a href="https://tongji.baidu.com/">Baidu tongji</a>.</p>
-        <p>Copyright © 2020-2020</p>
+        <p>Copyright © 2020 豫ICP备2020032759号</p>
       </div>
     </div>
   </q-layout>
