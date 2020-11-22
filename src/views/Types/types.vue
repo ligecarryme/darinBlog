@@ -9,7 +9,7 @@
           <q-item clickable v-ripple @click="searchTypes(item.id)" :active="link === item.id" active-class="typeactive">
             <q-item-section class="text-body1">{{item.name}}</q-item-section>
             <q-item-section avatar>
-              <q-avatar color="primary" text-color="white" :icon="typeicon[index]" />
+              <q-avatar color="primary" text-color="white" :icon="typeicon[index%5]" />
             </q-item-section>
           </q-item>
         </q-list>
@@ -62,7 +62,7 @@ export default {
         total: 3
       },
       types: [{ id: 1, name: '学习' }],
-      typeicon: ['fas fa-laptop-code', 'fas fa-atom', 'fas fa-heartbeat', 'fas fa-briefcase'],
+      typeicon: ['fas fa-laptop-code', 'fas fa-atom', 'fas fa-heartbeat', 'fas fa-briefcase','fas fa-hand-spock'],
     }
   },
   created: function () {
