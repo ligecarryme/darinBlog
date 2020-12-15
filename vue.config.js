@@ -7,6 +7,7 @@ module.exports = {
       rtlSupport: false
     }
   },
+  productionSourceMap: false,
   transpileDependencies: [
     'quasar'
   ],

@@ -1,12 +1,12 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Article from '../views/Article/article.vue'
-import Home from '../views/Home.vue'
-import Aboutme from '../views/Aboutme/aboutme.vue'
-import Archives from '../views/Archives/archives.vue'
-import Tags from '../views/Tags/tags.vue'
-import Types from '../views/Types/types.vue'
-import Search from '../components/Search/Search.vue'
+const Article = () => import('../views/Article/article.vue')
+const Home = () => import('../views/Home.vue')
+const Aboutme = () => import('../views/Aboutme/aboutme.vue')
+const Archives = () => import('../views/Archives/archives.vue')
+const Tags = () => import('../views/Tags/tags.vue')
+const Types = () => import('../views/Types/types.vue')
+const Search = () => import('../components/Search/Search.vue')
 
 Vue.use(Router)
 
