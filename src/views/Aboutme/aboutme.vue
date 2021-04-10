@@ -32,7 +32,7 @@
         <q-card-actions align="around">
           <q-img :ratio="3/2" :src="require('@/assets/images/me.png')" style="margin-bottom: 0.3em;">
             <transition appear enter-active-class="animated fadeIn slow" leave-active-class="animated fadeOut slow">
-              <div v-if="helloshow" class="text-black helloworld" v-html="helloworld"></div>
+              <div v-show="helloshow" class="text-black helloworld" v-html="helloworld"></div>
             </transition>
           </q-img>
           <q-separator inset class="q-mb-xs" />
@@ -84,10 +84,10 @@ export default {
       qqBar: false,
       weChatBar: false,
       helloshow: true,
-      helloworld: `<div style="text-align:center;">程序员必读书目 </br>
-                《代码大全》 </br>
-                《程序员修炼之道》 </br>
-                《如何优雅的删库跑路》</div>`,
+      helloworld: `<div style="text-align:center;">程序员必读书目 <br>
+                《代码大全》 <br>
+                《程序员修炼之道》 <br>
+                《算法导论》</div>`,
       heart: 19
     }
   },

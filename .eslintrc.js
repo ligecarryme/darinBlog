@@ -4,9 +4,12 @@ module.exports = {
         "es6": true
     },
     "extends": "plugin:vue/essential",
+    "parser": "vue-eslint-parser",
     "parserOptions": {
         "ecmaVersion": 6,
-        "sourceType": "module"
+        "sourceType": "module",
+        "parser":"babel-eslint",
+        "allowImportExportEverywhere": true
     },
     "plugins": [
         "vue"

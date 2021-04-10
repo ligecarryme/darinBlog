@@ -11,6 +11,7 @@
     "@quasar/extras": "^1.0.0",
     "animate.css": "^4.1.1",
     "axios": "^0.20.0",
+    "caniuse-lite": "^1.0.30001208",
     "core-js": "^3.6.5",
     "github-markdown-css": "^4.0.0",
     "markdown-loader": "^6.0.0",
@@ -37,7 +38,8 @@
     "node-sass": "^4.13.0",
     "sass-loader": "^8.0.0",
     "vue-cli-plugin-quasar": "^2.0.2",
-    "vue-template-compiler": "^2.6.11"
+    "vue-template-compiler": "^2.6.11",
+    "webpack-bundle-analyzer": "^3.9.0"
   },
   "eslintConfig": {
     "root": true,

@@ -1,12 +1,12 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-const Article = () => import('../views/Article/article.vue')
-const Home = () => import('../views/Home.vue')
-const Aboutme = () => import('../views/Aboutme/aboutme.vue')
-const Archives = () => import('../views/Archives/archives.vue')
-const Tags = () => import('../views/Tags/tags.vue')
-const Types = () => import('../views/Types/types.vue')
-const Search = () => import('../components/Search/Search.vue')
+const Article = () => import(/* webpackChunkName: "article" */ '../views/Article/article.vue')
+const Home = () => import(/* webpackChunkName: "home" */ '../views/Home.vue')
+const Aboutme = () => import(/* webpackChunkName: "aboutme" */ '../views/Aboutme/aboutme.vue')
+const Archives = () => import(/* webpackChunkName: "archives" */ '../views/Archives/archives.vue')
+const Tags = () => import(/* webpackChunkName: "tags" */ '../views/Tags/tags.vue')
+const Types = () => import(/* webpackChunkName: "types" */'../views/Types/types.vue')
+const Search = () => import(/* webpackChunkName: "search" */ '../components/Search/Search.vue')
 
 Vue.use(Router)
 

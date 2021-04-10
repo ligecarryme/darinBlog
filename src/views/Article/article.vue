@@ -1,6 +1,5 @@
 <template>
   <div class="q-mt-md">
-    <!--  -->
     <q-resize-observer @resize="onResize" />
     <q-drawer v-model="drawer" side="right" persistent overlay behavior="desktop" :width="180">
       <div id="toc" class="toc"></div>
@@ -203,7 +202,6 @@ export default {
           this.blogdetail = data.data;
           this.user = data.data.user;
         }
-        // console.log(res);
       }).catch((err) => {
         console.log(err);
       })
@@ -265,20 +263,12 @@ export default {
         color: 'positive'
       })
     },
-    // scroll() {
-    // const scrollArea = this.$refs.chatArea;
-    // console.log(scrollArea);
-    // const scrollTarget = scrollArea.getScrollTarget();
-    // const duration = 0;
-    // console.log(scrollTarget.scrollHeight);
-    // scrollArea.setScrollPosition(scrollTarget.scrollHeight, duration)
-    // },
     scrollinfo(info) {
       const size = info.verticalSize;
       this.scrollsize = size;
       // this.$refs.chatArea.setScrollPosition(this.scrollsize-500,50);
     },
-    onResize (size) {
+    onResize(size) {
       if (size.width < 950) {
         this.drawer = false;
       } else {
@@ -345,7 +335,7 @@ export default {
     }
   }
 }
-.tocRight{
+.tocRight {
   margin-top: 106px;
 }
 </style>
