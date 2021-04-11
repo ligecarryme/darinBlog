@@ -7,8 +7,8 @@ import './quasar'
 import 'github-markdown-css'
 
 var $axios = axios.create({
-  //  47.102.214.242
-  baseURL: "http://localhost:8079/",
+  //   localhost
+  baseURL: "http://8.140.9.215:8079/",
   timeout: '10000'
 })
 

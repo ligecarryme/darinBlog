@@ -41,7 +41,7 @@ export default {
       count: 10,
     }
   },
-  mounted: function () {
+  created: function () {
     this.queryarchives()
   },
   methods: {

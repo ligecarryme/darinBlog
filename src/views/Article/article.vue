@@ -187,8 +187,6 @@ export default {
     this.querydetail(bid);
     this.querycomment(bid);
   },
-  mounted: function () { },
-  computed: {},
   watch: {
     scrollsize: function (val) {
       this.$refs.chatArea.setScrollPosition(val - 500, 100);

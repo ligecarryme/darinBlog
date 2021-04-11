@@ -77,7 +77,6 @@ import '@quasar/extras/animate/fadeIn.css'
 import '@quasar/extras/animate/fadeOut.css'
 import '@quasar/extras/animate/wobble.css'
 import '@quasar/extras/animate/flipInY.css'
-import { dateFormat } from '../../utils/index'
 export default {
   data() {
     return {
@@ -91,24 +90,26 @@ export default {
       heart: 19
     }
   },
-  mounted: function () {
-    this.showIn();
+  created: function () {
     this.queryheart();
   },
-  beforeDestroy: function(){
-    this.$axios.get('/upvote/update',{params:{votes:this.heart}});
+  mounted: function () {
+    this.showIn();
+  },
+  beforeDestroy: function () {
+    this.$axios.get('/upvote/update', { params: { votes: this.heart } });
   },
   computed: {},
   methods: {
     encourage() {
       // 点赞功能
-      this.heart += 1 ;
+      this.heart += 1;
     },
-    queryheart(){
-      this.$axios.get('/upvote/get').then(res=>{
-        const {data: {data}} = res;
+    queryheart() {
+      this.$axios.get('/upvote/get').then(res => {
+        const { data: { data } } = res;
         this.heart = data.encourage;
-      }).catch(err=>{
+      }).catch(err => {
         console.log(err);
       })
     },

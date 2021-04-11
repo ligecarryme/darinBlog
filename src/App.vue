@@ -72,8 +72,7 @@ export default {
       // img: require('./assets/logo.jpg')
     };
   },
-  created() { },
-  mounted: function () {
+  created() {
     this.queryvisit();
   },
   computed: {},

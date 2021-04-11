@@ -68,11 +68,6 @@ export default {
   created: function () {
     this.searchTypes();
   },
-  // watch:{
-  //   link: function(val,old){
-  //     console.log('new: %s, old: %s',val,old);
-  //   }
-  // },
   methods: {
     searchTypes(val) {
       const param = {
