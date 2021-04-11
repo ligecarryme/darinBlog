@@ -31,10 +31,10 @@ export default {
   data() {
     return {
       archives: {
-        10: [{ id: 1, title: 'title', updateTime: '2020-10-23 20:06:06', description: "If you want something you've never had, you must be willing to do something you've never done." },
-          { id: 2, title: 'title', updateTime: '2020-10-23 20:06:06', description: "If you want something you've never had, you must be willing to do something you've never done." }],
-        9: [{ id: 3, title: 'title', updateTime: '2020-10-23 20:06:06', description: "If you want something you've never had, you must be willing to do something you've never done." },
-          { id: 4, title: 'title', updateTime: '2020-10-23 20:06:06', description: "If you want something you've never had, you must be willing to do something you've never done." }]
+        // 10: [{ id: 1, title: 'title', updateTime: '2020-10-23 20:06:06', description: "If you want something you've never had, you must be willing to do something you've never done." },
+        //   { id: 2, title: 'title', updateTime: '2020-10-23 20:06:06', description: "If you want something you've never had, you must be willing to do something you've never done." }],
+        // 9: [{ id: 3, title: 'title', updateTime: '2020-10-23 20:06:06', description: "If you want something you've never had, you must be willing to do something you've never done." },
+        //   { id: 4, title: 'title', updateTime: '2020-10-23 20:06:06', description: "If you want something you've never had, you must be willing to do something you've never done." }]
       },
       color: ["orange", ""],
       icon: ["done_all", "add_task"],

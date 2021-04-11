@@ -2,7 +2,7 @@
   <div class="q-pa-md">
     <q-card class="my-card q-mt-lg">
       <q-card-section class="bg-indigo-3 text-white">
-        <div class="text-h6 text-center">标签  共<span class="q-ma-xs text-h5 text-yellow">{{tags.length}}</span>个</div>
+        <div class="text-h6 text-center">标签 共<span class="q-ma-xs text-h5 text-yellow">{{tags.length}}</span>个</div>
       </q-card-section>
       <q-card-actions align="around">
         <div class="q-pa-md q-gutter-md flex justify-around">
@@ -10,11 +10,11 @@
         </div>
       </q-card-actions>
     </q-card>
-<!-- 博客列表 -->
+    <!-- 博客列表 -->
     <q-intersection once v-for="item of blog" :key="item.id" transition="scale" class="my-card q-mb-lg">
       <q-card class="q-mt-lg" flat bordered>
         <q-card-section horizontal>
-          <q-card-section class="col-4"> 
+          <q-card-section class="col-4">
             <q-img class="rounded-borders" :ratio="16/9" :src="item.firstPicture" spinner-color="amber"></q-img>
           </q-card-section>
           <q-card-section class="q-pt-xs">
@@ -45,25 +45,21 @@ export default {
   data() {
     return {
       link: '',
-      blog: [{
-        firstPicture: 'https://picsum.photos/300/200', title: 'new object', updateTime: '2020-10-19 15:53:53',
-        description: "If you want something you've never had, you must be willing to do something you've never done.",
-        user: { nickname: 'darin' },
-      }],
+      blog: [],
       pagger: {
         current: 1,
         total: 3
       },
-      tags: [{ id: 1, name: 'JavaScript' }, { id: 2, name: 'Java' }, { id: 3, name: 'VUE' }, { id: 4, name: 'Html' }, { id: 5, name: 'Spring Boot' },],
-      tagicon: ['keyboard', 'bookmark', 'star', 'photo_camera', 'eco','flag','cloud','mouse'],
-      tagcolor: ['primary', 'teal', 'orange', 'red','warning'],
+      tags: [{ id: 1, name: 'JavaScript' }, { id: 2, name: 'Java' }, { id: 3, name: 'VUE' }, { id: 4, name: 'Html' }, { id: 5, name: 'Spring Boot' }],
+      tagicon: ['keyboard', 'bookmark', 'star', 'photo_camera', 'eco', 'flag', 'cloud', 'mouse'],
+      tagcolor: ['primary', 'teal', 'orange', 'red', 'warning'],
     }
   },
-  created: function(){
+  created: function () {
     this.searchTags();
   },
   methods: {
-    searchTags(val){
+    searchTags(val) {
       const param = {
         current: this.pagger.current,
         id: val || -1,

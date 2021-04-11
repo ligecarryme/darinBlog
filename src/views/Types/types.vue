@@ -52,16 +52,12 @@ export default {
   data() {
     return {
       link: '1',
-      blog: [{
-        firstPicture: 'https://picsum.photos/300/200', title: 'new object', updateTime: '2020-10-19 15:53:53',
-        description: "If you want something you've never had, you must be willing to do something you've never done.",
-        user: { nickname: 'darin' },
-      }],
+      blog: [],
       pagger: {
         current: 1,
         total: 3
       },
-      types: [{ id: 1, name: '学习' }],
+      types: [],
       typeicon: ['fas fa-laptop-code', 'fas fa-atom', 'fas fa-heartbeat', 'fas fa-briefcase','fas fa-hand-spock'],
     }
   },

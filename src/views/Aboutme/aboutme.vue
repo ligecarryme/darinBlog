@@ -14,7 +14,7 @@
         </q-card-section>
         <q-card-section>
           <q-img :src="require('@/assets/images/aboutme.png')" ratio="1" transition="scale" style="height: 140px; max-width: 150px;" class="aboutmepng" />
-          <div class="text-body1">欢迎你的来到！ 我是一个啥也不会但是很努力的程序员，在这里记录每天学到知识，一起进步吧！</div>
+          <div class="text-body1">欢迎你的来到！ 我是一个CV程序员，在这里记录每天学到知识，一起进步吧！</div>
         </q-card-section>
         <q-card-section class="column items-center">
           <transition appear enter-active-class="animated wobble slow" leave-active-class="animated flipInY slow">

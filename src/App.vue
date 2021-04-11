@@ -110,7 +110,6 @@ export default {
               }else{
                 sum = sum.map((val,index)=>{return iterator[index]+val});
               }
-              // console.log(iterator);
             }
             return sum;
           })

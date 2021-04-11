@@ -157,31 +157,10 @@ export default {
         qqBar: false,
         weChatBar: false,
       },
-      bloglist: [{
-        id: 1,
-        title: 'title',
-        firstPicture: 'https://picsum.photos/500',
-        updateTime: '2020-10-16 14:04:25',
-        user:{
-          nickname: 'darin',
-        },
-        description: "If you want something you've never had, you must be willing to do something you've never done.",
-      }, { id: 2, title: 'title', firstPicture: 'https://picsum.photos/500', updateTime: '2020-10-16 14:04:25',user:{ nickname: 'darin'}, description: "If you want something you've never had, you must be willing to do something you've never done." },
-      { id: 3, title: 'title', firstPicture: 'https://picsum.photos/500', updateTime: '2020-10-16 14:04:25',user:{ nickname: 'darin'}, description: "If you want something you've never had, you must be willing to do something you've never done." },
-      { id: 4, title: 'title', firstPicture: 'https://picsum.photos/500', updateTime: '2020-10-16 14:04:25',user:{ nickname: 'darin'}, description: "If you want something you've never had, you must be willing to do something you've never done." },
-      { id: 5, title: 'title', firstPicture: 'https://picsum.photos/500', updateTime: '2020-10-16 14:04:25',user:{ nickname: 'darin'}, description: "If you want something you've never had, you must be willing to do something you've never done." },
-      { id: 6, title: 'title', firstPicture: 'https://picsum.photos/500', updateTime: '2020-10-16 14:04:25',user:{ nickname: 'darin'}, description: "If you want something you've never had, you must be willing to do something you've never done." }
-      ],
-      types: [{ id: 1, name: '学习' }, { id: 2, name: '算法' }, { id: 3, name: '生活' }, { id: 4, name: '工作' }],
-      tags: [{ id: 1, name: 'JavaScript' }, { id: 2, name: 'Java' }, { id: 3, name: 'VUE' }, { id: 4, name: 'Html' }, { id: 5, name: 'Spring Boot' },],
-      topblogs: [{
-        id: 1,
-        title: 'title',
-        views: '1k',
-        description: "If you want something you've never had, you must be willing to do something you've never done."
-      }, { id: 2, title: 'title', views: '1k', description: "If you want something you've never had, you must be willing to do something you've never done." },
-      { id: 3, title: 'title', views: '1k', description: "If you want something you've never had, you must be willing to do something you've never done." }
-      ],
+      bloglist: [],
+      types: [],
+      tags: [],
+      topblogs: [],
       typeicon: ['fas fa-laptop-code', 'fas fa-atom', 'fas fa-heartbeat', 'fas fa-briefcase'],
       tagicon: ['keyboard', 'bookmark', 'star', 'photo_camera', 'eco', 'flag', 'cloud', 'mouse'],
       tagcolor: ['primary', 'teal', 'orange', 'red', 'warning'],
@@ -197,7 +176,6 @@ export default {
         const { data } = res;
         if (data.code === 200) {
           const content = data.data;
-          // console.log(content);
           let blogs = content.blog;
           this.bloglist = this.handleDescript(blogs, 45);
           this.pagger.total = content.pageinfo.pages;
