@@ -1,3 +1,5 @@
+const CompressionPlugin = require('./node_modules/compression-webpack-plugin')
+
 module.exports = {
   publicPath: './',
   outputDir: 'dist',
@@ -26,6 +28,14 @@ module.exports = {
     }
   },
   configureWebpack: {
+    plugins: [
+      new CompressionPlugin({
+        algorithm: 'gzip',
+        test: /\.js$|\.html$|\.css$/,
+        minRatio: 0.8,
+        threshold: 10240
+      })
+    ],
     optimization: {
       runtimeChunk: 'single',
       splitChunks: {
@@ -43,7 +53,7 @@ module.exports = {
             priority: 20,
             test: /[\\/]node_modules[\\/]_?quasar(.*)/
           }
-        },
+        }
       }
     }
   }
