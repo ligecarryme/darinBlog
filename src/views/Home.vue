@@ -3,7 +3,7 @@
     <!-- blog主页 -->
     <div class="col-lg-8 col-md-6 col-sm-12 q-mt-md">
       <div class="row justify-center q-gutter-sm">
-        <q-intersection v-for="item in bloglist" :key="item.id" transition="scale" class="card-item">
+        <q-intersection v-for="item in bloglist" :key="item.id" once transition="scale" class="card-item">
           <q-card class="q-ma-sm my-card">
             <q-item clickable v-ripple class="imgItem" :to="'/article?id=' + item.id">
               <q-item-section>
