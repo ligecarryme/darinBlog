@@ -8,7 +8,7 @@
     </q-card>
     <!-- <q-infinite-scroll @load="onload" :offset="250"> -->
       <q-timeline color="secondary" class="archivesTimeline" v-for="(items,name) of archives" :key="name">
-        <q-timeline-entry heading>{{'2020年'+name+'月'}}</q-timeline-entry>
+        <q-timeline-entry heading>{{items[0].updateTime.split('-')[0]+' 年 '+name+' 月'}}</q-timeline-entry>
         <q-timeline-entry v-for="(item,index) of items" :key="item.id" :color="color[index%2]" :icon="icon[index%2]">
           <template v-slot:title><a :href="'article?id='+item.id">{{item.title}}</a></template>
           <template v-slot:subtitle>{{item.updateTime}}</template>
@@ -30,12 +30,7 @@
 export default {
   data() {
     return {
-      archives: {
-        // 10: [{ id: 1, title: 'title', updateTime: '2020-10-23 20:06:06', description: "If you want something you've never had, you must be willing to do something you've never done." },
-        //   { id: 2, title: 'title', updateTime: '2020-10-23 20:06:06', description: "If you want something you've never had, you must be willing to do something you've never done." }],
-        // 9: [{ id: 3, title: 'title', updateTime: '2020-10-23 20:06:06', description: "If you want something you've never had, you must be willing to do something you've never done." },
-        //   { id: 4, title: 'title', updateTime: '2020-10-23 20:06:06', description: "If you want something you've never had, you must be willing to do something you've never done." }]
-      },
+      archives: {},
       color: ["orange", ""],
       icon: ["done_all", "add_task"],
       count: 10,
@@ -52,7 +47,7 @@ export default {
           const d = data.data;
           const archives = d.archives;
           const ordered = {};
-          Object.keys(archives).sort((a, b) => b - a).forEach(function (key) { ordered[key] = archives[key] });
+          Object.keys(archives).sort((a, b) => a - b).forEach(function (key) { ordered[key] = archives[key] });
           this.archives = ordered;
           this.count = d.count;
         }
